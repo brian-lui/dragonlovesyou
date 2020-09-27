@@ -11,7 +11,7 @@ local main = {
 }
 
 local title = {
-	"start", "startpush", "titlelogo",
+	"wallpaper", "logo", "start", "achievements", "options", "quit",
 }
 
 -- categories to create, in the form [key] = {category}

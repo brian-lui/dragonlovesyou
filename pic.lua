@@ -24,6 +24,7 @@ function Pic:init(game, tbl)
 	self.speed_rotation = 0
 	self.scaling = 1
 	self.transparency = 1
+	self.image_index = 0
 
 	for k, v in pairs(tbl) do
 		self[k] = v

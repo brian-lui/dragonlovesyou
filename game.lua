@@ -62,6 +62,7 @@ function Game:init()
 	self.settings = require "/helpers/settings"
 	self.rng = love.math.newRandomGenerator()
 	self.sound = common.instance(require "sound", self)
+	self.stage = require("stage")
 	self.background = common.instance(require "background", self)
 	self.particles = common.instance(require "particles", self)
 	self.queue = common.instance(Queue, self)
@@ -124,7 +125,7 @@ end
 	mandatory parameters: name, image, image_pushed, end_x, end_y, action
 	optional parameters: duration, start_transparency, end_transparency,
 		start_x, start_y, easing, exit, pushed, pushed_sfx, released,
-		released_sfx, force_max_alpha
+		released_sfx, force_max_alpha, image_index
 --]]
 function Game:_createButton(gamestate, params)
 	params = params or {}
@@ -140,6 +141,7 @@ function Game:_createButton(gamestate, params)
 		y = params.start_y or params.end_y,
 		transparency = params.start_transparency or 1,
 		image = params.image,
+		image_index = params.image_index,
 		container = params.container or gamestate.ui.clickable,
 		force_max_alpha = params.force_max_alpha,
 	}
@@ -170,7 +172,7 @@ end
 	mandatory parameters: name, image, end_x, end_y
 	optional parameters: duration, start_transparency, end_transparency,
 		start_x, start_y, easing, remove, exit_func, force_max_alpha,
-		start_scaling, end_scaling, container, counter, h_flip
+		start_scaling, end_scaling, container, counter, h_flip, image_index
 --]]
 function Game:_createImage(gamestate, params)
 	params = params or {}
@@ -184,6 +186,7 @@ function Game:_createImage(gamestate, params)
 		transparency = params.start_transparency or 1,
 		scaling = params.start_scaling or 1,
 		image = params.image,
+		image_index = params.image_index,
 		counter = params.counter,
 		container = params.container or gamestate.ui.static,
 		force_max_alpha = params.force_max_alpha,

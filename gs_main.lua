@@ -36,7 +36,7 @@ function MainScreen:init()
 		easing = "linear",
 	})
 
-	MainScreen.current_background = common.instance(self.background.colors, self)
+	MainScreen.current_background = common.instance(self.background.plain, self)
 end
 
 function MainScreen:enter()

@@ -12,6 +12,7 @@
 local common = require "class.commons"
 local images = require "images"
 local stage = require "stage"
+local spairs = require "/helpers/utilities".spairs
 
 local Title = {name = "Title"}
 
@@ -32,32 +33,82 @@ function Title:init()
 		static = {},
 	}
 
+	Title.createImage(self, {
+		name = "wallpaper",
+		image = images.title_wallpaper,
+		end_x = stage.width * 0.5,
+		end_y = stage.height * 0.5,
+		image_index = -1,
+	})
+
+
+	Title.createImage(self, {
+		name = "logo",
+		image = images.title_logo,
+		duration = 30,
+		end_x = stage.width * 0.25,
+		end_y = stage.height * 0.75,
+		start_transparency = 0,
+		easing = "linear",
+	})
+
 	Title.createButton(self, {
 		name = "start",
 		image = images.title_start,
-		image_pushed = images.title_startpush,
+		image_pushed = images.title_start,
 		duration = 60,
 		start_x = stage.width * -0.2,
-		end_x = stage.width * 0.5,
+		end_x = stage.width * 0.75,
 		end_y = stage.height * 0.55,
-		start_transparency = 0,
 		easing = "inQuart",
 		action = function()
 			self:switchState("gs_main")
 		end,
 	})
-	Title.createImage(self, {
-		name = "logo",
-		image = images.title_titlelogo,
-		duration = 30,
-		end_x = stage.width * 0.5,
-		start_y = 0,
-		end_y = stage.height * 0.25,
-		start_transparency = 0,
-		easing = "linear",
+
+	Title.createButton(self, {
+		name = "achievements",
+		image = images.title_achievements,
+		image_pushed = images.title_achievements,
+		duration = 60,
+		start_x = stage.width * -0.2,
+		end_x = stage.width * 0.75,
+		end_y = stage.height * 0.65,
+		easing = "inQuart",
+		action = function()
+			self:switchState("gs_main")
+		end,
 	})
 
-	Title.current_background = common.instance(self.background.starfall, self)
+	Title.createButton(self, {
+		name = "options",
+		image = images.title_options,
+		image_pushed = images.title_options,
+		duration = 60,
+		start_x = stage.width * -0.2,
+		end_x = stage.width * 0.75,
+		end_y = stage.height * 0.75,
+		easing = "inQuart",
+		action = function()
+			self:switchState("gs_main")
+		end,
+	})
+
+	Title.createButton(self, {
+		name = "quit",
+		image = images.title_quit,
+		image_pushed = images.title_quit,
+		duration = 60,
+		start_x = stage.width * -0.2,
+		end_x = stage.width * 0.75,
+		end_y = stage.height * 0.85,
+		easing = "inQuart",
+		action = function()
+			self:switchState("gs_main")
+		end,
+	})
+
+	Title.current_background = common.instance(self.background.plain, self)
 end
 
 function Title:enter()
@@ -79,8 +130,22 @@ end
 
 function Title:draw()
 	Title.current_background:draw()
-	for _, v in pairs(Title.ui.static) do v:draw() end
-	for _, v in pairs(Title.ui.clickable) do v:draw() end
+
+	local indexes = {-1, 0, 1}
+
+	for _, i in ipairs(indexes) do
+		for _, v in spairs(Title.ui.static) do
+			if v.image_index == i then
+				v:draw()
+			end
+		end
+
+		for _, v in spairs(Title.ui.clickable) do
+			if v.image_index == i then
+				v:draw()
+			end
+		end
+	end
 end
 
 function Title:mousepressed(x, y)

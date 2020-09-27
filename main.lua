@@ -32,13 +32,14 @@ function love.quit()
 	lily.quit()
 end
 
+local backgroundRGB = {254/255, 228/255, 179/255, 1}
 function love.draw()
 	love.graphics.push("all")
 		if game.draw then
 			local drawspace = game.inits.drawspace
 			drawspace.tlfres.beginRendering(drawspace.width, drawspace.height)
 			game:draw()
-			drawspace.tlfres.endRendering()
+			drawspace.tlfres.endRendering(backgroundRGB)
 		end
 	love.graphics.pop()
 end
