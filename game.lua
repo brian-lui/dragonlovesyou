@@ -134,7 +134,6 @@ function Game:_createButton(gamestate, params)
 	end
 
 	local button = Pic:create{
-		game = self,
 		name = params.name,
 		x = params.startX or params.endX,
 		y = params.startY or params.endY,
@@ -143,6 +142,7 @@ function Game:_createButton(gamestate, params)
 		imageIndex = params.imageIndex,
 		container = params.container or gamestate.ui.clickable,
 		forceMaxAlpha = params.forceMaxAlpha,
+		sound = self.sound,
 	}
 
 	button:change{
@@ -154,12 +154,12 @@ function Game:_createButton(gamestate, params)
 		exitFunc = params.exitFunc,
 	}
 	button.pushed = params.pushed or function(_self)
-		_self.game.sound:newSFX(params.pushedSFX or "button")
+		_self.sound:newSFX(params.pushedSFX or "button")
 		_self:newImage(params.imagePushed)
 	end
 	button.released = params.released or function(_self)
 		if params.releasedSFX then
-			_self.game.sound:newSFX(params.releasedSFX)
+			_self.sound:newSFX(params.releasedSFX)
 		end
 		_self:newImage(params.image)
 	end

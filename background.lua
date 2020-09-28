@@ -22,7 +22,6 @@ local Plain = {IDNumber = 1}
 function Plain:init(game)
 	self.game = game
 	Pic:create{
-		game = game,
 		x = stage.width * 0.5,
 		y = stage.height * 0.5,
 		image = love.graphics.newImage('images/backgrounds/plain/plainbackground.png'),

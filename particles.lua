@@ -31,8 +31,10 @@ function Particles:reset()
 	}
 end
 
--- if layer is provided, only draws particles on that layer. Otherwise draws
--- all particles
+--[[
+	if layer is provided, only draws particles on that layer. Otherwise draws
+	all particles
+--]]
 function Particles:draw(layer)
 	if layer then
 		for _, particleTbl in pairs(self.allParticles) do
@@ -52,7 +54,7 @@ end
 -------------------------------------------------------------------------------
 local Example = {}
 function Example:init(manager, x, y)
-	Pic.init(self, manager.game, {
+	Pic.init(self, {
 		x = x,
 		y = y,
 		image = images.particles_pow,

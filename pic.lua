@@ -16,8 +16,7 @@ local Pic = {}
 -- required: x, y, image
 -- container/counter to specify different container and ID counter
 -- doesn't assign the created instance to any container by default
-function Pic:init(game, tbl)
-	self.game = game
+function Pic:init(tbl)
 	self.queuedMoves = {}
 	self.rotation = 0
 	self.scaling = 1
@@ -61,7 +60,6 @@ function Pic:init(game, tbl)
 end
 
 function Pic:create(params)
-	assert(params.game, "Game object not received!")
 	assert(params.x, "x-value not received!")
 	assert(params.y, "y-value not received!")
 	assert(params.image, "Image not received!")
@@ -69,7 +67,7 @@ function Pic:create(params)
 		assert(params.name or params.counter, "Container specified without name or counter!")
 	end
 
-	return common.instance(self, params.game, params)
+	return common.instance(self, params)
 end
 
 --[[ Takes the following optional table arguments:
@@ -150,11 +148,7 @@ end
 function Pic:remove()
 	if self.container then
 		self.container[self.ID] = nil
-	else
-		self.game.particles.allParticles[self.ID] = nil
 	end
-
-	-- TODO: if I remove the 'else' here, does it still work?
 end
 
 function Pic:getRect()
