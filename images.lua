@@ -14,6 +14,10 @@ local title = {
 	"wallpaper", "logo", "start", "achievements", "options", "quit",
 }
 
+local particles = {
+	"pow",
+}
+
 -- categories to create, in the form [key] = {category}
 -- assumes that key is the same as pathname
 -- e.g. buttons = buttons will create
@@ -21,6 +25,7 @@ local title = {
 local categories = {
 	main = main,
 	title = title,
+	particles = particles,
 }
 
 local images = {

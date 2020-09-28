@@ -133,6 +133,7 @@ function Title:draw()
 	local indexes = {-1, 0, 1}
 
 	for _, i in ipairs(indexes) do
+
 		for _, v in spairs(Title.ui.static) do
 			if v.imageIndex == i then
 				v:draw()
