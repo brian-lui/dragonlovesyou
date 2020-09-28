@@ -13,6 +13,7 @@ local love = _G.love
 local common = require "class.commons"
 local Pic = require "pic"
 local inits = require "/helpers/inits"
+local stage = require "stage"
 
 -------------------------------------------------------------------------------
 ------------------------------------ PLAIN ------------------------------------
@@ -22,8 +23,8 @@ function Plain:init(game)
 	self.game = game
 	Pic:create{
 		game = game,
-		x = game.stage.width * 0.5,
-		y = game.stage.height * 0.5,
+		x = stage.width * 0.5,
+		y = stage.height * 0.5,
 		image = love.graphics.newImage('images/backgrounds/plain/plainbackground.png'),
 		container = self,
 		name = "background",

@@ -21,6 +21,7 @@ Draw order is as follows, from drawn first to drawn last:
 
 local common = require "class.commons"
 local Pic = require "pic"
+local stage = require "stage"
 
 local Particles = {}
 
@@ -61,7 +62,7 @@ function Example1.generate(game, gem)
 	local p = common.instance(Example1, game.particles, gem)
 	p:change{
 		duration = 60,
-		y = p.y - game.stage.height,
+		y = p.y - stage.height,
 		easing = "inQuad",
 		remove = true,
 	}

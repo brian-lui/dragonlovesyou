@@ -153,6 +153,8 @@ function Pic:remove()
 	else
 		self.game.particles.allParticles[self.ID] = nil
 	end
+
+	-- TODO: if I remove the 'else' here, does it still work?
 end
 
 function Pic:getRect()
