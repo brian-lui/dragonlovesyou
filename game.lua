@@ -67,6 +67,7 @@ function Game:init()
 	self.queue = common.instance(Queue, self)
 	self.statemanager = common.instance(require "/libraries/statemanager", self)
 
+	self.controls = {clicked = false}
 	self:switchState("gs_title")
 	self:reset()
 
@@ -210,33 +211,33 @@ local pointIsInRect = require "/helpers/utilities".pointIsInRect
 function Game:_controllerPressed(x, y, gamestate)
 	for _, button in pairs(gamestate.ui.clickable) do
 		if pointIsInRect(x, y, button:getRect()) then
-			gamestate.clicked = button
+			self.controls.clicked = button
 			button:pushed()
 			return
 		end
 	end
-	gamestate.clicked = false
+	self.controls.clicked = false
 end
 
 -- default controllerReleased function if not specified by a sub-state
 function Game:_controllerReleased(x, y, gamestate)
 	for _, button in pairs(gamestate.ui.clickable) do
-		if gamestate.clicked == button then button:released() end
+		if self.controls.clicked == button then button:released() end
 		if pointIsInRect(x, y, button:getRect())
-		and gamestate.clicked == button then
+		and self.controls.clicked == button then
 			button.action()
 			break
 		end
 	end
-	gamestate.clicked = false
+	self.controls.clicked = false
 end
 
 -- default controllerMoved function if not specified by a sub-state
 function Game:_controllerMoved(x, y, gamestate)
-	if gamestate.clicked then
-		if not pointIsInRect(x, y, gamestate.clicked:getRect()) then
-			gamestate.clicked:released()
-			gamestate.clicked = false
+	if self.controls.clicked then
+		if not pointIsInRect(x, y, self.controls.clicked:getRect()) then
+			self.controls.clicked:released()
+			self.controls.clicked = false
 		end
 	end
 end

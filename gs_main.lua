@@ -40,7 +40,7 @@ function MainScreen:init()
 end
 
 function MainScreen:enter()
-	MainScreen.clicked = nil
+	self.controls.clicked = nil
 	if self.sound:getCurrentBGM() ~= "mainBGM" then
 		self.sound:stopBGM()
 		self.queue:add(45, self.sound.newBGM, self.sound, "mainBGM", true)

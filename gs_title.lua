@@ -112,7 +112,7 @@ function Title:init()
 end
 
 function Title:enter()
-	Title.clicked = nil
+	self.controls.clicked = nil
 	if self.sound:getCurrentBGM() ~= "titleBGM" then
 		self.sound:stopBGM()
 		self.queue:add(45, self.sound.newBGM, self.sound, "titleBGM", true)
