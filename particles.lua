@@ -30,8 +30,8 @@ function Particles:init(game)
 end
 
 function Particles:update(dt)
-	for _, particle_tbl in pairs(self.allParticles) do
-		for _, particle in pairs(particle_tbl) do particle:update(dt) end
+	for _, particleTbl in pairs(self.allParticles) do
+		for _, particle in pairs(particleTbl) do particle:update(dt) end
 	end
 end
 

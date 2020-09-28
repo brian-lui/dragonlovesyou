@@ -10,6 +10,12 @@ local inits = {}
 local DRAWSPACE_WIDTH = 1920
 local DRAWSPACE_HEIGHT = 1080
 
+inits.timeStep = 1/60
+inits.timeBucket = 0
+inits.frame = 0
+inits.particle = 0
+inits.backgroundParticle = 0
+
 inits.drawspace = {
 	width = DRAWSPACE_WIDTH,
 	height = DRAWSPACE_HEIGHT,
@@ -19,11 +25,11 @@ inits.drawspace = {
 
 inits.ID = {
 	reset = function(self)
-		self.gem = 0
-		self.piece = 0
+		self.timeStep = 1/60
+		self.timeBucket = 0
+		self.frame = 0
 		self.particle = 0
-		self.background_particle = 0
-		self.character_select = 0
+		self.backgroundParticle = 0
 	end
 }
 inits.ID:reset()

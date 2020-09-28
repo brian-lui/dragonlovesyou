@@ -3,7 +3,7 @@ This module provides the backgrounds and associated animations for all
 gamestates.
 
 Every background should have:
-ID_number - used for the ordering of the backgrounds
+IDNumber - used for the ordering of the backgrounds
 init(game)
 update(dt)
 draw()
@@ -12,11 +12,12 @@ draw()
 local love = _G.love
 local common = require "class.commons"
 local Pic = require "pic"
+local inits = require "/helpers/inits"
 
 -------------------------------------------------------------------------------
----------------------------- RABBIT IN A SNOWSTORM ----------------------------
+------------------------------------ PLAIN ------------------------------------
 -------------------------------------------------------------------------------
-local Plain = {ID_number = 1}
+local Plain = {IDNumber = 1}
 function Plain:init(game)
 	self.game = game
 	Pic:create{
@@ -28,7 +29,7 @@ function Plain:init(game)
 		name = "background",
 	}
 
-	game.inits.ID.background_particle = 0
+	inits.ID.backgroundParticle = 0
 end
 
 function Plain:update(dt)
@@ -46,16 +47,16 @@ Plain = common.class("Plain", Plain)
 local background = {}
 background.plain = Plain
 
-local bk_list, total = {}, 0
+local bkList, total = {}, 0
 for k in pairs(background) do
-	bk_list[#bk_list+1] = k
+	bkList[#bkList+1] = k
 	total = total + 1
 end
 background.total = total
 
-function background:idx_to_str(idx)
-	for _, v in pairs(bk_list) do
-		if self[v].ID_number == idx then return v end
+function background:idxToStr(idx)
+	for _, v in pairs(bkList) do
+		if self[v].IDNumber == idx then return v end
 	end
 	return "no background"
 end

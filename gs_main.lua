@@ -29,35 +29,34 @@ function MainScreen:init()
 		name = "logo",
 		image = images.main_mainlogo,
 		duration = 30,
-		end_x = stage.width * 0.5,
-		start_y = 0,
-		end_y = stage.height * 0.25,
-		start_transparency = 0,
+		endX = stage.width * 0.5,
+		startY = 0,
+		endY = stage.height * 0.25,
+		startTransparency = 0,
 		easing = "linear",
 	})
 
-	MainScreen.current_background = common.instance(self.background.plain, self)
+	MainScreen.currentBackground = common.instance(self.background.plain, self)
 end
 
 function MainScreen:enter()
 	MainScreen.clicked = nil
-	self.settings_menu_open = false
-	if self.sound:getCurrentBGM() ~= "bgm_menu" then
+	if self.sound:getCurrentBGM() ~= "mainBGM" then
 		self.sound:stopBGM()
-		self.queue:add(45, self.sound.newBGM, self.sound, "bgm_title", true)
+		self.queue:add(45, self.sound.newBGM, self.sound, "mainBGM", true)
 	end
 
 end
 
 function MainScreen:update(dt)
-	MainScreen.current_background:update(dt)
+	MainScreen.currentBackground:update(dt)
 	for _, tbl in pairs(MainScreen.ui) do
 		for _, v in pairs(tbl) do v:update(dt) end
 	end
 end
 
 function MainScreen:draw()
-	MainScreen.current_background:draw()
+	MainScreen.currentBackground:draw()
 	for _, v in pairs(MainScreen.ui.static) do v:draw() end
 	for _, v in pairs(MainScreen.ui.clickable) do v:draw() end
 end

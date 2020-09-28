@@ -36,9 +36,9 @@ function Title:init()
 	Title.createImage(self, {
 		name = "wallpaper",
 		image = images.title_wallpaper,
-		end_x = stage.width * 0.5,
-		end_y = stage.height * 0.5,
-		image_index = -1,
+		endX = stage.width * 0.5,
+		endY = stage.height * 0.5,
+		imageIndex = -1,
 	})
 
 
@@ -46,20 +46,20 @@ function Title:init()
 		name = "logo",
 		image = images.title_logo,
 		duration = 30,
-		end_x = stage.width * 0.25,
-		end_y = stage.height * 0.75,
-		start_transparency = 0,
+		endX = stage.width * 0.25,
+		endY = stage.height * 0.75,
+		startTransparency = 0,
 		easing = "linear",
 	})
 
 	Title.createButton(self, {
 		name = "start",
 		image = images.title_start,
-		image_pushed = images.title_start,
+		imagePushed = images.title_start,
 		duration = 60,
-		start_x = stage.width * -0.2,
-		end_x = stage.width * 0.75,
-		end_y = stage.height * 0.55,
+		startX = stage.width * -0.2,
+		endX = stage.width * 0.75,
+		endY = stage.height * 0.55,
 		easing = "inQuart",
 		action = function()
 			self:switchState("gs_main")
@@ -69,11 +69,11 @@ function Title:init()
 	Title.createButton(self, {
 		name = "achievements",
 		image = images.title_achievements,
-		image_pushed = images.title_achievements,
+		imagePushed = images.title_achievements,
 		duration = 60,
-		start_x = stage.width * -0.2,
-		end_x = stage.width * 0.75,
-		end_y = stage.height * 0.65,
+		startX = stage.width * -0.2,
+		endX = stage.width * 0.75,
+		endY = stage.height * 0.65,
 		easing = "inQuart",
 		action = function()
 			self:switchState("gs_main")
@@ -83,11 +83,11 @@ function Title:init()
 	Title.createButton(self, {
 		name = "options",
 		image = images.title_options,
-		image_pushed = images.title_options,
+		imagePushed = images.title_options,
 		duration = 60,
-		start_x = stage.width * -0.2,
-		end_x = stage.width * 0.75,
-		end_y = stage.height * 0.75,
+		startX = stage.width * -0.2,
+		endX = stage.width * 0.75,
+		endY = stage.height * 0.75,
 		easing = "inQuart",
 		action = function()
 			self:switchState("gs_main")
@@ -97,51 +97,50 @@ function Title:init()
 	Title.createButton(self, {
 		name = "quit",
 		image = images.title_quit,
-		image_pushed = images.title_quit,
+		imagePushed = images.title_quit,
 		duration = 60,
-		start_x = stage.width * -0.2,
-		end_x = stage.width * 0.75,
-		end_y = stage.height * 0.85,
+		startX = stage.width * -0.2,
+		endX = stage.width * 0.75,
+		endY = stage.height * 0.85,
 		easing = "inQuart",
 		action = function()
 			self:switchState("gs_main")
 		end,
 	})
 
-	Title.current_background = common.instance(self.background.plain, self)
+	Title.currentBackground = common.instance(self.background.plain, self)
 end
 
 function Title:enter()
 	Title.clicked = nil
-	self.settings_menu_open = false
-	if self.sound:getCurrentBGM() ~= "bgm_menu" then
+	if self.sound:getCurrentBGM() ~= "titleBGM" then
 		self.sound:stopBGM()
-		self.queue:add(45, self.sound.newBGM, self.sound, "bgm_title", true)
+		self.queue:add(45, self.sound.newBGM, self.sound, "titleBGM", true)
 	end
 
 end
 
 function Title:update(dt)
-	Title.current_background:update(dt)
+	Title.currentBackground:update(dt)
 	for _, tbl in pairs(Title.ui) do
 		for _, v in pairs(tbl) do v:update(dt) end
 	end
 end
 
 function Title:draw()
-	Title.current_background:draw()
+	Title.currentBackground:draw()
 
 	local indexes = {-1, 0, 1}
 
 	for _, i in ipairs(indexes) do
 		for _, v in spairs(Title.ui.static) do
-			if v.image_index == i then
+			if v.imageIndex == i then
 				v:draw()
 			end
 		end
 
 		for _, v in spairs(Title.ui.clickable) do
-			if v.image_index == i then
+			if v.imageIndex == i then
 				v:draw()
 			end
 		end

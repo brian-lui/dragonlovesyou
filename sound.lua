@@ -6,38 +6,39 @@ should be Sound:newBGM() and Sound:newSFX().
 local love = _G.love
 local common = require "class.commons"
 local stringEndsWith = require "/helpers/utilities".stringEndsWith
+local inits = require "/helpers/inits"
 
 local soundfiles = {
-	bgm_title = {
+	titleBGM = {
 		filename = "music/wolfgang.ogg",
-		loop_from = 132.727,
-		loop_to = 20.909,
+		loopFrom = 132.727,
+		loopTo = 20.909,
 	},
-	bgm_main = {
+	mainBGM = {
 		filename = "music/wolfgang.ogg",
-		loop_from = 132.727,
-		loop_to = 20.909,
-	},	
+		loopFrom = 132.727,
+		loopTo = 20.909,
+	},
 }
 
-local sfx_files = {
+local SFXFiles = {
 	"dummy", "button",
 }
 
-for _, v in pairs(sfx_files) do
+for _, v in pairs(SFXFiles) do
 	soundfiles[v] = {filename = "sound/" .. v .. ".ogg"}
 end
 
 -------------------------------------------------------------------------------
 local SoundObject = {}
 function SoundObject:init(manager, params)
-	manager.active_sounds[params.sound_name][params.start_frame] = self
+	manager.activeSounds[params.soundName][params.startFrame] = self
 	self.manager = manager
 
 	-- defaults
 	self.volume = 1
-	self.fade_in = false
-	self.fade_out = false
+	self.shouldFadeIn = false
+	self.shouldFadeOut = false
 
 	for k, v in pairs(params) do self[k] = v end -- optional arguments
 
@@ -45,46 +46,46 @@ function SoundObject:init(manager, params)
 end
 
 function SoundObject:remove()
-	self.manager.active_sounds[self.sound_name][self.start_frame] = nil
+	self.manager.activeSounds[self.soundName][self.startFrame] = nil
 end
 
--- no_repeats is optional. If true, then it won't replay it 2 frames later,
+-- noRepeats is optional. If true, then it won't replay it 2 frames later,
 -- instead it will just not create any sound effect
-function SoundObject.generate(game, sound_name, is_bgm, no_repeats)
+function SoundObject.generate(game, soundName, isBGM, noRepeats)
 	local sound = game.sound
-	local s = soundfiles[sound_name]
+	local s = soundfiles[soundName]
 
-	if stringEndsWith(sound_name, ".ogg") then
-		s = {filename = sound_name}
+	if stringEndsWith(soundName, ".ogg") then
+		s = {filename = soundName}
 		-- register it too
-		sound.active_sounds[sound_name] = sound.active_sounds[sound_name] or {}
-		sound.last_played_frame[sound_name] = sound.last_played_frame[sound_name] or -1
+		sound.activeSounds[soundName] = sound.activeSounds[soundName] or {}
+		sound.lastPlayedFrame[soundName] = sound.lastPlayedFrame[soundName] or -1
 	end
 
 	if s then
-		local start_frame = game.frame
-		local previous_play = sound.last_played_frame[sound_name]
-		if start_frame <= (previous_play + 1) then -- delay by 2 frames
-			if no_repeats then return end
-			start_frame = previous_play + 2
+		local startFrame = inits.frame
+		local previousPlay = sound.lastPlayedFrame[soundName]
+		if startFrame <= (previousPlay + 1) then -- delay by 2 frames
+			if noRepeats then return end
+			startFrame = previousPlay + 2
 		end
 
-		local source_type = is_bgm and "stream" or "static"
+		local sourceType = isBGM and "stream" or "static"
 		local params = {
-			source = love.audio.newSource(s.filename, source_type),
-			sound_name = sound_name,
-			start_frame = start_frame,
-			is_bgm = is_bgm,
-			looping = is_bgm,
-			loop_from = s.loop_from or -1,
-			loop_to = s.loop_to or -1,
+			source = love.audio.newSource(s.filename, sourceType),
+			soundName = soundName,
+			startFrame = startFrame,
+			isBGM = isBGM,
+			looping = isBGM,
+			loopFrom = s.loopFrom or -1,
+			loopTo = s.loopTo or -1,
 		}
 
 		local object = common.instance(SoundObject, sound, params)
-		sound.last_played_frame[sound_name] = start_frame
+		sound.lastPlayedFrame[soundName] = startFrame
 		return object
 	else
-		print("invalid sound requested ", sound_name)
+		print("invalid sound requested ", soundName)
 	end
 end
 
@@ -126,17 +127,17 @@ end
 
 -- sets volume to fade in from 0
 -- frames is optional, defaults to 30
--- volume_mult is optional, stated as a multiple of the default volume
-function SoundObject:fadeIn(frames_taken, volume_mult)
-	frames_taken = frames_taken or 30
-	volume_mult = volume_mult or 1
-	local target_volume = self.is_bgm and self.manager.bgm_volume or self.manager.sfx_volume
-	self.volume = target_volume * volume_mult
+-- volumeMult is optional, stated as a multiple of the default volume
+function SoundObject:fadeIn(framesTaken, volumeMult)
+	framesTaken = framesTaken or 30
+	volumeMult = volumeMult or 1
+	local targetVolume = self.isBGM and self.manager.BGMVolume or self.manager.SFXVolume
+	self.volume = targetVolume * volumeMult
 
-	local volume_per_frame = target_volume / frames_taken
+	local volumePerFrame = targetVolume / framesTaken
 	self:setVolume(0)
-	self.fade_in = true
-	self.fade_in_speed = volume_per_frame
+	self.shouldFadeIn = true
+	self.fadeInSpeed = volumePerFrame
 end
 
 -- sets volume to fade out from current volume to 0
@@ -147,10 +148,10 @@ end
 
 -- will loop if set to true.
 -- optional for time to loop from, and time to loop to
-function SoundObject:setLooping(is_looping, loop_from, loop_to)
-	self.loop_from = loop_from or self.loop_from
-	self.loop_to = loop_to or self.loop_to
-	self.looping = is_looping
+function SoundObject:setLooping(isLooping, loopFrom, loopTo)
+	self.loopFrom = loopFrom or self.loopFrom
+	self.loopTo = loopTo or self.loopTo
+	self.looping = isLooping
 end
 
 function SoundObject:isPlaying()
@@ -162,89 +163,89 @@ SoundObject = common.class("SoundObject", SoundObject)
 local Sound = {}
 function Sound:init(game)
 	self.game = game
-	self.current_bgm = nil
+	self.currentBGM = nil
 	self:reset()
 end
 
 function Sound:update()
-	local frame = self.game.frame
-	for _, sound_name in pairs(self.active_sounds) do
-		for start_frame, instance in pairs(sound_name) do
-			if instance:isStopped() and frame > start_frame then
+	local frame = inits.frame
+	for _, soundName in pairs(self.activeSounds) do
+		for startFrame, instance in pairs(soundName) do
+			if instance:isStopped() and frame > startFrame then
 				instance:remove()
 			end
 
-			if instance.fade_in then
-				local cur_volume = instance:getVolume()
-				if instance.volume > cur_volume then
-					instance:setVolume(math.min(cur_volume + instance.fade_in_speed, instance.volume))
+			if instance.shouldFadeIn then
+				local curVolume = instance:getVolume()
+				if instance.volume > curVolume then
+					instance:setVolume(math.min(curVolume + instance.fadeInSpeed, instance.volume))
 				else
-					instance.fade_in = false
-					instance.fade_in_speed = 0
+					instance.shouldFadeIn = false
+					instance.fadeInSpeed = 0
 				end
-			elseif instance.fade_out then
-				local cur_volume = instance:getVolume()
-				if cur_volume > 0 then
-					instance:setVolume(math.max(cur_volume + instance.fade_out_speed, 0))
+			elseif instance.shouldFadeOut then
+				local curVolume = instance:getVolume()
+				if curVolume > 0 then
+					instance:setVolume(math.max(curVolume + instance.fadeOutSpeed, 0))
 				else
-					instance.fade_out = false
-					instance.fade_out_speed = 0
+					instance.shouldFadeOut = false
+					instance.fadeOutSpeed = 0
 				end
 			end
 
 			if instance.looping then
-				if instance:getTime() >= instance.loop_from then
-					instance:setTime(instance.loop_to)
+				if instance:getTime() >= instance.loopFrom then
+					instance:setTime(instance.loopTo)
 				end
 			end
 		end
 	end
 end
 
-function Sound:newBGM(sound_name, is_looping)
-	self.current_bgm = self.object.generate(self.game, sound_name, true)
-	if is_looping then self.current_bgm:setLooping(true) end
-	self.current_bgm:setVolume(0.4) -- placeholder
-	return self.current_bgm
+function Sound:newBGM(soundName, isLooping)
+	self.currentBGM = self.object.generate(self.game, soundName, true)
+	if isLooping then self.currentBGM:setLooping(true) end
+	self.currentBGM:setVolume(0.4) -- placeholder
+	return self.currentBGM
 end
 
 function Sound:stopBGM()
-	if self.current_bgm then
-		self.current_bgm:stop()
-		self.current_bgm = nil
+	if self.currentBGM then
+		self.currentBGM:stop()
+		self.currentBGM = nil
 	end
 end
 
 function Sound:pauseBGM()
-	self.current_bgm:pause()
+	self.currentBGM:pause()
 end
 
 function Sound:getCurrentBGM()
-	if self.current_bgm then return self.current_bgm.sound_name end
+	if self.currentBGM then return self.currentBGM.soundName end
 end
 
 -- can also accept a link to full location of sound file
-function Sound:newSFX(sound_name, no_repeats)
-	return self.object.generate(self.game, sound_name, false, no_repeats)
+function Sound:newSFX(soundName, noRepeats)
+	return self.object.generate(self.game, soundName, false, noRepeats)
 end
 
 function Sound:reset()
-	if self.active_sounds then
-		for _, sound_name in pairs(self.active_sounds) do
-			for _, instance in pairs(sound_name) do
+	if self.activeSounds then
+		for _, soundName in pairs(self.activeSounds) do
+			for _, instance in pairs(soundName) do
 				instance:stop()
 			end
 		end
 	end
-	self.last_played_frame = {}
-	self.active_sounds = {}
+	self.lastPlayedFrame = {}
+	self.activeSounds = {}
 
 	for name, _ in pairs(soundfiles) do
-		self.active_sounds[name] = {}
-		self.last_played_frame[name] = -1
+		self.activeSounds[name] = {}
+		self.lastPlayedFrame[name] = -1
 	end
-	self.sfx_volume = 1 -- later we can point to user settings for these
-	self.bgm_volume = 1 -- later we can point to user settings for these
+	self.SFXVolume = 1 -- later we can point to user settings for these
+	self.BGMVolume = 1 -- later we can point to user settings for these
 end
 
 Sound.object = SoundObject

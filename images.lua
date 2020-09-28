@@ -17,7 +17,7 @@ local title = {
 -- categories to create, in the form [key] = {category}
 -- assumes that key is the same as pathname
 -- e.g. buttons = buttons will create
--- image_names["buttons_" .. item] = "images/buttons/" .. item .. ".png"
+-- imageNames["buttons_" .. item] = "images/buttons/" .. item .. ".png"
 local categories = {
 	main = main,
 	title = title,
@@ -28,28 +28,28 @@ local images = {
 	dummy = love.graphics.newImage('images/dummy.png'),
 }
 
-local image_names = {}
-local lily_table = {}
-local lily_count = 1
+local imageNames = {}
+local lilyTable = {}
+local lilyCount = 1
 for str, tbl in pairs(categories) do
 	for _, item in pairs(tbl) do
 		local handle = str .. "_" .. item
 		local filepath = "images/" .. str .. "/" .. item .. ".png"
-		image_names[handle] = filepath
+		imageNames[handle] = filepath
 
-		lily_table[lily_count] = {handle = handle, filepath = filepath}
-		lily_count = lily_count + 1
+		lilyTable[lilyCount] = {handle = handle, filepath = filepath}
+		lilyCount = lilyCount + 1
 	end
 end
 
 -- Create the lily data table
 local to_load = {}
-for i, tbl in ipairs(lily_table) do
+for i, tbl in ipairs(lilyTable) do
 	to_load[i] = {"newImage", tbl.filepath}
 end
 
 local function processImage(i, imagedata)
-	local handle = lily_table[i].handle
+	local handle = lilyTable[i].handle
 	images[handle] = imagedata
 end
 
@@ -62,7 +62,7 @@ local fallback = {
 		--print("loading image as fallback " .. k)
 		local image
 		local success = pcall(
-			function() image = love.graphics.newImage(image_names[k]) end
+			function() image = love.graphics.newImage(imageNames[k]) end
 		)
 		assert(success, "Failed to load " .. k)
 		t[k] = image

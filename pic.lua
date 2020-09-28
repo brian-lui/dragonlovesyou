@@ -9,6 +9,7 @@ Pic:change(), and Pic:wait().
 local love = _G.love
 local common = require "class.commons"
 local tween = require "/libraries/tween"
+local inits = require "/helpers/inits"
 
 local Pic = {}
 
@@ -17,14 +18,11 @@ local Pic = {}
 -- doesn't assign the created instance to any container by default
 function Pic:init(game, tbl)
 	self.game = game
-	self.queued_moves = {}
-	self.speed_x = 0
-	self.speed_y = 0
+	self.queuedMoves = {}
 	self.rotation = 0
-	self.speed_rotation = 0
 	self.scaling = 1
 	self.transparency = 1
-	self.image_index = 0
+	self.imageIndex = 0
 
 	for k, v in pairs(tbl) do
 		self[k] = v
@@ -40,13 +38,13 @@ function Pic:init(game, tbl)
 			self.ID = tbl.name
 			self.container[tbl.name] = self
 		else
-			game.inits.ID[tbl.counter] = game.inits.ID[tbl.counter] + 1
-			self.ID = game.inits.ID[tbl.counter]
+			inits.ID[tbl.counter] = inits.ID[tbl.counter] + 1
+			self.ID = inits.ID[tbl.counter]
 			self.container[self.ID] = self
 		end
 	else
-		game.inits.ID.particle = game.inits.ID.particle + 1
-		self.ID = game.inits.ID.particle
+		inits.ID.particle = inits.ID.particle + 1
+		self.ID = inits.ID.particle
 	end
 
 	self.width = self.image:getWidth()
@@ -59,7 +57,7 @@ function Pic:init(game, tbl)
 		self.width,
 		self.height
 	)
-	self.quad_data = {}
+	self.quadData = {}
 end
 
 function Pic:create(params)
@@ -75,8 +73,8 @@ function Pic:create(params)
 end
 
 --[[ Takes the following optional table arguments:
-	h_flip: whether to draw the image flipped around the horizontal axis
-	v_flip: whether to draw the image flipped around the vertical axis
+	flipH: whether to draw the image flipped around the horizontal axis
+	flipV: whether to draw the image flipped around the vertical axis
 	x, y: x or y position to draw the image at
 	rotation: rotation number to draw
 	scale: scaling to draw
@@ -84,19 +82,19 @@ end
 	transparency: transparency to draw
 	image: image to draw
 	darkened: draw darker (when pop-up menu is active).
-		Overridden by force_max_alpha boolean
+		Overridden by forceMaxAlpha boolean
 --]]
 function Pic:draw(params)
 	if self.transparency == 0 then return end
 
 	params = params or {}
 	love.graphics.push("all")
-		local x_scale = params.scale or self.x_scaling or self.scaling
-		local y_scale = params.scale or self.y_scaling or self.scaling
+		local scaleX = params.scale or self.scalingX or self.scaling
+		local scaleY = params.scale or self.scalingY or self.scaling
 		local rgbt = self.RGB or {1, 1, 1}
 		rgbt[4] = params.transparency or self.transparency or 1
 
-		if params.darkened and not self.force_max_alpha then
+		if params.darkened and not self.forceMaxAlpha then
 			love.graphics.setColor(
 				params.darkened,
 				params.darkened,
@@ -107,37 +105,37 @@ function Pic:draw(params)
 		elseif self.transparency then
 			love.graphics.setColor(rgbt)
 		end
-		if (self.h_flip or params.h_flip) then x_scale = x_scale * -1 end
-		if (self.v_flip or params.v_flip) then y_scale = y_scale * -1 end
+		if (self.flipH or params.flipH) then scaleX = scaleX * -1 end
+		if (self.flipV or params.flipV) then scaleY = scaleY * -1 end
 
 		love.graphics.draw(
 			params.image or self.image,
 			self.quad,
-			(params.x or self.x) + (self.quad_data.x_offset or 0),
-			(params.y or self.y) + (self.quad_data.y_offset or 0),
+			(params.x or self.x) + (self.quadData.offsetX or 0),
+			(params.y or self.y) + (self.quadData.offsetY or 0),
 			params.rotation or self.rotation,
-			x_scale or 1,
-			y_scale or 1,
+			scaleX or 1,
+			scaleY or 1,
 			self.width / 2, -- origin x
 			self.height / 2 -- origin y
 		)
 
-		if self.new_image then
+		if self.newImageData then
 			local r, g, b
 			if params.RGBTable then
 				r, g, b = params.RGBTable[1], params.RGBTable[2], params.RGBTable[3]
 			else
 				r, g, b = rgbt[1], rgbt[2], rgbt[3]
 			end
-			love.graphics.setColor(r, g, b, self.new_image.transparency)
+			love.graphics.setColor(r, g, b, self.newImageData.transparency)
 			love.graphics.draw(
-			self.new_image.image,
+			self.newImageData.image,
 			self.quad,
-			(params.x or self.x) + (self.quad_data.x_offset or 0),
-			(params.y or self.y) + (self.quad_data.y_offset or 0),
+			(params.x or self.x) + (self.quadData.offsetX or 0),
+			(params.y or self.y) + (self.quadData.offsetY or 0),
 			params.rotation or self.rotation,
-			x_scale or 1,
-			y_scale or 1,
+			scaleX or 1,
+			scaleY or 1,
 			self.width / 2, -- origin x
 			self.height / 2 -- origin y
 		)
@@ -146,7 +144,7 @@ function Pic:draw(params)
 end
 
 function Pic:isStationary()
-	return self.move_func == nil
+	return self.moveFunc == nil
 end
 
 function Pic:remove()
@@ -158,14 +156,14 @@ function Pic:remove()
 end
 
 function Pic:getRect()
-	local x_scaling = self.x_scaling or self.scaling
-	local y_scaling = self.y_scaling or self.scaling
+	local scalingX = self.scalingX or self.scaling
+	local scalingY = self.scalingY or self.scaling
 
 	return
-		self.x - (self.width / 2) * x_scaling,
-		self.y - (self.height / 2) * y_scaling,
-		self.width * x_scaling,
-		self.height * y_scaling
+		self.x - (self.width / 2) * scalingX,
+		self.y - (self.height / 2) * scalingY,
+		self.width * scalingX,
+		self.height * scalingY
 end
 
 -- Instantly swaps current image
@@ -186,15 +184,15 @@ end
 -- fades in a new image over the previous one, with optional delay time.
 -- will queue a fade with queue_wait_time if something is already fading in.
 function Pic:newImageFadeIn(image, frames, delay)
-	if self.new_image then
-		self.new_image_queue = self.new_image_queue or {}
-		self.new_image_queue[#self.new_image_queue+1] = {
+	if self.newImageData then
+		self.newImageQueue = self.newImageQueue or {}
+		self.newImageQueue[#self.newImageQueue+1] = {
 			image = image,
 			frames = frames,
 			delay = delay or 0,
 		}
 	else
-		self.new_image = {
+		self.newImageData = {
 			image = image,
 			transparency = 0,
 			opaque_speed = 1 / frames,
@@ -205,43 +203,43 @@ end
 
 -- clear the junk from all the tweens and stuff. runs exit function too.
 local function clearMove(self)
-	if self.exit_func then
-		if type(self.exit_func) == "function" then -- single func, no args
-			self.exit_func()
-		elseif type(self.exit_func) == "table" then
-			if type(self.exit_func[1]) == "function" then -- single func, args
-				self.exit_func[1](unpack(self.exit_func, 2))
-			elseif type(self.exit_func[1]) == "table" then -- multiple funcs
-				for i = 1, #self.exit_func do
-					self.exit_func[i][1](unpack(self.exit_func[i], 2))
+	if self.exitFunc then
+		if type(self.exitFunc) == "function" then -- single func, no args
+			self.exitFunc()
+		elseif type(self.exitFunc) == "table" then
+			if type(self.exitFunc[1]) == "function" then -- single func, args
+				self.exitFunc[1](unpack(self.exitFunc, 2))
+			elseif type(self.exitFunc[1]) == "table" then -- multiple funcs
+				for i = 1, #self.exitFunc do
+					self.exitFunc[i][1](unpack(self.exitFunc[i], 2))
 				end
 			else -- wot
-				print("passed in something wrong for exit_func table")
+				print("passed in something wrong for exitFunc table")
 			end
 		else -- wot
-			print("maybe passed in something wrong for the exit_func property")
+			print("maybe passed in something wrong for the exitFunc property")
 		end
 	end
-	if self.remove_on_exit then self:remove() end
-	self.t, self.tweening, self.curve, self.move_func = nil, nil, nil, nil
-	self.during, self.during_frame = nil, nil
-	self.exit, self.exit_func = nil, nil
+	if self.removeOnExit then self:remove() end
+	self.t, self.tweening, self.curve, self.moveFunc = nil, nil, nil, nil
+	self.during, self.duringFrame = nil, nil
+	self.exit, self.exitFunc = nil, nil
 end
 
 -- this is called from createMoveFunc and from some UI functions
 function Pic:setQuad(x, y, w, h)
 	self.quad = love.graphics.newQuad(x, y, w, h, self.width, self.height)
-	self.quad_data = {
-		x_offset = x or 0,
-		y_offset = y or 0,
+	self.quadData = {
+		offsetX = x or 0,
+		offsetY = y or 0,
 		x = self.x + (x or 0),
 		y = self.y + (y or 0),
-		x_pct = w / self.width,
-		y_pct = h / self.height,
+		pctX = w / self.width,
+		pctY = h / self.height,
 	}
 end
 
--- create the move_func that's updated each pic:update()
+-- create the moveFunc that's updated each pic:update()
 local function createMoveFunc(self, target)
 	-- convert numbers into function equivalents
 	local functionize = {
@@ -250,8 +248,8 @@ local function createMoveFunc(self, target)
 		"rotation",
 		"transparency",
 		"scaling",
-		"x_scaling",
-		"y_scaling",
+		"scalingX",
+		"scalingY",
 	}
 	for i = 1, #functionize do
 		local item = functionize[i]
@@ -274,56 +272,56 @@ local function createMoveFunc(self, target)
 	end
 
 	-- create some yummy state
-	self.during, self.during_frame = target.during, 0
-	self.remove_on_exit = target.remove
-	self.exit_func = target.exit_func
+	self.during, self.duringFrame = target.during, 0
+	self.removeOnExit = target.remove
+	self.exitFunc = target.exitFunc
 	self.t = 0
 	self.tweening = tween.new(
 		target.duration,
 		self,
-		target.tween_target,
+		target.tweenTarget,
 		target.easing
 	)
 	if target.debug then print("duration:", target.duration) end
 
 	-- set the x/y function depending on if it's a bezier or not
-	local xy_func = function() return target.x(), target.y() end
+	local xyFunc = function() return target.x(), target.y() end
 	if target.curve then
 		if target.debug then print("creating bezier curve move func") end
-		xy_func = function(_self) return _self.curve:evaluate(_self.t) end
+		xyFunc = function(_self) return _self.curve:evaluate(_self.t) end
 		self.curve = target.curve
 	end
 
 	-- set the quad change function if provided
-	local quad_func = nil
+	local quadFunc = nil
 	if target.quad then
-		local start_x_pct = self.quad_data.x_pct or (target.quad.x and 0 or 1)
-		local end_x_pct = target.quad.x_percentage or 1
-		local start_y_pct = self.quad_data.y_pct or (target.quad.y and 0 or 1)
-		local end_y_pct = target.quad.y_percentage or 1
+		local startX_pct = self.quadData.pctX or (target.quad.x and 0 or 1)
+		local endX_pct = target.quad.percentageX or 1
+		local startY_pct = self.quadData.pctY or (target.quad.y and 0 or 1)
+		local endY_pct = target.quad.percentageY or 1
 
-		quad_func = function(_self)
-			local cur_x_pct = (end_x_pct - start_x_pct) * _self.t + start_x_pct
-			local cur_width = cur_x_pct * _self.width
-			local cur_x = target.quad.x and target.quad.x_anchor * (1-_self.t) * _self.width * end_x_pct or 0
-			local cur_y_pct = (end_y_pct - start_y_pct) * _self.t + start_y_pct
-			local cur_height = cur_y_pct * _self.height
-			local cur_y = target.quad.y and target.quad.y_anchor * (1-_self.t) * _self.height * end_y_pct or 0
-			_self:setQuad(cur_x, cur_y, cur_width, cur_height)
+		quadFunc = function(_self)
+			local cur_pctX = (endX_pct - startX_pct) * _self.t + startX_pct
+			local curWidth = cur_pctX * _self.width
+			local curX = target.quad.x and target.quad.anchorX * (1-_self.t) * _self.width * endX_pct or 0
+			local cur_pctY = (endY_pct - startY_pct) * _self.t + startY_pct
+			local curHeight = cur_pctY * _self.height
+			local curY = target.quad.y and target.quad.anchorY * (1-_self.t) * _self.height * endY_pct or 0
+			_self:setQuad(curX, curY, curWidth, curHeight)
 		end
 	end
 
-	-- create the move_func
-	local move_func = function(_self, dt)
+	-- create the moveFunc
+	local moveFunc = function(_self, dt)
 		_self.t = _self.t + dt / target.duration
 		local complete = _self.tweening:update(dt)
-		_self.x, _self.y = xy_func(_self)
+		_self.x, _self.y = xyFunc(_self)
 		_self.rotation = target.rotation()
 		_self.transparency = target.transparency()
 		_self.scaling = target.scaling()
-		_self.x_scaling = target.x_scaling()
-		_self.y_scaling = target.y_scaling()
-		if quad_func then quad_func(_self, dt) end
+		_self.scalingX = target.scalingX()
+		_self.scalingY = target.scalingY()
+		if quadFunc then quadFunc(_self, dt) end
 		if target.debug then
 			target.debugCounter = ((target.debugCounter or 0) + 1) % 10
 			if target.debugCounter == 0 then
@@ -336,7 +334,7 @@ local function createMoveFunc(self, target)
 		end
 	end
 
-	return move_func
+	return moveFunc
 end
 
 --[[ Tell the pic how to move.
@@ -348,79 +346,79 @@ end
 		y: target y location, or function
 		rotation: target rotation, or function
 		scaling: target scaling, or function
-		x_scaling, y_scaling: target scaling in one axis
+		scalingX, scalingY: target scaling in one axis
 			takes precedence over "scaling" parameter
 		transparency: target transparency, or function
 		easing: easing, default is "linear"
-		tween_target: variables to tween, default is {t = 1}
+		tweenTarget: variables to tween, default is {t = 1}
 		curve: bezier curve, provided as a love.math.newBezierCurve() object
 		queue: queue this move after the previous one is finished. default true
 		here: if true, will instantly move from current position
 			false to move from end of previous position
 			only used if queue is false
-		during: optionally provided as {frame_step, frame_start, func, args}
+		during: optionally provided as {frameStep, frame_start, func, args}
 			or {{fs1, fs1, f1, a1}, {fs2, fs2, f2, a2}, ...}
 			executes this every dt_step while tweening
 		remove: set to true to delete when the move finishes
-		exit_func: execute when the move finishes.
+		exitFunc: execute when the move finishes.
 			Can be 1) func, 2) {func, args}, 3) {{f1, a1}, {f2, a2}, ...}
 		quad: Tween a quad, with parameters of {
 			x = bool,
 			y = bool,
-			x_percentage = 0-1,
-			y_percentage = 0-1,
-			x_anchor = 0-1,
-			y_anchor = 0-1
+			percentageX = 0-1,
+			percentageY = 0-1,
+			anchorX = 0-1,
+			anchorY = 0-1
 		}
 		debug: print some unhelpful debug info
-	Junk created: self.t, move_func, tweening, curve, exit, during. during_frame
+	Junk created: self.t, moveFunc, tweening, curve, exit, during. duringFrame
 	Cleans up after itself when movement or tweening finished during Pic:update()
 --]]
 function Pic:change(target)
 	target.easing = target.easing or "linear"
-	target.tween_target = target.tween_target or {t = 1}
+	target.tweenTarget = target.tweenTarget or {t = 1}
 	if target.queue ~= false then target.queue = true end
 	if target.debug then print("New move instruction received")	end
 	if target.duration == 0 then target.duration = 0.0078125 end
 
 	if not target.duration then -- apply instantly, interrupting all moves
 		clearMove(self)
-		self.queued_moves = {}
+		self.queuedMoves = {}
 		self.x = target.x or self.x
 		self.y = target.y or self.y
 		self.rotation = target.rotation or self.rotation
 		self.scaling = target.scaling or self.scaling
-		self.x_scaling = target.x_scaling or self.x_scaling
-		self.y_scaling = target.y_scaling or self.y_scaling
+		self.scalingX = target.scalingX or self.scalingX
+		self.scalingY = target.scalingY or self.scalingY
 		self.transparency = target.transparency or self.transparency
 		if target.debug then print("Instantly moving image") end
-	elseif not self.move_func then -- no active tween, apply this immediately
-		self.move_func = createMoveFunc(self, target)
+	elseif not self.moveFunc then -- no active tween, apply this immediately
+		self.moveFunc = createMoveFunc(self, target)
 		if target.debug then
 			print("No active tween, applying immediately")
-			print("self.move_func is now ", self.move_func)
+			print("self.moveFunc is now ", self.moveFunc)
 		end
-	elseif target.queue then -- append to end of self.queued_moves
-		self.queued_moves[#self.queued_moves+1] = target
+	elseif target.queue then -- append to end of self.queuedMoves
+		self.queuedMoves[#self.queuedMoves+1] = target
 		if target.debug then
 			print("Queueing this tween")
 		end
 	elseif target.here then -- clear queue, tween from current position
 		clearMove(self)
-		self.queued_moves = {}
-		self.move_func = createMoveFunc(self, target)
+		self.queuedMoves = {}
+		self.moveFunc = createMoveFunc(self, target)
 		if target.debug then
 			print("Tweening from current position")
-			print("self.move_func is now ", self.move_func)
+			print("self.moveFunc is now ", self.moveFunc)
 		end
 	else -- clear queue, tween from end position
-		self:move_func(math.huge)
+		self:moveFunc(math.huge)
 		clearMove(self)
-		self.queued_moves = {}
-		self.move_func = createMoveFunc(self, target)
+		self.queuedMoves = {}
+		self.moveFunc = createMoveFunc(self, target)
 		if target.debug then
 			print("Queueing from end position")
-			print("self.move_func is now ", self.move_func)
+			print("self.moveFunc is now ", self.moveFunc)
 		end
 	end
 end
@@ -431,80 +429,80 @@ function Pic:wait(frames)
 end
 
 function Pic:resolve()
-	while self.move_func do
-		self:move_func(math.huge)
+	while self.moveFunc do
+		self:moveFunc(math.huge)
 		clearMove(self)
-		if #self.queued_moves > 0 then
-			local new_target = table.remove(self.queued_moves, 1)
-			self.move_func = createMoveFunc(self, new_target)
+		if #self.queuedMoves > 0 then
+			local newTarget = table.remove(self.queuedMoves, 1)
+			self.moveFunc = createMoveFunc(self, newTarget)
 		end
 	end
 end
 -- clears all moves
 function Pic:clear()
-	self.t, self.tweening, self.curve, self.move_func = nil, nil, nil, nil
-	self.during, self.during_frame = nil, nil
+	self.t, self.tweening, self.curve, self.moveFunc = nil, nil, nil, nil
+	self.during, self.duringFrame = nil, nil
 	self.exit = nil
-	self.exit_func = nil
-	self.queued_moves = {}
+	self.exitFunc = nil
+	self.queuedMoves = {}
 end
 
 function Pic:update(dt)
-	dt = dt / self.game.time_step  -- convert dt to frames
-	if self.move_func then
-		if self.during then -- takes {frame_step, frame_start, func, args}
-			self.during_frame = self.during_frame + 1
+	dt = dt / inits.timeStep  -- convert dt to frames
+	if self.moveFunc then
+		if self.during then -- takes {frameStep, frame_start, func, args}
+			self.duringFrame = self.duringFrame + 1
 			if type(self.during[1]) == "table" then -- multiple funcs
 				for i = 1, #self.during do
 					local step, start = self.during[i][1], self.during[i][2]
-					if (self.during_frame + start) % step == 0 then
+					if (self.duringFrame + start) % step == 0 then
 						self.during[i][3](table.unpack(self.during[i], 4))
 					end
 				end
 			else -- single func
 				local step, start = self.during[1], self.during[2]
-				if (self.during_frame + start) % step == 0 then
+				if (self.duringFrame + start) % step == 0 then
 					self.during[3](table.unpack(self.during, 4))
 				end
 			end
 		end
 
-		local finished = self:move_func(dt)
+		local finished = self:moveFunc(dt)
 		if finished then
 			clearMove(self)
-			if #self.queued_moves > 0 then
-				local new_target = table.remove(self.queued_moves, 1)
-				if new_target.image_swap then
-					self.image = new_target.image
-					self.width = new_target.width
-					self.height = new_target.height
-					self.quad = new_target.quad
-					self.move_func = function() return true end
+			if #self.queuedMoves > 0 then
+				local newTarget = table.remove(self.queuedMoves, 1)
+				if newTarget.image_swap then
+					self.image = newTarget.image
+					self.width = newTarget.width
+					self.height = newTarget.height
+					self.quad = newTarget.quad
+					self.moveFunc = function() return true end
 				else
-					self.move_func = createMoveFunc(self, new_target)
+					self.moveFunc = createMoveFunc(self, newTarget)
 				end
 			end
 		end
 	end
-	if self.new_image then
-		if self.new_image.delay > 0 then
-			self.new_image.delay = math.max(self.new_image.delay - 1, 0)
+	if self.newImageData then
+		if self.newImageData.delay > 0 then
+			self.newImageData.delay = math.max(self.newImageData.delay - 1, 0)
 		else
-			self.new_image.transparency = self.new_image.transparency + self.new_image.opaque_speed
-			if self.new_image.transparency >= 1 then
-				self.image = self.new_image.image
-				self.new_image = nil
-				if self.new_image_queue then
-					if self.new_image_queue[1] then
-						local new_image = table.remove(self.new_image_queue, 1)
-						self.new_image = {
-							image = new_image.image,
+			self.newImageData.transparency = self.newImageData.transparency + self.newImageData.opaque_speed
+			if self.newImageData.transparency >= 1 then
+				self.image = self.newImageData.image
+				self.newImageData = nil
+				if self.newImageQueue then
+					if self.newImageQueue[1] then
+						local newImageData = table.remove(self.newImageQueue, 1)
+						self.newImageData = {
+							image = newImageData.image,
 							transparency = 0,
-							opaque_speed = 1 / new_image.frames,
-							delay = new_image.delay,
+							opaque_speed = 1 / newImageData.frames,
+							delay = newImageData.delay,
 						}
 					else
-						self.new_image_queue = nil
+						self.newImageQueue = nil
 					end
 				end
 			end
