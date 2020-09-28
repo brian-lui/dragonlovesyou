@@ -147,16 +147,26 @@ function Title:draw()
 	end
 end
 
-function Title:mousepressed(x, y)
-	self:_mousepressed(x, y, Title)
+-- add custom things to these three functions
+function Title:_pressed(x, y)
+	self:_controllerPressed(x, y, Title)
 end
 
-function Title:mousereleased(x, y)
-	self:_mousereleased(x, y, Title)
+function Title:_released(x, y)
+	self:_controllerReleased(x, y, Title)
 end
 
-function Title:mousemoved(x, y)
-	self:_mousemoved(x, y, Title)
+function Title:_moved(x, y)
+	self:_controllerMoved(x, y, Title)
 end
+
+function Title:mousepressed(x, y) Title._pressed(self, x, y) end
+function Title:touchpressed(_, x, y) Title._pressed(self, x, y) end
+
+function Title:mousereleased(x, y) Title._released(self, x, y) end
+function Title:touchreleased(_, x, y) Title._released(self, x, y) end
+
+function Title:mousemoved(x, y) Title._moved(self, x, y) end
+function Title:touchmoved(_, x, y) Title._moved(self, x, y) end
 
 return Title

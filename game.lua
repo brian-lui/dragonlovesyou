@@ -206,8 +206,8 @@ end
 
 local pointIsInRect = require "/helpers/utilities".pointIsInRect
 
---default mousepressed function if not specified by a sub-state
-function Game:_mousepressed(x, y, gamestate)
+--default controllerPressed function if not specified by a sub-state
+function Game:_controllerPressed(x, y, gamestate)
 	for _, button in pairs(gamestate.ui.clickable) do
 		if pointIsInRect(x, y, button:getRect()) then
 			gamestate.clicked = button
@@ -218,8 +218,8 @@ function Game:_mousepressed(x, y, gamestate)
 	gamestate.clicked = false
 end
 
--- default mousereleased function if not specified by a sub-state
-function Game:_mousereleased(x, y, gamestate)
+-- default controllerReleased function if not specified by a sub-state
+function Game:_controllerReleased(x, y, gamestate)
 	for _, button in pairs(gamestate.ui.clickable) do
 		if gamestate.clicked == button then button:released() end
 		if pointIsInRect(x, y, button:getRect())
@@ -231,8 +231,8 @@ function Game:_mousereleased(x, y, gamestate)
 	gamestate.clicked = false
 end
 
--- default mousemoved function if not specified by a sub-state
-function Game:_mousemoved(x, y, gamestate)
+-- default controllerMoved function if not specified by a sub-state
+function Game:_controllerMoved(x, y, gamestate)
 	if gamestate.clicked then
 		if not pointIsInRect(x, y, gamestate.clicked:getRect()) then
 			gamestate.clicked:released()
@@ -241,13 +241,9 @@ function Game:_mousemoved(x, y, gamestate)
 	end
 end
 
--- checks if mouse is down (for ui). Can use different function for touchscreen
-function Game:_ismousedown()
-	return love.mouse.isDown(1)
-end
 
--- get current mouse position
-function Game:_getmouseposition()
+-- get current controller position
+function Game:_getControllerPosition()
 	local drawspace = inits.drawspace
 	local x, y = drawspace.tlfres.getMousePosition(drawspace.width, drawspace.height)
 	return x, y

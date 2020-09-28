@@ -61,16 +61,26 @@ function MainScreen:draw()
 	for _, v in pairs(MainScreen.ui.clickable) do v:draw() end
 end
 
-function MainScreen:mousepressed(x, y)
-	self:_mousepressed(x, y, MainScreen)
+-- add custom things to these three functions
+function MainScreen:_pressed(x, y)
+	self:_controllerPressed(x, y, MainScreen)
 end
 
-function MainScreen:mousereleased(x, y)
-	self:_mousereleased(x, y, MainScreen)
+function MainScreen:_released(x, y)
+	self:_controllerReleased(x, y, MainScreen)
 end
 
-function MainScreen:mousemoved(x, y)
-	self:_mousemoved(x, y, MainScreen)
+function MainScreen:_moved(x, y)
+	self:_controllerMoved(x, y, MainScreen)
 end
+
+function MainScreen:mousepressed(x, y) MainScreen._pressed(self, x, y) end
+function MainScreen:touchpressed(_, x, y) MainScreen._pressed(self, x, y) end
+
+function MainScreen:mousereleased(x, y) MainScreen._released(self, x, y) end
+function MainScreen:touchreleased(_, x, y) MainScreen._released(self, x, y) end
+
+function MainScreen:mousemoved(x, y) MainScreen._moved(self, x, y) end
+function MainScreen:touchmoved(_, x, y) MainScreen._moved(self, x, y) end
 
 return MainScreen
