@@ -38,9 +38,19 @@ function Title:init()
 		image = images.title_wallpaper,
 		endX = stage.width * 0.5,
 		endY = stage.height * 0.5,
-		imageIndex = -1,
+		imageIndex = -2,
 	})
 
+	Title.createImage(self, {
+		name = "splash",
+		image = images.title_splash,
+		duration = 15,
+		endX = stage.width * 0.5,
+		endY = stage.height * 0.5,
+		startTransparency = 0,
+		easing = "linear",
+		imageIndex = -1,
+	})
 
 	Title.createImage(self, {
 		name = "logo",
@@ -130,7 +140,7 @@ end
 function Title:draw()
 	Title.currentBackground:draw()
 
-	local indexes = {-1, 0, 1}
+	local indexes = {-2, -1, 0, 1}
 
 	for _, i in ipairs(indexes) do
 

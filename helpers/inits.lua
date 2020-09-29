@@ -7,8 +7,8 @@ local TLfres = require "/libraries/tlfres"
 
 local inits = {}
 
-local DRAWSPACE_WIDTH = 1920
-local DRAWSPACE_HEIGHT = 1080
+local DRAWSPACE_WIDTH = 2732
+local DRAWSPACE_HEIGHT = 2048
 
 inits.timeStep = 1/60
 inits.timeBucket = 0

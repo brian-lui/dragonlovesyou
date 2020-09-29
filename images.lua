@@ -11,7 +11,7 @@ local main = {
 }
 
 local title = {
-	"wallpaper", "logo", "start", "achievements", "options", "quit",
+	"wallpaper", "logo", "start", "achievements", "options", "quit", "splash"
 }
 
 local particles = {
