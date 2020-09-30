@@ -51,8 +51,7 @@ end
 
 -- noRepeats is optional. If true, then it won't replay it 2 frames later,
 -- instead it will just not create any sound effect
-function SoundObject.generate(game, soundName, isBGM, noRepeats)
-	local sound = game.sound
+function SoundObject.generate(sound, soundName, isBGM, noRepeats)
 	local s = soundfiles[soundName]
 
 	if stringEndsWith(soundName, ".ogg") then
@@ -161,8 +160,7 @@ SoundObject = common.class("SoundObject", SoundObject)
 
 -------------------------------------------------------------------------------
 local Sound = {}
-function Sound:init(game)
-	self.game = game
+function Sound:init()
 	self.currentBGM = nil
 	self:reset()
 end
@@ -203,7 +201,7 @@ function Sound:update()
 end
 
 function Sound:newBGM(soundName, isLooping)
-	self.currentBGM = self.object.generate(self.game, soundName, true)
+	self.currentBGM = self.object.generate(self, soundName, true)
 	if isLooping then self.currentBGM:setLooping(true) end
 	self.currentBGM:setVolume(0.4) -- placeholder
 	return self.currentBGM
@@ -226,7 +224,7 @@ end
 
 -- can also accept a link to full location of sound file
 function Sound:newSFX(soundName, noRepeats)
-	return self.object.generate(self.game, soundName, false, noRepeats)
+	return self.object.generate(self, soundName, false, noRepeats)
 end
 
 function Sound:reset()
