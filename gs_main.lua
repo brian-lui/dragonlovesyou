@@ -65,7 +65,7 @@ end
 
 -- add custom things to these three functions
 function MainScreen:_pressed(x, y)
-	self.particles.example.generate(self.particles, x, y)
+	self.particles:create("Example", x, y)
 
 	self:_controllerPressed(x, y, MainScreen)
 end

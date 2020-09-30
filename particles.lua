@@ -88,6 +88,15 @@ Example = common.class("Example", Example, Pic)
 
 -------------------------------------------------------------------------------
 
-Particles.example = Example
+local particle_names = {
+	Example = Example,
+}
+
+function Particles:create(particle_name, ...)
+	assert(particle_names[particle_name], "No particle: " .. particle_name)
+	particle_names[particle_name].generate(self, ...)
+end
+
+
 
 return common.class("Particles", Particles)
