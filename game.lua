@@ -63,7 +63,7 @@ function Game:init()
 	self.sound = common.instance(require "sound")
 	self.stage = require("stage")
 	self.background = common.instance(require "background")
-	self.particles = common.instance(require "particles", self)
+	self.particles = common.instance(require "particles")
 	self.queue = common.instance(Queue, self)
 	self.statemanager = common.instance(require "/libraries/statemanager", self)
 
@@ -178,7 +178,6 @@ function Game:_createImage(gamestate, params)
 	if params.name == nil then print("No object name received!") end
 
 	local button = Pic:create{
-		game = self,
 		name = params.name,
 		x = params.startX or params.endX,
 		y = params.startY or params.endY,

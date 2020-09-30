@@ -14,8 +14,7 @@ local inits = require "/helpers/inits"
 
 local Particles = {}
 
-function Particles:init(game)
-	self.game = game
+function Particles:init()
 	self:reset()
 end
 
@@ -53,23 +52,23 @@ end
 
 -------------------------------------------------------------------------------
 local Example = {}
-function Example:init(manager, x, y)
+function Example:init(particles_instance, x, y)
 	Pic.init(self, {
 		x = x,
 		y = y,
 		image = images.particles_pow,
 	})
 	local counter = inits.ID.particle
-	manager.allParticles.Example[counter] = self
-	self.manager = manager
+	particles_instance.allParticles.Example[counter] = self
+	self.particles_instance = particles_instance
 end
 
 function Example:remove()
-	self.manager.allParticles.Example[self.ID] = nil
+	self.particles_instance.allParticles.Example[self.ID] = nil
 end
 
-function Example.generate(game, x, y)
-	local p = common.instance(Example, game.particles, x, y)
+function Example.generate(particles, x, y)
+	local p = common.instance(Example, particles, x, y)
 	p:change{
 		duration = 30,
 		transparency = 0,
