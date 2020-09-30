@@ -60,7 +60,7 @@ function Game:init()
 	self.camera = common.instance(require "/libraries/camera")
 	self.settings = require "/helpers/settings"
 	self.rng = love.math.newRandomGenerator()
-	self.sound = common.instance(require "sound", self)
+	self.sound = common.instance(require "sound")
 	self.stage = require("stage")
 	self.background = common.instance(require "background", self)
 	self.particles = common.instance(require "particles", self)
