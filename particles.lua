@@ -67,8 +67,9 @@ function Example:remove()
 	self.particles_instance.allParticles.Example[self.ID] = nil
 end
 
-function Example.generate(particles, x, y)
-	local p = common.instance(Example, particles, x, y)
+function Example.generate(particles_instance, x, y)
+	local p = common.instance(Example, particles_instance, x, y)
+
 	p:change{
 		duration = 30,
 		transparency = 0,

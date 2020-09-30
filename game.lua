@@ -24,8 +24,7 @@ QUEUE COMPONENT
 
 local Queue = {}
 
-function Queue:init(game)
-	self.game = game
+function Queue:init()
 end
 
 function Queue:add(frames, func, ...)
@@ -64,7 +63,7 @@ function Game:init()
 	self.stage = require("stage")
 	self.background = common.instance(require "background")
 	self.particles = common.instance(require "particles")
-	self.queue = common.instance(Queue, self)
+	self.queue = common.instance(Queue)
 	self.statemanager = common.instance(require "/libraries/statemanager", self)
 
 	self.controls = {clicked = false, pressedDown = 0}
