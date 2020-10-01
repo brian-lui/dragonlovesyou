@@ -9,7 +9,7 @@ _G.table.unpack = _G.table.unpack or _G.unpack
 local love = _G.love
 require "/libraries/classcommons"
 local common = require "class.commons"
-local inits = require "/helpers/inits"
+local consts = require "/helpers/consts"
 local __NOP__ = function () end
 local game
 
@@ -37,7 +37,7 @@ local backgroundRGB = {254/255, 228/255, 179/255, 1}
 function love.draw()
 	love.graphics.push("all")
 		if game.draw then
-			local drawspace = inits.drawspace
+			local drawspace = consts.drawspace
 			drawspace.tlfres.beginRendering(drawspace.width, drawspace.height)
 			game:draw()
 			drawspace.tlfres.endRendering(backgroundRGB)
@@ -55,7 +55,7 @@ end
 
 function love.mousepressed(x, y, button, istouch)
 	if button == 1 then
-		local drawspace = inits.drawspace
+		local drawspace = consts.drawspace
 		x, y = drawspace.tlfres.getMousePosition(drawspace.width, drawspace.height)
 		local f = game.mousepressed or __NOP__
 		f(game, x, y, button, istouch)
@@ -64,7 +64,7 @@ end
 
 function love.mousereleased(x, y, button, istouch)
 	if button == 1 then
-		local drawspace = inits.drawspace
+		local drawspace = consts.drawspace
 		x, y = drawspace.tlfres.getMousePosition(drawspace.width, drawspace.height)
 		local f = game.mousereleased or __NOP__
 		f(game, x, y, button, istouch)
@@ -73,7 +73,7 @@ end
 
 function love.mousemoved(x, y, dx, dy)
 	if game.mousemoved then
-		local drawspace = inits.drawspace
+		local drawspace = consts.drawspace
 		x, y = drawspace.tlfres.getMousePosition(drawspace.width, drawspace.height)
 		local scale = drawspace.tlfres.getScale(drawspace.width, drawspace.height)
 		dx, dy = dx / scale, dy / scale

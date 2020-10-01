@@ -4,7 +4,7 @@ gamestates.
 
 Every background should have:
 IDNumber - used for the ordering of the backgrounds
-init(game)
+init()
 update(dt)
 draw()
 --]]
@@ -12,15 +12,14 @@ draw()
 local love = _G.love
 local common = require "class.commons"
 local Pic = require "pic"
-local inits = require "/helpers/inits"
+local consts = require "/helpers/consts"
 local stage = require "stage"
 
 -------------------------------------------------------------------------------
 ------------------------------------ PLAIN ------------------------------------
 -------------------------------------------------------------------------------
 local Plain = {IDNumber = 1}
-function Plain:init(game)
-	self.game = game
+function Plain:init()
 	Pic:create{
 		x = stage.width * 0.5,
 		y = stage.height * 0.5,
@@ -29,7 +28,7 @@ function Plain:init(game)
 		name = "background",
 	}
 
-	inits.ID.backgroundParticle = 0
+	consts.ID.backgroundParticle = 0
 end
 
 function Plain:update(dt)

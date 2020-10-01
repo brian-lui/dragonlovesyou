@@ -15,7 +15,7 @@ states, such as darkening and brightening screen
 local love = _G.love
 local Pic = require "pic"
 local common = require "/libraries/classcommons"
-local inits = require "/helpers/inits"
+local consts = require "/helpers/consts"
 
 
 --[==================[
@@ -24,27 +24,26 @@ QUEUE COMPONENT
 
 local Queue = {}
 
-function Queue:init(game)
-	self.game = game
+function Queue:init()
 end
 
 function Queue:add(frames, func, ...)
 	assert(frames % 1 == 0 and frames >= 0, "non-integer or negative queue received")
 	assert(type(func) == "function", "non-function of type " .. type(func) .. " received")
-	local a = inits.frame + frames
+	local a = consts.frame + frames
 	self[a] = self[a] or {}
 	table.insert(self[a], {func, {...}})
 end
 
 function Queue:update()
-	local doToday = self[inits.frame]
+	local doToday = self[consts.frame]
 
 	if doToday then
 		for i = 1, #doToday do
 			local func, args = doToday[i][1], doToday[i][2]
 			func(table.unpack(args))
 		end
-		self[inits.frame] = nil
+		self[consts.frame] = nil
 	end
 end
 
@@ -62,9 +61,9 @@ function Game:init()
 	self.rng = love.math.newRandomGenerator()
 	self.sound = common.instance(require "sound")
 	self.stage = require("stage")
-	self.background = common.instance(require "background", self)
-	self.particles = common.instance(require "particles", self)
-	self.queue = common.instance(Queue, self)
+	self.background = common.instance(require "background")
+	self.particles = common.instance(require "particles")
+	self.queue = common.instance(Queue)
 	self.statemanager = common.instance(require "/libraries/statemanager", self)
 
 	self.controls = {clicked = false, pressedDown = 0}
@@ -76,7 +75,7 @@ end
 
 function Game:reset()
 	self.rng:setSeed(os.time())
-	inits.ID:reset()
+	consts.ID:reset()
 	self.sound:reset()
 	self.particles:reset()
 
@@ -98,16 +97,16 @@ or we reached the maximum number of times to run the logic this cycle.
 --]]
 function Game:timeDip(func, ...)
 	for _ = 1, 4 do -- run a maximum of 4 logic cycles per love.update cycle
-		if inits.timeBucket >= inits.timeStep then
+		if consts.timeBucket >= consts.timeStep then
 			func(...)
-			inits.frame = inits.frame + 1
-			inits.timeBucket = inits.timeBucket - inits.timeStep
+			consts.frame = consts.frame + 1
+			consts.timeBucket = consts.timeBucket - consts.timeStep
 		end
 	end
 end
 
 function Game:update(dt)
-	inits.timeBucket = inits.timeBucket + dt
+	consts.timeBucket = consts.timeBucket + dt
 
 	self:timeDip(function()
 		self.queue:update()
@@ -163,9 +162,59 @@ function Game:_createButton(gamestate, params)
 		end
 		_self:newImage(params.image)
 	end
-	button.action = params.action
+
+	button.action = params.action -- when clicked/pressed
+
 	return button
 end
+
+-------------------------------------------------------------------------------
+--[[ creates an object that can be dragged and longpressed
+	mandatory parameters: name, image, imagePressed, endX, endY
+	optional parameters: duration, startTransparency, endTransparency,
+		startX, startY, easing, exit, pushed, pushedSFX, released,
+		releasedSFX, forceMaxAlpha, imageIndex, longpressed,
+--]]
+function Game:_createDraggable(gamestate, params)
+	params = params or {}
+	if params.name == nil then print("No object name received!") end
+	if params.imagePressed == nil then
+		print("Caution: no push image received for " .. params.name .. "!")
+	end
+
+	local draggable = Pic:create{
+		name = params.name,
+		x = params.startX or params.endX,
+		y = params.startY or params.endY,
+		transparency = params.startTransparency or 1,
+		image = params.image,
+		imageIndex = params.imageIndex,
+		container = params.container or gamestate.ui.clickable,
+		forceMaxAlpha = params.forceMaxAlpha,
+		sound = self.sound,
+	}
+
+	draggable:change{
+		duration = params.duration,
+		x = params.endX,
+		y = params.endY,
+		transparency = params.endTransparency or 1,
+		easing = params.easing or "linear",
+		exitFunc = params.exitFunc,
+	}
+	draggable.longpressed = params.longpressed or function(_self)
+		_self:newImage(params.imagePressed)
+	end
+
+	draggable.released = params.released or function(_self)
+		_self:newImage(params.image)
+	end
+
+	draggable.action = params.action -- when clicked/pressed
+
+	return draggable
+end
+
 
 --[[ creates an object that can be tweened but not clicked
 	mandatory parameters: name, image, endX, endY
@@ -178,7 +227,6 @@ function Game:_createImage(gamestate, params)
 	if params.name == nil then print("No object name received!") end
 
 	local button = Pic:create{
-		game = self,
 		name = params.name,
 		x = params.startX or params.endX,
 		y = params.startY or params.endY,
@@ -253,7 +301,7 @@ end
 
 -- get current controller position
 function Game:_getControllerPosition()
-	local drawspace = inits.drawspace
+	local drawspace = consts.drawspace
 	local x, y = drawspace.tlfres.getMousePosition(drawspace.width, drawspace.height)
 	return x, y
 end

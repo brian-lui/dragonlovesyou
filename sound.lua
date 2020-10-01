@@ -6,7 +6,7 @@ should be Sound:newBGM() and Sound:newSFX().
 local love = _G.love
 local common = require "class.commons"
 local stringEndsWith = require "/helpers/utilities".stringEndsWith
-local inits = require "/helpers/inits"
+local consts = require "/helpers/consts"
 
 local soundfiles = {
 	titleBGM = {
@@ -62,7 +62,7 @@ function SoundObject.generate(sound, soundName, isBGM, noRepeats)
 	end
 
 	if s then
-		local startFrame = inits.frame
+		local startFrame = consts.frame
 		local previousPlay = sound.lastPlayedFrame[soundName]
 		if startFrame <= (previousPlay + 1) then -- delay by 2 frames
 			if noRepeats then return end
@@ -166,7 +166,7 @@ function Sound:init()
 end
 
 function Sound:update()
-	local frame = inits.frame
+	local frame = consts.frame
 	for _, soundName in pairs(self.activeSounds) do
 		for startFrame, instance in pairs(soundName) do
 			if instance:isStopped() and frame > startFrame then

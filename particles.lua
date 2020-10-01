@@ -10,12 +10,11 @@ code that uses particle duration to calculate delay times.
 local common = require "class.commons"
 local Pic = require "pic"
 local images = require "images"
-local inits = require "/helpers/inits"
+local consts = require "/helpers/consts"
 
 local Particles = {}
 
-function Particles:init(game)
-	self.game = game
+function Particles:init()
 	self:reset()
 end
 
@@ -51,25 +50,27 @@ function Particles:draw(layer)
 	end
 end
 
+-- Here follow the particles
 -------------------------------------------------------------------------------
 local Example = {}
-function Example:init(manager, x, y)
+function Example:init(particles_instance, x, y)
 	Pic.init(self, {
 		x = x,
 		y = y,
 		image = images.particles_pow,
 	})
-	local counter = inits.ID.particle
-	manager.allParticles.Example[counter] = self
-	self.manager = manager
+	local counter = consts.ID.particle
+	particles_instance.allParticles.Example[counter] = self
+	self.particles_instance = particles_instance
 end
 
 function Example:remove()
-	self.manager.allParticles.Example[self.ID] = nil
+	self.particles_instance.allParticles.Example[self.ID] = nil
 end
 
-function Example.generate(game, x, y)
-	local p = common.instance(Example, game.particles, x, y)
+function Example.generate(particles_instance, x, y)
+	local p = common.instance(Example, particles_instance, x, y)
+
 	p:change{
 		duration = 30,
 		transparency = 0,
@@ -88,6 +89,13 @@ Example = common.class("Example", Example, Pic)
 
 -------------------------------------------------------------------------------
 
-Particles.example = Example
+local particle_names = {
+	Example = Example,
+}
+
+function Particles:create(particle_name, ...)
+	assert(particle_names[particle_name], "No particle: " .. particle_name)
+	particle_names[particle_name].generate(self, ...)
+end
 
 return common.class("Particles", Particles)
