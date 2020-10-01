@@ -9,7 +9,7 @@ Pic:change(), and Pic:wait().
 local love = _G.love
 local common = require "class.commons"
 local tween = require "/libraries/tween"
-local inits = require "/helpers/inits"
+local consts = require "/helpers/consts"
 
 local Pic = {}
 
@@ -37,13 +37,13 @@ function Pic:init(tbl)
 			self.ID = tbl.name
 			self.container[tbl.name] = self
 		else
-			inits.ID[tbl.counter] = inits.ID[tbl.counter] + 1
-			self.ID = inits.ID[tbl.counter]
+			consts.ID[tbl.counter] = consts.ID[tbl.counter] + 1
+			self.ID = consts.ID[tbl.counter]
 			self.container[self.ID] = self
 		end
 	else
-		inits.ID.particle = inits.ID.particle + 1
-		self.ID = inits.ID.particle
+		consts.ID.particle = consts.ID.particle + 1
+		self.ID = consts.ID.particle
 	end
 
 	self.width = self.image:getWidth()
@@ -444,7 +444,7 @@ function Pic:clear()
 end
 
 function Pic:update(dt)
-	dt = dt / inits.timeStep  -- convert dt to frames
+	dt = dt / consts.timeStep  -- convert dt to frames
 	if self.moveFunc then
 		if self.during then -- takes {frameStep, frame_start, func, args}
 			self.duringFrame = self.duringFrame + 1

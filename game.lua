@@ -15,7 +15,7 @@ states, such as darkening and brightening screen
 local love = _G.love
 local Pic = require "pic"
 local common = require "/libraries/classcommons"
-local inits = require "/helpers/inits"
+local consts = require "/helpers/consts"
 
 
 --[==================[
@@ -30,20 +30,20 @@ end
 function Queue:add(frames, func, ...)
 	assert(frames % 1 == 0 and frames >= 0, "non-integer or negative queue received")
 	assert(type(func) == "function", "non-function of type " .. type(func) .. " received")
-	local a = inits.frame + frames
+	local a = consts.frame + frames
 	self[a] = self[a] or {}
 	table.insert(self[a], {func, {...}})
 end
 
 function Queue:update()
-	local doToday = self[inits.frame]
+	local doToday = self[consts.frame]
 
 	if doToday then
 		for i = 1, #doToday do
 			local func, args = doToday[i][1], doToday[i][2]
 			func(table.unpack(args))
 		end
-		self[inits.frame] = nil
+		self[consts.frame] = nil
 	end
 end
 
@@ -75,7 +75,7 @@ end
 
 function Game:reset()
 	self.rng:setSeed(os.time())
-	inits.ID:reset()
+	consts.ID:reset()
 	self.sound:reset()
 	self.particles:reset()
 
@@ -97,16 +97,16 @@ or we reached the maximum number of times to run the logic this cycle.
 --]]
 function Game:timeDip(func, ...)
 	for _ = 1, 4 do -- run a maximum of 4 logic cycles per love.update cycle
-		if inits.timeBucket >= inits.timeStep then
+		if consts.timeBucket >= consts.timeStep then
 			func(...)
-			inits.frame = inits.frame + 1
-			inits.timeBucket = inits.timeBucket - inits.timeStep
+			consts.frame = consts.frame + 1
+			consts.timeBucket = consts.timeBucket - consts.timeStep
 		end
 	end
 end
 
 function Game:update(dt)
-	inits.timeBucket = inits.timeBucket + dt
+	consts.timeBucket = consts.timeBucket + dt
 
 	self:timeDip(function()
 		self.queue:update()
@@ -251,7 +251,7 @@ end
 
 -- get current controller position
 function Game:_getControllerPosition()
-	local drawspace = inits.drawspace
+	local drawspace = consts.drawspace
 	local x, y = drawspace.tlfres.getMousePosition(drawspace.width, drawspace.height)
 	return x, y
 end

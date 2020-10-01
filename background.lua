@@ -12,7 +12,7 @@ draw()
 local love = _G.love
 local common = require "class.commons"
 local Pic = require "pic"
-local inits = require "/helpers/inits"
+local consts = require "/helpers/consts"
 local stage = require "stage"
 
 -------------------------------------------------------------------------------
@@ -28,7 +28,7 @@ function Plain:init()
 		name = "background",
 	}
 
-	inits.ID.backgroundParticle = 0
+	consts.ID.backgroundParticle = 0
 end
 
 function Plain:update(dt)

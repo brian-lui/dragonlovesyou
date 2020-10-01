@@ -10,7 +10,7 @@ code that uses particle duration to calculate delay times.
 local common = require "class.commons"
 local Pic = require "pic"
 local images = require "images"
-local inits = require "/helpers/inits"
+local consts = require "/helpers/consts"
 
 local Particles = {}
 
@@ -50,6 +50,7 @@ function Particles:draw(layer)
 	end
 end
 
+-- Here follow the particles
 -------------------------------------------------------------------------------
 local Example = {}
 function Example:init(particles_instance, x, y)
@@ -58,7 +59,7 @@ function Example:init(particles_instance, x, y)
 		y = y,
 		image = images.particles_pow,
 	})
-	local counter = inits.ID.particle
+	local counter = consts.ID.particle
 	particles_instance.allParticles.Example[counter] = self
 	self.particles_instance = particles_instance
 end
@@ -96,7 +97,5 @@ function Particles:create(particle_name, ...)
 	assert(particle_names[particle_name], "No particle: " .. particle_name)
 	particle_names[particle_name].generate(self, ...)
 end
-
-
 
 return common.class("Particles", Particles)
