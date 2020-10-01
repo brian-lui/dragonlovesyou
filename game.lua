@@ -189,7 +189,7 @@ function Game:_createDraggable(gamestate, params)
 		transparency = params.startTransparency or 1,
 		image = params.image,
 		imageIndex = params.imageIndex,
-		container = params.container or gamestate.ui.clickable,
+		container = params.container or gamestate.ui.draggable,
 		forceMaxAlpha = params.forceMaxAlpha,
 		sound = self.sound,
 	}
@@ -209,8 +209,6 @@ function Game:_createDraggable(gamestate, params)
 	draggable.released = params.released or function(_self)
 		_self:newImage(params.image)
 	end
-
-	draggable.action = params.action -- when clicked/pressed
 
 	return draggable
 end
