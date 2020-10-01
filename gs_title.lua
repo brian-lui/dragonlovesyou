@@ -30,6 +30,7 @@ end
 function Title:init()
 	Title.ui = {
 		clickable = {},
+		draggable = {},
 		static = {},
 	}
 
@@ -151,6 +152,12 @@ function Title:draw()
 		end
 
 		for _, v in spairs(Title.ui.clickable) do
+			if v.imageIndex == i then
+				v:draw()
+			end
+		end
+
+		for _, v in spairs(Title.ui.draggable) do
 			if v.imageIndex == i then
 				v:draw()
 			end

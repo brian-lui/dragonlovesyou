@@ -22,6 +22,7 @@ end
 function MainScreen:init()
 	MainScreen.ui = {
 		clickable = {},
+		draggable = {},
 		static = {},
 	}
 
@@ -59,6 +60,7 @@ function MainScreen:draw()
 	MainScreen.currentBackground:draw()
 	for _, v in pairs(MainScreen.ui.static) do v:draw() end
 	for _, v in pairs(MainScreen.ui.clickable) do v:draw() end
+	for _, v in pairs(MainScreen.ui.draggable) do v:draw() end
 
 	self.particles:draw()
 end

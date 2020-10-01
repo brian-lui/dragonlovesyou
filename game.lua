@@ -162,9 +162,59 @@ function Game:_createButton(gamestate, params)
 		end
 		_self:newImage(params.image)
 	end
-	button.action = params.action
+
+	button.action = params.action -- when clicked/pressed
+
 	return button
 end
+
+-------------------------------------------------------------------------------
+--[[ creates an object that can be dragged and longpressed
+	mandatory parameters: name, image, imagePressed, endX, endY
+	optional parameters: duration, startTransparency, endTransparency,
+		startX, startY, easing, exit, pushed, pushedSFX, released,
+		releasedSFX, forceMaxAlpha, imageIndex, longpressed,
+--]]
+function Game:_createDraggable(gamestate, params)
+	params = params or {}
+	if params.name == nil then print("No object name received!") end
+	if params.imagePressed == nil then
+		print("Caution: no push image received for " .. params.name .. "!")
+	end
+
+	local draggable = Pic:create{
+		name = params.name,
+		x = params.startX or params.endX,
+		y = params.startY or params.endY,
+		transparency = params.startTransparency or 1,
+		image = params.image,
+		imageIndex = params.imageIndex,
+		container = params.container or gamestate.ui.clickable,
+		forceMaxAlpha = params.forceMaxAlpha,
+		sound = self.sound,
+	}
+
+	draggable:change{
+		duration = params.duration,
+		x = params.endX,
+		y = params.endY,
+		transparency = params.endTransparency or 1,
+		easing = params.easing or "linear",
+		exitFunc = params.exitFunc,
+	}
+	draggable.longpressed = params.longpressed or function(_self)
+		_self:newImage(params.imagePressed)
+	end
+
+	draggable.released = params.released or function(_self)
+		_self:newImage(params.image)
+	end
+
+	draggable.action = params.action -- when clicked/pressed
+
+	return draggable
+end
+
 
 --[[ creates an object that can be tweened but not clicked
 	mandatory parameters: name, image, endX, endY
