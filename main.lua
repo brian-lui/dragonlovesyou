@@ -13,16 +13,25 @@ local consts = require "/helpers/consts"
 local __NOP__ = function () end
 local game
 
+local osString = love.system.getOS()
 function love.load()
 	print("Debug folder is at: " .. love.filesystem.getSaveDirectory())
-	love.window.setTitle("Game template")
+	love.window.setTitle("Dragon loves you")
 	game = common.instance(require "game")
 
-	-- default windowed resolution is half native
-	local desktopWidth, desktopHeight = love.window.getDesktopDimensions()
-	love.window.setMode(desktopWidth / 2, desktopHeight / 2, {resizable=true})
+	-- set resolution depending on OS
+	if osString == "Windows" or osString == "OS X" or osString == "Linux" then
+		local windowWidth, windowHeight = love.window.getDesktopDimensions()
+		love.window.setMode(windowWidth / 2, windowHeight / 2, {resizable=true})
+	elseif osString == "Android" or osString == "iOS" then
+		local windowWidth, windowHeight = love.graphics.getDimensions()
+		love.window.setMode(windowWidth, windowHeight, {
+			fullscreen = true,
+			usedpiscale = false,
+		})
+	end
 
-	-- set icon
+	-- TODO: set icon
 	--local icon = love.image.newImageData("/images/unclickables/windowicon.png")
 	--love.window.setIcon(icon)
 end
@@ -35,14 +44,10 @@ end
 
 local backgroundRGB = {254/255, 228/255, 179/255, 1}
 function love.draw()
-	love.graphics.push("all")
-		if game.draw then
-			local drawspace = consts.drawspace
-			drawspace.tlfres.beginRendering(drawspace.width, drawspace.height)
-			game:draw()
-			drawspace.tlfres.endRendering(backgroundRGB)
-		end
-	love.graphics.pop()
+	local drawspace = consts.drawspace
+	drawspace.tlfres.beginRendering(drawspace.width, drawspace.height)
+	game:draw()
+	drawspace.tlfres.endRendering(backgroundRGB)
 end
 
 function love.update(dt)
