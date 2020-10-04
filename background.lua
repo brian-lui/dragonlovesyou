@@ -16,8 +16,6 @@ local consts = require "/helpers/consts"
 local stage = require "stage"
 
 -------------------------------------------------------------------------------
------------------------------------- PLAIN ------------------------------------
--------------------------------------------------------------------------------
 local Plain = {IDNumber = 1}
 function Plain:init()
 	Pic:create{
@@ -40,12 +38,37 @@ end
 
 Plain = common.class("Plain", Plain)
 
+-------------------------------------------------------------------------------
+local Library = {IDNumber = 2}
+function Library:init()
+	Pic:create{
+		x = stage.width * 0.5,
+		y = stage.height * 0.5,
+		image = love.graphics.newImage('images/backgrounds/library.png'),
+		container = self,
+		name = "background",
+	}
+
+	consts.ID.backgroundParticle = 0
+end
+
+function Library:update(dt)
+end
+
+function Library:draw(params)
+	self.background:draw(params)
+end
+
+Library = common.class("Library", Library)
 
 
 -------------------------------------------------------------------------------
 local background = {}
 background.plain = Plain
+background.library = Library
 
+
+-------------------------------------------------------------------------------
 local bkList, total = {}, 0
 for k in pairs(background) do
 	bkList[#bkList+1] = k

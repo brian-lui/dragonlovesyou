@@ -6,6 +6,29 @@ specific. It uses a multithreaded image loader to improve performance.
 local love = _G.love
 local lily = require "/libraries/lily"
 
+local cardart = {
+	"idea", "magic", "sleepydragon",
+}
+
+local cardui = {
+	"beige", "beigetexture", "tealtexture", "title", "txtbox",
+}
+
+local gui = {
+	"actionicon", "actionbox", "activitiesframe", "activitiestxt", "blockback",
+	"blockframe", "blue", "canceltxt", "cloud", "coparent", "energyicon",
+	"finalize", "happyicon", "loveicon", "pink", "scheduleframe",
+	"scheduletxt", "statbar", "yellow",
+}
+
+local infocard = {
+	"back", "frame", "tape", "wellrested",
+}
+
+local infocardart = {
+	"wellrestedart",
+}
+
 local main = {
 	"mainlogo",
 }
@@ -18,11 +41,18 @@ local particles = {
 	"pow",
 }
 
+
+
 -- categories to create, in the form [key] = {category}
 -- assumes that key is the same as pathname
 -- e.g. buttons = buttons will create
 -- imageNames["buttons_" .. item] = "images/buttons/" .. item .. ".png"
 local categories = {
+	cardart = cardart,
+	cardui = cardui,
+	gui = gui,
+	infocard = infocard,
+	infocardart = infocardart,
 	main = main,
 	title = title,
 	particles = particles,
