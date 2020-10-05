@@ -13,13 +13,13 @@ local consts = require "/helpers/consts"
 local __NOP__ = function () end
 local game
 
-local osString = love.system.getOS()
 function love.load()
 	print("Debug folder is at: " .. love.filesystem.getSaveDirectory())
 	love.window.setTitle("Dragon loves you")
 	game = common.instance(require "game")
 
 	-- set resolution depending on OS
+	local osString = love.system.getOS()
 	if osString == "Windows" or osString == "OS X" or osString == "Linux" then
 		local windowWidth, windowHeight = love.window.getDesktopDimensions()
 		love.window.setMode(windowWidth / 2, windowHeight / 2, {resizable=true})
