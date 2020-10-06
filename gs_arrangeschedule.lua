@@ -32,7 +32,7 @@ function ArrangeSchedule:init()
 		name = "activitiesframe",
 		image = images.gui_activitiesframe,
 		endX = stage.width * 0.15,
-		endY = stage.height * 0.5,
+		endY = stage.height * 0.29,
 		imageIndex = -2,
 	})
 
@@ -40,7 +40,7 @@ function ArrangeSchedule:init()
 		name = "activitiestxt",
 		image = images.gui_activitiestxt,
 		endX = stage.width * 0.15,
-		endY = stage.height * 0.26,
+		endY = stage.height * 0.05,
 		imageIndex = -1,
 	})
 
@@ -48,14 +48,14 @@ function ArrangeSchedule:init()
 		name = "actionbox",
 		image = images.gui_actionbox,
 		endX = stage.width * 0.15,
-		endY = stage.height * 0.33,
+		endY = stage.height * 0.12,
 		imageIndex = 0,
 	})
 
 	ArrangeSchedule.createImage(self, {
 		name = "scheduleframe",
 		image = images.gui_scheduleframe,
-		endX = stage.width * 0.88,
+		endX = stage.width * 0.87,
 		endY = stage.height * 0.45,
 		imageIndex = -2,
 	})
@@ -63,79 +63,7 @@ function ArrangeSchedule:init()
 	ArrangeSchedule.createImage(self, {
 		name = "scheduletxt",
 		image = images.gui_scheduletxt,
-		endX = stage.width * 0.88,
-		endY = stage.height * 0.15,
-		imageIndex = -1,
-	})
-
-	ArrangeSchedule.createImage(self, {
-		name = "statbar",
-		image = images.gui_statbar,
-		endX = stage.width * 0.4,
-		endY = stage.height * 0.15,
-		imageIndex = -3,
-	})
-
-	ArrangeSchedule.createImage(self, {
-		name = "cloud",
-		image = images.gui_cloud,
-		endX = stage.width * 0.1,
-		endY = stage.height * 0.15,
-		imageIndex = -1,
-	})
-
-	ArrangeSchedule.createImage(self, {
-		name = "energyicon",
-		image = images.gui_energyicon,
-		endX = stage.width * 0.2,
-		endY = stage.height * 0.15,
-		imageIndex = -1,
-	})
-
-	ArrangeSchedule.createImage(self, {
-		name = "energyblockback",
-		image = images.gui_blockback,
-		endX = stage.width * 0.28,
-		endY = stage.height * 0.15,
-		imageIndex = -2,
-	})
-
-	ArrangeSchedule.createImage(self, {
-		name = "happyicon",
-		image = images.gui_happyicon,
-		endX = stage.width * 0.37,
-		endY = stage.height * 0.15,
-		imageIndex = -1,
-	})
-
-	ArrangeSchedule.createImage(self, {
-		name = "happyblockback",
-		image = images.gui_blockback,
-		endX = stage.width * 0.45,
-		endY = stage.height * 0.15,
-		imageIndex = -2,
-	})
-
-	ArrangeSchedule.createImage(self, {
-		name = "loveicon",
-		image = images.gui_loveicon,
-		endX = stage.width * 0.54,
-		endY = stage.height * 0.15,
-		imageIndex = -1,
-	})
-
-	ArrangeSchedule.createImage(self, {
-		name = "loveblockback",
-		image = images.gui_blockback,
-		endX = stage.width * 0.62,
-		endY = stage.height * 0.15,
-		imageIndex = -2,
-	})
-
-	ArrangeSchedule.createImage(self, {
-		name = "actionicon",
-		image = images.gui_actionicon,
-		endX = stage.width * 0.71,
+		endX = stage.width * 0.87,
 		endY = stage.height * 0.15,
 		imageIndex = -1,
 	})
@@ -143,17 +71,123 @@ function ArrangeSchedule:init()
 	ArrangeSchedule.createImage(self, {
 		name = "coparent",
 		image = images.gui_coparent,
-		endX = stage.width * 0.15,
-		endY = stage.height * 0.9,
+		endX = stage.width * 0.68,
+		endY = stage.height * 0.05,
 		imageIndex = 0,
 	})
 
 	ArrangeSchedule.createImage(self, {
 		name = "finalize",
-		image = images.gui_finalize,
-		endX = stage.width * 0.85,
-		endY = stage.height * 0.9,
+		image = images.gui_finalizetxt,
+		endX = stage.width * 0.88,
+		endY = stage.height * 0.05,
 		imageIndex = 0,
+	})
+
+	ArrangeSchedule.createImage(self, {
+		name = "moneyplusblock",
+		image = images.gui_stats_moneyplusblock,
+		endX = stage.width * 0.07,
+		endY = stage.height * 0.74,
+		imageIndex = -2,
+	})
+
+	ArrangeSchedule.createImage(self, {
+		name = "actionplusblock",
+		image = images.gui_stats_actionplusblock,
+		endX = stage.width * 0.07,
+		endY = stage.height * 0.79,
+		imageIndex = -2,
+	})
+
+	ArrangeSchedule.createImage(self, {
+		name = "energyback",
+		image = images.gui_stats_energyback,
+		endX = stage.width * 0.08,
+		endY = stage.height * 0.915,
+		imageIndex = -2,
+	})
+
+	ArrangeSchedule.createImage(self, {
+		name = "energyicon",
+		image = images.gui_stats_energyicon,
+		endX = stage.width * 0.03,
+		endY = stage.height * 0.87,
+		imageIndex = -1,
+	})
+
+	ArrangeSchedule.createImage(self, {
+		name = "happyicon",
+		image = images.gui_stats_happyicon,
+		endX = stage.width * 0.03,
+		endY = stage.height * 0.92,
+		imageIndex = -1,
+	})
+
+	ArrangeSchedule.createImage(self, {
+		name = "loveicon",
+		image = images.gui_stats_loveicon,
+		endX = stage.width * 0.03,
+		endY = stage.height * 0.97,
+		imageIndex = -1,
+	})
+
+	ArrangeSchedule.createImage(self, {
+		name = "energyblockback",
+		image = images.gui_stats_blockback,
+		endX = stage.width * 0.11,
+		endY = stage.height * 0.87,
+		imageIndex = -2,
+	})
+
+
+	ArrangeSchedule.createImage(self, {
+		name = "happyblockback",
+		image = images.gui_stats_blockback,
+		endX = stage.width * 0.11,
+		endY = stage.height * 0.92,
+		imageIndex = -2,
+	})
+
+
+	ArrangeSchedule.createImage(self, {
+		name = "loveblockback",
+		image = images.gui_stats_blockback,
+		endX = stage.width * 0.11,
+		endY = stage.height * 0.97,
+		imageIndex = -2,
+	})
+
+	ArrangeSchedule.createImage(self, {
+		name = "progressbookicon",
+		image = images.gui_progressbookicon,
+		endX = stage.width * 0.8,
+		endY = stage.height * 0.93,
+		imageIndex = -1,
+	})
+
+	ArrangeSchedule.createImage(self, {
+		name = "dragonmoonicon",
+		image = images.gui_dragonmoonicon,
+		endX = stage.width * 0.89,
+		endY = stage.height * 0.93,
+		imageIndex = -1,
+	})
+
+	ArrangeSchedule.createImage(self, {
+		name = "questionicon",
+		image = images.gui_questionicon,
+		endX = stage.width * 0.96,
+		endY = stage.height * 0.89,
+		imageIndex = -1,
+	})
+
+	ArrangeSchedule.createImage(self, {
+		name = "settingsicon",
+		image = images.gui_settingsicon,
+		endX = stage.width * 0.96,
+		endY = stage.height * 0.96,
+		imageIndex = -1,
 	})
 
 	ArrangeSchedule.currentBackground = common.instance(self.background.library, self)

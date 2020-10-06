@@ -14,11 +14,23 @@ local cardui = {
 	"beige", "beigetexture", "tealtexture", "title", "txtbox",
 }
 
+local dreams = {
+	"back", "card1", "card2", "dragondream", "personal",
+}
+
 local gui = {
-	"actionicon", "actionbox", "activitiesframe", "activitiestxt", "blockback",
-	"blockframe", "blue", "canceltxt", "cloud", "coparent", "energyicon",
-	"finalize", "happyicon", "loveicon", "pink", "scheduleframe",
-	"scheduletxt", "statbar", "yellow",
+	"actionbox", "activitiesframe", "activitiestxt", "canceltxt", "coparent",
+	"dragonmoonicon", "finalizetxt",  "progressbookicon", "progressbooktext",
+	"questionicon", "scheduleframe", "scheduletxt", "settingsicon",
+
+	"cardcloseup_box", "cardcloseup_screenoverlay",
+
+	"progressbook_bar", "progressbook_infoscreen",
+
+	"stats_actionicon", "stats_actionplusblock", "stats_blockback",
+	"stats_blockframe", "stats_blue", "stats_energyback", "stats_energyicon",
+	"stats_happyicon", "stats_loveicon", "stats_moneyplusblock",
+	"stats_pink", "stats_yellow", 
 }
 
 local infocard = {
@@ -50,6 +62,7 @@ local particles = {
 local categories = {
 	cardart = cardart,
 	cardui = cardui,
+	dreams = dreams,
 	gui = gui,
 	infocard = infocard,
 	infocardart = infocardart,
