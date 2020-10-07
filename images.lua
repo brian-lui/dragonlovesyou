@@ -21,16 +21,16 @@ local dreams = {
 local gui = {
 	"actionbox", "activitiesframe", "activitiestxt", "canceltxt", "coparent",
 	"dragonmoonicon", "finalizetxt",  "progressbookicon", "progressbooktext",
-	"questionicon", "scheduleframe", "scheduletxt", "settingsicon",
+	"questionicon", "scheduleframe", "scheduletxt", "screendark", "settingsicon",
 
-	"cardcloseup_box", "cardcloseup_screenoverlay",
+	"cardcloseup_box",
 
 	"progressbook_bar", "progressbook_infoscreen",
 
 	"stats_actionicon", "stats_actionplusblock", "stats_blockback",
 	"stats_blockframe", "stats_blue", "stats_energyback", "stats_energyicon",
 	"stats_happyicon", "stats_loveicon", "stats_moneyplusblock",
-	"stats_pink", "stats_yellow", 
+	"stats_pink", "stats_yellow",
 }
 
 local infocard = {

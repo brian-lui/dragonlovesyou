@@ -29,11 +29,20 @@ function ArrangeSchedule:init()
 	}
 
 	ArrangeSchedule.createImage(self, {
+		name = "screendark",
+		image = images.gui_screendark,
+		endX = stage.width * 0.5,
+		endY = stage.height * 0.5,
+		endTransparency = 0,
+		imageIndex = 0,
+	})
+
+	ArrangeSchedule.createImage(self, {
 		name = "activitiesframe",
 		image = images.gui_activitiesframe,
 		endX = stage.width * 0.15,
 		endY = stage.height * 0.29,
-		imageIndex = -2,
+		imageIndex = -3,
 	})
 
 	ArrangeSchedule.createImage(self, {
@@ -41,7 +50,7 @@ function ArrangeSchedule:init()
 		image = images.gui_activitiestxt,
 		endX = stage.width * 0.15,
 		endY = stage.height * 0.05,
-		imageIndex = -1,
+		imageIndex = -2,
 	})
 
 	ArrangeSchedule.createImage(self, {
@@ -49,7 +58,7 @@ function ArrangeSchedule:init()
 		image = images.gui_actionbox,
 		endX = stage.width * 0.15,
 		endY = stage.height * 0.12,
-		imageIndex = 0,
+		imageIndex = -1,
 	})
 
 	ArrangeSchedule.createImage(self, {
@@ -57,7 +66,7 @@ function ArrangeSchedule:init()
 		image = images.gui_scheduleframe,
 		endX = stage.width * 0.87,
 		endY = stage.height * 0.45,
-		imageIndex = -2,
+		imageIndex = -3,
 	})
 
 	ArrangeSchedule.createImage(self, {
@@ -65,7 +74,7 @@ function ArrangeSchedule:init()
 		image = images.gui_scheduletxt,
 		endX = stage.width * 0.87,
 		endY = stage.height * 0.15,
-		imageIndex = -1,
+		imageIndex = -2,
 	})
 
 	ArrangeSchedule.createImage(self, {
@@ -73,7 +82,7 @@ function ArrangeSchedule:init()
 		image = images.gui_coparent,
 		endX = stage.width * 0.68,
 		endY = stage.height * 0.05,
-		imageIndex = 0,
+		imageIndex = -1,
 	})
 
 	ArrangeSchedule.createImage(self, {
@@ -81,7 +90,7 @@ function ArrangeSchedule:init()
 		image = images.gui_finalizetxt,
 		endX = stage.width * 0.88,
 		endY = stage.height * 0.05,
-		imageIndex = 0,
+		imageIndex = -1,
 	})
 
 	ArrangeSchedule.createImage(self, {
