@@ -34,16 +34,15 @@ consts.ID = {
 }
 consts.ID:reset()
 
+
 consts.FONT = {
-	STANDARD_REGULAR = love.graphics.newFont('/fonts/anonymous.ttf', 20),
-	STANDARD_MEDIUM = love.graphics.newFont('/fonts/anonymous.ttf', 30),
-	STANDARD_BIGGER = love.graphics.newFont('/fonts/anonymous.ttf', 40),
-	CARTOON_SMALL = love.graphics.newFont('/fonts/BD_Cartoon_Shout.ttf', 30),
-	CARTOON_MEDIUM = love.graphics.newFont('/fonts/BD_Cartoon_Shout.ttf', 60),
-	CARTOON_BIG = love.graphics.newFont('/fonts/BD_Cartoon_Shout.ttf', 90),
+	SMALL = love.graphics.newFont('/fonts/regular.ttf', 15),
+	MEDIUM = love.graphics.newFont('/fonts/regular.ttf', 30),
+	BIG = love.graphics.newFont('/fonts/regular.ttf', 40),
 }
-consts.FONT.CARTOON_SMALL_ROWADJUST = -math.ceil(consts.FONT.CARTOON_SMALL:getHeight() * 0.5)
-consts.FONT.CARTOON_MEDIUM_ROWADJUST = -math.ceil(consts.FONT.CARTOON_MEDIUM:getHeight() * 0.5)
-consts.FONT.CARTOON_BIG_ROWADJUST = -math.ceil(consts.FONT.CARTOON_BIG:getHeight() * 0.5)
+
+consts.FONT.SMALL_ROWADJUST = -math.ceil(consts.FONT.SMALL:getHeight() * 0.5)
+consts.FONT.MEDIUM_ROWADJUST = -math.ceil(consts.FONT.MEDIUM:getHeight() * 0.5)
+consts.FONT.BIG_ROWADJUST = -math.ceil(consts.FONT.BIG:getHeight() * 0.5)
 
 return consts
