@@ -36,9 +36,9 @@ consts.ID:reset()
 
 
 consts.FONT = {
-	SMALL = love.graphics.newFont('/fonts/regular.ttf', 15),
-	MEDIUM = love.graphics.newFont('/fonts/regular.ttf', 30),
-	BIG = love.graphics.newFont('/fonts/regular.ttf', 40),
+	SMALL = love.graphics.newFont('/fonts/regular.ttf', 30),
+	MEDIUM = love.graphics.newFont('/fonts/regular.ttf', 60),
+	BIG = love.graphics.newFont('/fonts/regular.ttf', 80),
 }
 
 consts.FONT.SMALL_ROWADJUST = -math.ceil(consts.FONT.SMALL:getHeight() * 0.5)

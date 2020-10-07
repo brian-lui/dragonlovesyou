@@ -251,6 +251,59 @@ function Game:_createImage(gamestate, params)
 	return button
 end
 
+--[[ creates an object that displays text
+	mandatory parameters: name, font, text, x, y
+	optional parameters: RGBColor, imageIndex, transparency ...
+--]]
+function Game:_createText(gamestate, params)
+	params = params or {}
+	assert(params.name, "No object name received!")
+	assert(consts.FONT[params.font], "No font received or invalid font name!")
+	assert(params.text, "No text received!")
+	assert(params.x and params.y, "No x-value or y-value received!")
+
+	local text = {
+		container = gamestate.ui.text,
+		name = params.name,
+		font = consts.FONT[params.font],
+		text = params.text,
+		x = params.x,
+		y = params.y,
+		color = params.RGBColor or {0, 0, 0},
+		imageIndex = params.imageIndex or 0,
+		transparency = params.transparency or 1,
+	}
+
+	text.draw = function(_self)
+		if _self.transparency == 0 then return end
+
+		local RGBT = {
+			_self.color[1],
+			_self.color[2],
+			_self.color[3],
+			_self.transparency,
+		}
+
+		love.graphics.push("all")
+			love.graphics.setFont(_self.font)
+			love.graphics.setColor(RGBT)
+			love.graphics.print(_self.text, _self.x, _self.y)
+		love.graphics.pop()
+	end
+
+	text.update = function(_self) end
+
+	text.remove = function(_self)
+		_self.container[_self.name] = nil
+	end
+
+	gamestate.ui.text[text.name] = text
+
+	return text
+end
+
+
+
 local pointIsInRect = require "/helpers/utilities".pointIsInRect
 
 --default controllerPressed function if not specified by a sub-state

@@ -19,6 +19,11 @@ function ArrangeSchedule:createImage(params)
 	return self:_createImage(ArrangeSchedule, params)
 end
 
+function ArrangeSchedule:createText(params)
+	return self:_createText(ArrangeSchedule, params)
+end
+
+
 -- After the initial tween, we keep the icons here if returning to ArrangeSchedule screen
 -- So we put it in init(), not enter() like in the other states
 function ArrangeSchedule:init()
@@ -26,6 +31,7 @@ function ArrangeSchedule:init()
 		clickable = {},
 		draggable = {},
 		static = {},
+		text = {},
 	}
 
 	ArrangeSchedule.createImage(self, {
@@ -167,12 +173,18 @@ function ArrangeSchedule:init()
 		imageIndex = -2,
 	})
 
-	ArrangeSchedule.createImage(self, {
+	ArrangeSchedule.createButton(self, {
 		name = "progressbookicon",
 		image = images.gui_progressbookicon,
+		imagePushed = images.gui_progressbookicon,
 		endX = stage.width * 0.8,
 		endY = stage.height * 0.93,
 		imageIndex = -1,
+		action = function()
+			if not ArrangeSchedule.shownProgressBook then
+				ArrangeSchedule:_showProgressBook()
+			end
+		end,
 	})
 
 	ArrangeSchedule.createImage(self, {
@@ -199,6 +211,32 @@ function ArrangeSchedule:init()
 		imageIndex = -1,
 	})
 
+
+	ArrangeSchedule.createButton(self, {
+		name = "progressbook_infoscreen",
+		image = images.gui_progressbook_infoscreen,
+		imagePushed = images.gui_progressbook_infoscreen,
+		endX = stage.width * 0.5,
+		endY = stage.height * 0.5,
+		endTransparency = 0,
+		imageIndex = 1,
+		action = function()
+			if ArrangeSchedule.shownProgressBook then
+				ArrangeSchedule:_hideProgressBook()
+			end
+		end,
+	})
+
+	ArrangeSchedule.createText(self, {
+		name = "progressbook_dragonability",
+		font = "MEDIUM",
+		text = "DRAGON ABILITY",
+		x = stage.width * 0.2,
+		y = stage.width * 0.2,
+		imageIndex = 2,
+		transparency = 0,
+	})
+
 	ArrangeSchedule.currentBackground = common.instance(self.background.library, self)
 end
 
@@ -208,7 +246,27 @@ function ArrangeSchedule:enter()
 		self.sound:stopBGM()
 		self.queue:add(45, self.sound.newBGM, self.sound, "mainBGM", true)
 	end
+
+	self.shownProgressBook = false
 end
+
+function ArrangeSchedule:_showProgressBook()
+	self.shownProgressBook = true
+
+	self.ui.static.screendark.transparency = 1
+	self.ui.clickable.progressbook_infoscreen.transparency = 1
+	for k, v in pairs(self.ui.text) do print(k, v) end
+	self.ui.text.progressbook_dragonability.transparency = 1
+end
+
+function ArrangeSchedule:_hideProgressBook()
+	self.shownProgressBook = false
+
+	self.ui.static.screendark.transparency = 0
+	self.ui.clickable.progressbook_infoscreen.transparency = 0
+	self.ui.text.progressbook_dragonability.transparency = 0
+end
+
 
 function ArrangeSchedule:update(dt)
 	ArrangeSchedule.currentBackground:update(dt)
@@ -240,6 +298,12 @@ function ArrangeSchedule:draw()
 				v:draw()
 			end
 		end
+
+		for _, v in pairs(ArrangeSchedule.ui.text) do
+			if v.imageIndex == i then
+				v:draw()
+			end
+		end		
 	end
 
 	self.particles:draw()
