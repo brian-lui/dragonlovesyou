@@ -122,8 +122,8 @@ end
 --[[ create a clickable object
 	mandatory parameters: name, image, imagePushed, endX, endY, action
 	optional parameters: duration, startTransparency, endTransparency,
-		startX, startY, easing, exit, pushed, pushedSFX, released,
-		releasedSFX, forceMaxAlpha, imageIndex, category
+		startX, startY, easing, exit, pushed, pushedSFX, released, startScaling,
+		endScaling, releasedSFX, forceMaxAlpha, imageIndex, category
 --]]
 function Game:_createButton(gamestate, params)
 	params = params or {}
@@ -137,6 +137,7 @@ function Game:_createButton(gamestate, params)
 		x = params.startX or params.endX,
 		y = params.startY or params.endY,
 		transparency = params.startTransparency or 1,
+		scaling = params.startScaling or 1,
 		image = params.image,
 		imageIndex = params.imageIndex,
 		container = params.container or gamestate.ui.clickable,
@@ -150,6 +151,7 @@ function Game:_createButton(gamestate, params)
 		x = params.endX,
 		y = params.endY,
 		transparency = params.endTransparency or 1,
+		scaling = params.endScaling or 1,
 		easing = params.easing or "linear",
 		exitFunc = params.exitFunc,
 	}
@@ -173,7 +175,7 @@ end
 --[[ creates an object that can be dragged and longpressed
 	mandatory parameters: name, image, imagePressed, endX, endY
 	optional parameters: duration, startTransparency, endTransparency,
-		startX, startY, easing, exit, pushed, pushedSFX, released,
+		startX, startY, easing, exit, pushed, pushedSFX, startScaling, endScaling,
 		releasedSFX, forceMaxAlpha, imageIndex, longpressed, category
 --]]
 function Game:_createDraggable(gamestate, params)
@@ -188,6 +190,7 @@ function Game:_createDraggable(gamestate, params)
 		x = params.startX or params.endX,
 		y = params.startY or params.endY,
 		transparency = params.startTransparency or 1,
+		scaling = params.startScaling or 1,
 		image = params.image,
 		imageIndex = params.imageIndex,
 		container = params.container or gamestate.ui.draggable,
@@ -201,6 +204,7 @@ function Game:_createDraggable(gamestate, params)
 		x = params.endX,
 		y = params.endY,
 		transparency = params.endTransparency or 1,
+		scaling = params.endScaling or 1,
 		easing = params.easing or "linear",
 		exitFunc = params.exitFunc,
 	}
