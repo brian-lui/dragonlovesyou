@@ -293,27 +293,11 @@ function ArrangeSchedule:draw()
 	local indexes = {-3, -2, -1, 0, 1, 2}
 
 	for _, i in ipairs(indexes) do
-		for _, v in spairs(ArrangeSchedule.ui.static) do
-			if v.imageIndex == i then
-				v:draw()
-			end
-		end
-
-		for _, v in spairs(ArrangeSchedule.ui.clickable) do
-			if v.imageIndex == i then
-				v:draw()
-			end
-		end
-
-		for _, v in spairs(ArrangeSchedule.ui.draggable) do
-			if v.imageIndex == i then
-				v:draw()
-			end
-		end
-
-		for _, v in pairs(ArrangeSchedule.ui.text) do
-			if v.imageIndex == i then
-				v:draw()
+		for _, tbl in spairs(ArrangeSchedule.ui) do
+			for _, v in spairs(tbl) do
+				if v.imageIndex == i then
+					v:draw()
+				end
 			end
 		end
 	end
