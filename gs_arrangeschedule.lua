@@ -268,6 +268,30 @@ local imageData = {
 
 local buttonData = {
 	{
+		name = "dragongoal",
+		image = images.dreams_card2,
+		imagePushed = images.dreams_card2,
+		endX = stage.width * 0.38,
+		endY = stage.height * 0.07,
+		endScaling = 0.2,
+		imageIndex = -1,
+		action = function()
+			print("test")
+		end,
+	},
+	{
+		name = "dragondream",
+		image = images.dreams_card1,
+		imagePushed = images.dreams_card1,
+		endX = stage.width * 0.5,
+		endY = stage.height * 0.07,
+		endScaling = 0.2,
+		imageIndex = -1,
+		action = function()
+			print("test")
+		end,
+	},
+	{
 		name = "progressbookicon",
 		image = images.gui_progressbookicon,
 		imagePushed = images.gui_progressbookicon,
