@@ -165,6 +165,105 @@ local imageData = {
 		endY = stage.height * 0.96,
 		imageIndex = -1,
 	},
+
+	{
+		name = "pb_bar_attack",
+		image = images.gui_progressbook_bar,
+		endX = stage.width * 0.25,
+		endY = stage.height * (0.27 + 0.056 * 0),
+		imageIndex = 1,
+		category = "progressbook",
+	},
+	{
+		name = "pb_bar_defense",
+		image = images.gui_progressbook_bar,
+		endX = stage.width * 0.25,
+		endY = stage.height * (0.27 + 0.056 * 1),
+		imageIndex = 1,
+		category = "progressbook",
+	},
+	{
+		name = "pb_bar_flight",
+		image = images.gui_progressbook_bar,
+		endX = stage.width * 0.25,
+		endY = stage.height * (0.27 + 0.056 * 2),
+		imageIndex = 1,
+		category = "progressbook",
+	},
+
+	{
+		name = "pb_bar_fire",
+		image = images.gui_progressbook_bar,
+		endX = stage.width * 0.25,
+		endY = stage.height * (0.54 + 0.056 * 0),
+		imageIndex = 1,
+		category = "progressbook",
+	},
+	{
+		name = "pb_bar_water",
+		image = images.gui_progressbook_bar,
+		endX = stage.width * 0.25,
+		endY = stage.height * (0.54 + 0.056 * 1),
+		imageIndex = 1,
+		category = "progressbook",
+	},
+	{
+		name = "pb_bar_earth",
+		image = images.gui_progressbook_bar,
+		endX = stage.width * 0.25,
+		endY = stage.height * (0.54 + 0.056 * 2),
+		imageIndex = 1,
+		category = "progressbook",
+	},
+	{
+		name = "pb_bar_ice",
+		image = images.gui_progressbook_bar,
+		endX = stage.width * 0.25,
+		endY = stage.height * (0.54 + 0.056 * 3),
+		imageIndex = 1,
+		category = "progressbook",
+	},
+	{
+		name = "pb_bar_light",
+		image = images.gui_progressbook_bar,
+		endX = stage.width * 0.25,
+		endY = stage.height * (0.54 + 0.056 * 4),
+		imageIndex = 1,
+		category = "progressbook",
+	},
+	{
+		name = "pb_bar_dark",
+		image = images.gui_progressbook_bar,
+		endX = stage.width * 0.25,
+		endY = stage.height * (0.54 + 0.056 * 5),
+		imageIndex = 1,
+		category = "progressbook",
+	},
+
+	{
+		name = "pb_bar_world",
+		image = images.gui_progressbook_bar,
+		endX = stage.width * 0.6,
+		endY = stage.height * (0.27 + 0.056 * 0),
+		imageIndex = 1,
+		category = "progressbook",
+	},
+	{
+		name = "pb_bar_science",
+		image = images.gui_progressbook_bar,
+		endX = stage.width * 0.6,
+		endY = stage.height * (0.27 + 0.056 * 1),
+		imageIndex = 1,
+		category = "progressbook",
+	},
+	{
+		name = "pb_bar_math",
+		image = images.gui_progressbook_bar,
+		endX = stage.width * 0.6,
+		endY = stage.height * (0.27 + 0.056 * 2),
+		imageIndex = 1,
+		category = "progressbook",
+	},
 }
 
 local buttonData = {
@@ -187,7 +286,6 @@ local buttonData = {
 		imagePushed = images.gui_progressbook_infoscreen,
 		endX = stage.width * 0.5,
 		endY = stage.height * 0.5,
-		endTransparency = 0,
 		imageIndex = 1,
 		action = function()
 			if ArrangeSchedule.shownProgressBook then
@@ -206,9 +304,27 @@ local textData = {
 		x = stage.width * 0.05,
 		y = stage.height * 0.18,
 		imageIndex = 2,
-		transparency = 0,
 		category = "progressbook",
 	},
+	{
+		name = "pb_magic",
+		font = "BIG",
+		text = "MAGIC",
+		x = stage.width * 0.05,
+		y = stage.height * 0.45,
+		imageIndex = 2,
+		category = "progressbook",
+	},
+	{
+		name = "pb_knowledge",
+		font = "BIG",
+		text = "KNOWLEDGE",
+		x = stage.width * 0.4,
+		y = stage.height * 0.18,
+		imageIndex = 2,
+		category = "progressbook",
+	},
+
 	{
 		name = "pb_dragonability_substats",
 		font = "MEDIUM",
@@ -216,9 +332,26 @@ local textData = {
 		x = stage.width * 0.05,
 		y = stage.height * 0.25,
 		imageIndex = 2,
-		transparency = 0,
 		category = "progressbook",
-	}
+	},
+	{
+		name = "pb_magic_substats",
+		font = "MEDIUM",
+		text = "FIRE\nWATER\nEARTH\nICE\nLIGHT\nDARK",
+		x = stage.width * 0.05,
+		y = stage.height * 0.52,
+		imageIndex = 2,
+		category = "progressbook",
+	},
+	{
+		name = "pb_knowledge_substats",
+		font = "MEDIUM",
+		text = "WORLD\nSCIENCE\nMATH",
+		x = stage.width * 0.4,
+		y = stage.height * 0.25,
+		imageIndex = 2,
+		category = "progressbook",
+	},
 }
 
 
@@ -253,6 +386,12 @@ function ArrangeSchedule:enter()
 	end
 
 	self.shownProgressBook = false
+
+	for _, tbl in pairs(ArrangeSchedule.ui) do
+		for _, t in pairs(tbl) do
+			if t.category == "progressbook" then t.transparency = 0 end
+		end
+	end
 end
 
 function ArrangeSchedule:_showProgressBook()
