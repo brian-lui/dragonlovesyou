@@ -167,6 +167,7 @@ function Game:_createButton(gamestate, params)
 	end
 
 	button.action = params.action -- when clicked/pressed
+	button.gamestate = gamestate -- for action context
 
 	return button
 end
@@ -296,7 +297,8 @@ function Game:_createText(gamestate, params)
 		love.graphics.push("all")
 			love.graphics.setFont(_self.font)
 			love.graphics.setColor(RGBT)
-			love.graphics.print(_self.text, _self.x, _self.y)
+			love.graphics.printf(_self.text, _self.x, _self.y, math.huge, "left")
+			-- love.graphics.printf( text, x, y, limit, align, r, sx, sy, ox, oy, kx, ky )
 		love.graphics.pop()
 	end
 
@@ -337,7 +339,7 @@ function Game:_controllerReleased(x, y, gamestate)
 
 			if pointIsInRect(x, y, button:getRect())
 			and self.controls.clicked == button then
-				button.action()
+				button.action(button.gamestate)
 				break
 			end
 		end
