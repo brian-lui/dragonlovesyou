@@ -23,157 +23,152 @@ function ArrangeSchedule:createText(params)
 	return self:_createText(ArrangeSchedule, params)
 end
 
-
--- After the initial tween, we keep the icons here if returning to ArrangeSchedule screen
--- So we put it in init(), not enter() like in the other states
-function ArrangeSchedule:init()
-	ArrangeSchedule.ui = {
-		clickable = {},
-		draggable = {},
-		static = {},
-		text = {},
-	}
-
-	ArrangeSchedule.createImage(self, {
+local imageData = {
+	{
 		name = "screendark",
 		image = images.gui_screendark,
 		endX = stage.width * 0.5,
 		endY = stage.height * 0.5,
 		endTransparency = 0,
 		imageIndex = 0,
-	})
-
-	ArrangeSchedule.createImage(self, {
+	},
+	{
 		name = "activitiesframe",
 		image = images.gui_activitiesframe,
 		endX = stage.width * 0.15,
 		endY = stage.height * 0.29,
 		imageIndex = -3,
-	})
-
-	ArrangeSchedule.createImage(self, {
+	},
+	{
 		name = "activitiestxt",
 		image = images.gui_activitiestxt,
 		endX = stage.width * 0.15,
 		endY = stage.height * 0.05,
 		imageIndex = -2,
-	})
-
-	ArrangeSchedule.createImage(self, {
+	},
+	{
 		name = "actionbox",
 		image = images.gui_actionbox,
 		endX = stage.width * 0.15,
 		endY = stage.height * 0.12,
 		imageIndex = -1,
-	})
-
-	ArrangeSchedule.createImage(self, {
+	},
+	{
 		name = "scheduleframe",
 		image = images.gui_scheduleframe,
 		endX = stage.width * 0.87,
 		endY = stage.height * 0.45,
 		imageIndex = -3,
-	})
-
-	ArrangeSchedule.createImage(self, {
+	},
+	{
 		name = "scheduletxt",
 		image = images.gui_scheduletxt,
 		endX = stage.width * 0.87,
 		endY = stage.height * 0.15,
 		imageIndex = -2,
-	})
-
-	ArrangeSchedule.createImage(self, {
+	},
+	{
 		name = "coparent",
 		image = images.gui_coparent,
 		endX = stage.width * 0.68,
 		endY = stage.height * 0.05,
 		imageIndex = -1,
-	})
-
-	ArrangeSchedule.createImage(self, {
+	},
+	{
 		name = "finalize",
 		image = images.gui_finalizetxt,
 		endX = stage.width * 0.88,
 		endY = stage.height * 0.05,
 		imageIndex = -1,
-	})
-
-	ArrangeSchedule.createImage(self, {
+	},
+	{
 		name = "moneyplusblock",
 		image = images.gui_stats_moneyplusblock,
 		endX = stage.width * 0.07,
 		endY = stage.height * 0.74,
 		imageIndex = -2,
-	})
-
-	ArrangeSchedule.createImage(self, {
+	},
+	{
 		name = "actionplusblock",
 		image = images.gui_stats_actionplusblock,
 		endX = stage.width * 0.07,
 		endY = stage.height * 0.79,
 		imageIndex = -2,
-	})
-
-	ArrangeSchedule.createImage(self, {
+	},
+	{
 		name = "energyback",
 		image = images.gui_stats_energyback,
 		endX = stage.width * 0.08,
 		endY = stage.height * 0.915,
 		imageIndex = -2,
-	})
-
-	ArrangeSchedule.createImage(self, {
+	},
+	{
 		name = "energyicon",
 		image = images.gui_stats_energyicon,
 		endX = stage.width * 0.03,
 		endY = stage.height * 0.87,
 		imageIndex = -1,
-	})
-
-	ArrangeSchedule.createImage(self, {
+	},
+	{
 		name = "happyicon",
 		image = images.gui_stats_happyicon,
 		endX = stage.width * 0.03,
 		endY = stage.height * 0.92,
 		imageIndex = -1,
-	})
-
-	ArrangeSchedule.createImage(self, {
+	},
+	{
 		name = "loveicon",
 		image = images.gui_stats_loveicon,
 		endX = stage.width * 0.03,
 		endY = stage.height * 0.97,
 		imageIndex = -1,
-	})
-
-	ArrangeSchedule.createImage(self, {
+	},
+	{
 		name = "energyblockback",
 		image = images.gui_stats_blockback,
 		endX = stage.width * 0.11,
 		endY = stage.height * 0.87,
 		imageIndex = -2,
-	})
-
-
-	ArrangeSchedule.createImage(self, {
+	},
+	{
 		name = "happyblockback",
 		image = images.gui_stats_blockback,
 		endX = stage.width * 0.11,
 		endY = stage.height * 0.92,
 		imageIndex = -2,
-	})
-
-
-	ArrangeSchedule.createImage(self, {
+	},
+	{
 		name = "loveblockback",
 		image = images.gui_stats_blockback,
 		endX = stage.width * 0.11,
 		endY = stage.height * 0.97,
 		imageIndex = -2,
-	})
+	},
+	{
+		name = "dragonmoonicon",
+		image = images.gui_dragonmoonicon,
+		endX = stage.width * 0.89,
+		endY = stage.height * 0.93,
+		imageIndex = -1,
+	},
+	{
+		name = "questionicon",
+		image = images.gui_questionicon,
+		endX = stage.width * 0.96,
+		endY = stage.height * 0.89,
+		imageIndex = -1,
+	},
+	{
+		name = "settingsicon",
+		image = images.gui_settingsicon,
+		endX = stage.width * 0.96,
+		endY = stage.height * 0.96,
+		imageIndex = -1,
+	},
+}
 
-	ArrangeSchedule.createButton(self, {
+local buttonData = {
+	{
 		name = "progressbookicon",
 		image = images.gui_progressbookicon,
 		imagePushed = images.gui_progressbookicon,
@@ -185,34 +180,8 @@ function ArrangeSchedule:init()
 				ArrangeSchedule:_showProgressBook()
 			end
 		end,
-	})
-
-	ArrangeSchedule.createImage(self, {
-		name = "dragonmoonicon",
-		image = images.gui_dragonmoonicon,
-		endX = stage.width * 0.89,
-		endY = stage.height * 0.93,
-		imageIndex = -1,
-	})
-
-	ArrangeSchedule.createImage(self, {
-		name = "questionicon",
-		image = images.gui_questionicon,
-		endX = stage.width * 0.96,
-		endY = stage.height * 0.89,
-		imageIndex = -1,
-	})
-
-	ArrangeSchedule.createImage(self, {
-		name = "settingsicon",
-		image = images.gui_settingsicon,
-		endX = stage.width * 0.96,
-		endY = stage.height * 0.96,
-		imageIndex = -1,
-	})
-
-
-	ArrangeSchedule.createButton(self, {
+	},
+	{
 		name = "progressbook_infoscreen",
 		image = images.gui_progressbook_infoscreen,
 		imagePushed = images.gui_progressbook_infoscreen,
@@ -225,9 +194,11 @@ function ArrangeSchedule:init()
 				ArrangeSchedule:_hideProgressBook()
 			end
 		end,
-	})
+	},
+}
 
-	ArrangeSchedule.createText(self, {
+local textData = {
+	{
 		name = "progressbook_dragonability",
 		font = "MEDIUM",
 		text = "DRAGON ABILITY",
@@ -235,7 +206,29 @@ function ArrangeSchedule:init()
 		y = stage.width * 0.2,
 		imageIndex = 2,
 		transparency = 0,
-	})
+	}
+}
+
+
+function ArrangeSchedule:init()
+	ArrangeSchedule.ui = {
+		clickable = {},
+		draggable = {},
+		static = {},
+		text = {},
+	}
+
+	for _, data in pairs(imageData) do
+		ArrangeSchedule.createImage(self, data)
+	end
+
+	for _, data in pairs(buttonData) do
+		ArrangeSchedule.createButton(self, data)
+	end
+
+	for _, data in pairs(textData) do
+		ArrangeSchedule.createText(self, data)
+	end
 
 	ArrangeSchedule.currentBackground = common.instance(self.background.library, self)
 end
@@ -255,7 +248,6 @@ function ArrangeSchedule:_showProgressBook()
 
 	self.ui.static.screendark.transparency = 1
 	self.ui.clickable.progressbook_infoscreen.transparency = 1
-	for k, v in pairs(self.ui.text) do print(k, v) end
 	self.ui.text.progressbook_dragonability.transparency = 1
 end
 
