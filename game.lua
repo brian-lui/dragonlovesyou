@@ -123,7 +123,7 @@ end
 	mandatory parameters: name, image, imagePushed, endX, endY, action
 	optional parameters: duration, startTransparency, endTransparency,
 		startX, startY, easing, exit, pushed, pushedSFX, released,
-		releasedSFX, forceMaxAlpha, imageIndex
+		releasedSFX, forceMaxAlpha, imageIndex, category
 --]]
 function Game:_createButton(gamestate, params)
 	params = params or {}
@@ -142,6 +142,7 @@ function Game:_createButton(gamestate, params)
 		container = params.container or gamestate.ui.clickable,
 		forceMaxAlpha = params.forceMaxAlpha,
 		sound = self.sound,
+		category = params.category,
 	}
 
 	button:change{
@@ -173,7 +174,7 @@ end
 	mandatory parameters: name, image, imagePressed, endX, endY
 	optional parameters: duration, startTransparency, endTransparency,
 		startX, startY, easing, exit, pushed, pushedSFX, released,
-		releasedSFX, forceMaxAlpha, imageIndex, longpressed,
+		releasedSFX, forceMaxAlpha, imageIndex, longpressed, category
 --]]
 function Game:_createDraggable(gamestate, params)
 	params = params or {}
@@ -192,6 +193,7 @@ function Game:_createDraggable(gamestate, params)
 		container = params.container or gamestate.ui.draggable,
 		forceMaxAlpha = params.forceMaxAlpha,
 		sound = self.sound,
+		category = params.category,
 	}
 
 	draggable:change{
@@ -218,7 +220,8 @@ end
 	mandatory parameters: name, image, endX, endY
 	optional parameters: duration, startTransparency, endTransparency,
 		startX, startY, easing, remove, exitFunc, forceMaxAlpha,
-		startScaling, endScaling, container, counter, flipH, imageIndex
+		startScaling, endScaling, container, counter, flipH, imageIndex,
+		category
 --]]
 function Game:_createImage(gamestate, params)
 	params = params or {}
@@ -236,6 +239,7 @@ function Game:_createImage(gamestate, params)
 		container = params.container or gamestate.ui.static,
 		forceMaxAlpha = params.forceMaxAlpha,
 		flipH = params.flipH,
+		category = params.category,
 	}
 
 	button:change{
@@ -253,7 +257,7 @@ end
 
 --[[ creates an object that displays text
 	mandatory parameters: name, font, text, x, y
-	optional parameters: RGBColor, imageIndex, transparency ...
+	optional parameters: RGBColor, imageIndex, transparency, category
 --]]
 function Game:_createText(gamestate, params)
 	params = params or {}
@@ -272,6 +276,7 @@ function Game:_createText(gamestate, params)
 		color = params.RGBColor or {0, 0, 0},
 		imageIndex = params.imageIndex or 0,
 		transparency = params.transparency or 1,
+		category = params.category,
 	}
 
 	text.draw = function(_self)

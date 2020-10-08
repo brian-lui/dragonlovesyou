@@ -182,7 +182,7 @@ local buttonData = {
 		end,
 	},
 	{
-		name = "progressbook_infoscreen",
+		name = "pb_infoscreen",
 		image = images.gui_progressbook_infoscreen,
 		imagePushed = images.gui_progressbook_infoscreen,
 		endX = stage.width * 0.5,
@@ -194,18 +194,30 @@ local buttonData = {
 				ArrangeSchedule:_hideProgressBook()
 			end
 		end,
+		category = "progressbook",
 	},
 }
 
 local textData = {
 	{
-		name = "progressbook_dragonability",
-		font = "MEDIUM",
+		name = "pb_dragonability",
+		font = "BIG",
 		text = "DRAGON ABILITY",
-		x = stage.width * 0.2,
-		y = stage.width * 0.2,
+		x = stage.width * 0.05,
+		y = stage.height * 0.18,
 		imageIndex = 2,
 		transparency = 0,
+		category = "progressbook",
+	},
+	{
+		name = "pb_dragonability_substats",
+		font = "MEDIUM",
+		text = "ATTACK\nDEFENSE\nFLIGHT",
+		x = stage.width * 0.05,
+		y = stage.height * 0.25,
+		imageIndex = 2,
+		transparency = 0,
+		category = "progressbook",
 	}
 }
 
@@ -247,16 +259,24 @@ function ArrangeSchedule:_showProgressBook()
 	self.shownProgressBook = true
 
 	self.ui.static.screendark.transparency = 1
-	self.ui.clickable.progressbook_infoscreen.transparency = 1
-	self.ui.text.progressbook_dragonability.transparency = 1
+
+	for _, tbl in pairs(self.ui) do
+		for _, t in pairs(tbl) do
+			if t.category == "progressbook" then t.transparency = 1 end
+		end
+	end
 end
 
 function ArrangeSchedule:_hideProgressBook()
 	self.shownProgressBook = false
 
 	self.ui.static.screendark.transparency = 0
-	self.ui.clickable.progressbook_infoscreen.transparency = 0
-	self.ui.text.progressbook_dragonability.transparency = 0
+
+	for _, tbl in pairs(self.ui) do
+		for _, t in pairs(tbl) do
+			if t.category == "progressbook" then t.transparency = 0 end
+		end
+	end
 end
 
 
@@ -295,7 +315,7 @@ function ArrangeSchedule:draw()
 			if v.imageIndex == i then
 				v:draw()
 			end
-		end		
+		end
 	end
 
 	self.particles:draw()
