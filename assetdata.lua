@@ -6,14 +6,14 @@ local stage = require "stage"
 -------------------------------------------------------------------------------
 
 local titleImages = {
-	{
+	wallpaper = {
 		name = "wallpaper",
 		image = images.title_wallpaper,
 		endX = stage.width * 0.5,
 		endY = stage.height * 0.5,
 		imageIndex = -2,
 	},
-	{
+	splash = {
 		name = "splash",
 		image = images.title_splash,
 		duration = 15,
@@ -23,7 +23,7 @@ local titleImages = {
 		easing = "linear",
 		imageIndex = -1,
 	},
-	{
+	logo = {
 		name = "logo",
 		image = images.title_logo,
 		duration = 30,
@@ -35,7 +35,7 @@ local titleImages = {
 }
 
 local titleButtons = {
-	{
+	start = {
 		name = "start",
 		image = images.title_start,
 		imagePushed = images.title_start,
@@ -48,7 +48,7 @@ local titleButtons = {
 			game:switchState("gs_arrangeschedule")
 		end,
 	},
-	{
+	achievements = {
 		name = "achievements",
 		image = images.title_achievements,
 		imagePushed = images.title_achievements,
@@ -60,7 +60,7 @@ local titleButtons = {
 		action = function()
 		end,
 	},
-	{
+	options = {
 		name = "options",
 		image = images.title_options,
 		imagePushed = images.title_options,
@@ -72,7 +72,7 @@ local titleButtons = {
 		action = function()
 		end,
 	},
-	{
+	quit = {
 		name = "quit",
 		image = images.title_quit,
 		imagePushed = images.title_quit,
@@ -98,7 +98,7 @@ local titleText = {
 -------------------------------------------------------------------------------
 
 local arrangeScheduleImages = {
-	{
+	screendark = {
 		name = "screendark",
 		image = images.gui_screendark,
 		endX = stage.width * 0.5,
@@ -106,133 +106,133 @@ local arrangeScheduleImages = {
 		endTransparency = 0,
 		imageIndex = 0,
 	},
-	{
+	activitiesframe ={
 		name = "activitiesframe",
 		image = images.gui_activitiesframe,
 		endX = stage.width * 0.15,
 		endY = stage.height * 0.29,
 		imageIndex = -3,
 	},
-	{
+	activitiestxt = {
 		name = "activitiestxt",
 		image = images.gui_activitiestxt,
 		endX = stage.width * 0.15,
 		endY = stage.height * 0.05,
 		imageIndex = -2,
 	},
-	{
+	actionbox = {
 		name = "actionbox",
 		image = images.gui_actionbox,
 		endX = stage.width * 0.15,
 		endY = stage.height * 0.12,
 		imageIndex = -1,
 	},
-	{
+	scheduleframe = {
 		name = "scheduleframe",
 		image = images.gui_scheduleframe,
 		endX = stage.width * 0.87,
 		endY = stage.height * 0.45,
 		imageIndex = -3,
 	},
-	{
+	scheduletxt = {
 		name = "scheduletxt",
 		image = images.gui_scheduletxt,
 		endX = stage.width * 0.87,
 		endY = stage.height * 0.15,
 		imageIndex = -2,
 	},
-	{
+	coparent = {
 		name = "coparent",
 		image = images.gui_coparent,
 		endX = stage.width * 0.68,
 		endY = stage.height * 0.05,
 		imageIndex = -1,
 	},
-	{
+	finalize = {
 		name = "finalize",
 		image = images.gui_finalizetxt,
 		endX = stage.width * 0.88,
 		endY = stage.height * 0.05,
 		imageIndex = -1,
 	},
-	{
+	moneyplusblock = {
 		name = "moneyplusblock",
 		image = images.gui_stats_moneyplusblock,
 		endX = stage.width * 0.07,
 		endY = stage.height * 0.74,
 		imageIndex = -2,
 	},
-	{
+	actionplusblock = {
 		name = "actionplusblock",
 		image = images.gui_stats_actionplusblock,
 		endX = stage.width * 0.07,
 		endY = stage.height * 0.79,
 		imageIndex = -2,
 	},
-	{
+	energyback = {
 		name = "energyback",
 		image = images.gui_stats_energyback,
 		endX = stage.width * 0.08,
 		endY = stage.height * 0.915,
 		imageIndex = -2,
 	},
-	{
+	energyicon = {
 		name = "energyicon",
 		image = images.gui_stats_energyicon,
 		endX = stage.width * 0.03,
 		endY = stage.height * 0.87,
 		imageIndex = -1,
 	},
-	{
+	happyicon = {
 		name = "happyicon",
 		image = images.gui_stats_happyicon,
 		endX = stage.width * 0.03,
 		endY = stage.height * 0.92,
 		imageIndex = -1,
 	},
-	{
+	loveicon = {
 		name = "loveicon",
 		image = images.gui_stats_loveicon,
 		endX = stage.width * 0.03,
 		endY = stage.height * 0.97,
 		imageIndex = -1,
 	},
-	{
+	energyblockback = {
 		name = "energyblockback",
 		image = images.gui_stats_blockback,
 		endX = stage.width * 0.11,
 		endY = stage.height * 0.87,
 		imageIndex = -2,
 	},
-	{
+	happyblockback = {
 		name = "happyblockback",
 		image = images.gui_stats_blockback,
 		endX = stage.width * 0.11,
 		endY = stage.height * 0.92,
 		imageIndex = -2,
 	},
-	{
+	loveblockback = {
 		name = "loveblockback",
 		image = images.gui_stats_blockback,
 		endX = stage.width * 0.11,
 		endY = stage.height * 0.97,
 		imageIndex = -2,
 	},
-	{
+	dragonmoonicon = {
 		name = "dragonmoonicon",
 		image = images.gui_dragonmoonicon,
 		endX = stage.width * 0.89,
 		endY = stage.height * 0.93,
 		imageIndex = -1,
 	},
-	{
+	questionicon = {
 		name = "questionicon",
 		image = images.gui_questionicon,
 		endX = stage.width * 0.96,
 		endY = stage.height * 0.89,
 		imageIndex = -1,
 	},
-	{
+	settingsicon = {
 		name = "settingsicon",
 		image = images.gui_settingsicon,
 		endX = stage.width * 0.96,
@@ -240,7 +240,7 @@ local arrangeScheduleImages = {
 		imageIndex = -1,
 	},
 
-	{
+	pb_tag = {
 		name = "pb_tag",
 		image = images.gui_progress_tag,
 		endX = stage.width * 0.2,
@@ -248,7 +248,7 @@ local arrangeScheduleImages = {
 		imageIndex = 1,
 		category = "progress",
 	},
-	{
+	pb_bar_attack = {
 		name = "pb_bar_attack",
 		image = images.gui_progress_bar,
 		endX = stage.width * 0.25,
@@ -256,7 +256,7 @@ local arrangeScheduleImages = {
 		imageIndex = 1,
 		category = "progress",
 	},
-	{
+	pb_bar_defense = {
 		name = "pb_bar_defense",
 		image = images.gui_progress_bar,
 		endX = stage.width * 0.25,
@@ -264,7 +264,7 @@ local arrangeScheduleImages = {
 		imageIndex = 1,
 		category = "progress",
 	},
-	{
+	pb_bar_flight = {
 		name = "pb_bar_flight",
 		image = images.gui_progress_bar,
 		endX = stage.width * 0.25,
@@ -273,7 +273,7 @@ local arrangeScheduleImages = {
 		category = "progress",
 	},
 
-	{
+	pb_bar_fire = {
 		name = "pb_bar_fire",
 		image = images.gui_progress_bar,
 		endX = stage.width * 0.25,
@@ -281,7 +281,7 @@ local arrangeScheduleImages = {
 		imageIndex = 1,
 		category = "progress",
 	},
-	{
+	pb_bar_water = {
 		name = "pb_bar_water",
 		image = images.gui_progress_bar,
 		endX = stage.width * 0.25,
@@ -289,7 +289,7 @@ local arrangeScheduleImages = {
 		imageIndex = 1,
 		category = "progress",
 	},
-	{
+	pb_bar_earth = {
 		name = "pb_bar_earth",
 		image = images.gui_progress_bar,
 		endX = stage.width * 0.25,
@@ -297,7 +297,7 @@ local arrangeScheduleImages = {
 		imageIndex = 1,
 		category = "progress",
 	},
-	{
+	pb_bar_ice = {
 		name = "pb_bar_ice",
 		image = images.gui_progress_bar,
 		endX = stage.width * 0.25,
@@ -305,7 +305,7 @@ local arrangeScheduleImages = {
 		imageIndex = 1,
 		category = "progress",
 	},
-	{
+	pb_bar_light = {
 		name = "pb_bar_light",
 		image = images.gui_progress_bar,
 		endX = stage.width * 0.25,
@@ -313,7 +313,7 @@ local arrangeScheduleImages = {
 		imageIndex = 1,
 		category = "progress",
 	},
-	{
+	pb_bar_dark = {
 		name = "pb_bar_dark",
 		image = images.gui_progress_bar,
 		endX = stage.width * 0.25,
@@ -322,7 +322,7 @@ local arrangeScheduleImages = {
 		category = "progress",
 	},
 
-	{
+	pb_bar_world = {
 		name = "pb_bar_world",
 		image = images.gui_progress_bar,
 		endX = stage.width * 0.6,
@@ -330,7 +330,7 @@ local arrangeScheduleImages = {
 		imageIndex = 1,
 		category = "progress",
 	},
-	{
+	pb_bar_science = {
 		name = "pb_bar_science",
 		image = images.gui_progress_bar,
 		endX = stage.width * 0.6,
@@ -338,7 +338,7 @@ local arrangeScheduleImages = {
 		imageIndex = 1,
 		category = "progress",
 	},
-	{
+	pb_bar_math = {
 		name = "pb_bar_math",
 		image = images.gui_progress_bar,
 		endX = stage.width * 0.6,
@@ -349,7 +349,7 @@ local arrangeScheduleImages = {
 }
 
 local arrangeScheduleButtons = {
-	{
+	dragongoal = {
 		name = "dragongoal",
 		image = images.dreams_card2,
 		imagePushed = images.dreams_card2,
@@ -361,7 +361,7 @@ local arrangeScheduleButtons = {
 			ArrangeSchedule:showDragonGoal()
 		end,
 	},
-	{
+	dragondream = {
 		name = "dragondream",
 		image = images.dreams_card1,
 		imagePushed = images.dreams_card1,
@@ -373,7 +373,7 @@ local arrangeScheduleButtons = {
 			ArrangeSchedule:showDragonDream()
 		end,
 	},
-	{
+	progressbookicon = {
 		name = "progressbookicon",
 		image = images.gui_progressbookicon,
 		imagePushed = images.gui_progressbookicon,
@@ -385,7 +385,7 @@ local arrangeScheduleButtons = {
 		end,
 	},
 
-	{
+	pb_infoscreen = {
 		name = "pb_infoscreen",
 		image = images.gui_progress_infoscreen,
 		imagePushed = images.gui_progress_infoscreen,
@@ -398,7 +398,7 @@ local arrangeScheduleButtons = {
 		category = "progress",
 	},
 
-	{
+	dream_screendark = {
 		name = "dream_screendark",
 		image = images.gui_screendark,
 		imagePushed = images.gui_screendark,
@@ -411,7 +411,7 @@ local arrangeScheduleButtons = {
 		category = "dragondream",
 	},
 
-	{
+	goal_screendark = {
 		name = "goal_screendark",
 		image = images.gui_screendark,
 		imagePushed = images.gui_screendark,
@@ -430,7 +430,7 @@ local arrangeScheduleDraggables = {
 }
 
 local arrangeScheduleText = {
-	{
+	pb_dragonability = {
 		name = "pb_dragonability",
 		font = "BIG",
 		text = "DRAGON ABILITY",
@@ -439,7 +439,7 @@ local arrangeScheduleText = {
 		imageIndex = 2,
 		category = "progress",
 	},
-	{
+	pb_magic = {
 		name = "pb_magic",
 		font = "BIG",
 		text = "MAGIC",
@@ -448,7 +448,7 @@ local arrangeScheduleText = {
 		imageIndex = 2,
 		category = "progress",
 	},
-	{
+	pb_knowledge = {
 		name = "pb_knowledge",
 		font = "BIG",
 		text = "KNOWLEDGE",
@@ -458,7 +458,7 @@ local arrangeScheduleText = {
 		category = "progress",
 	},
 
-	{
+	pb_dragonability_substats = {
 		name = "pb_dragonability_substats",
 		font = "MEDIUM",
 		text = "ATTACK\nDEFENSE\nFLIGHT",
@@ -467,7 +467,7 @@ local arrangeScheduleText = {
 		imageIndex = 2,
 		category = "progress",
 	},
-	{
+	pb_magic_substats = {
 		name = "pb_magic_substats",
 		font = "MEDIUM",
 		text = "FIRE\nWATER\nEARTH\nICE\nLIGHT\nDARK",
@@ -476,7 +476,7 @@ local arrangeScheduleText = {
 		imageIndex = 2,
 		category = "progress",
 	},
-	{
+	pb_knowledge_substats = {
 		name = "pb_knowledge_substats",
 		font = "MEDIUM",
 		text = "WORLD\nSCIENCE\nMATH",

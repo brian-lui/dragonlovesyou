@@ -6,6 +6,7 @@
 local common = require "class.commons"
 local spairs = require "/helpers/utilities".spairs
 local assetData = require "assetdata"
+local stage = require "stage"
 
 local ArrangeSchedule = {name = "ArrangeSchedule"}
 
@@ -120,11 +121,33 @@ end
 
 function ArrangeSchedule:showDragonDream()
 	self:_showSubscreen("dragondream")
+
+	self.ui.clickable.dragondream.imageIndex = 2
+	self.ui.clickable.dragondream.clickable = false
+
+	self.ui.clickable.dragondream:change{
+		duration = 15,
+		scaling = 1,
+		x = stage.width * 0.4,
+		y = stage.height * 0.5,
+	}
+
 	print(self.ui.clickable.dragondream)
 end
 
 function ArrangeSchedule:hideDragonDream()
 	self:_hideSubscreen("dragondream")
+
+	self.ui.clickable.dragondream.imageIndex = -1
+	self.ui.clickable.dragondream.clickable = true
+
+	local originalX = buttonData.dragondream
+	print("endX", buttonData.dragondream.endX)
+
+	self.ui.clickable.dragondream:change{
+		duration = 15,
+		scaling = 0.2,
+	}
 end
 
 function ArrangeSchedule:showProgressBook()
