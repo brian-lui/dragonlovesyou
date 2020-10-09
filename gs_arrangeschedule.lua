@@ -141,8 +141,8 @@ function ArrangeSchedule:hideDragonDream()
 	self.ui.clickable.dragondream.imageIndex = -1
 	self.ui.clickable.dragondream.clickable = true
 
-	local originalX = buttonData.dragondream
-	print("endX", buttonData.dragondream.endX)
+	local originalData = assetData.getItem("ArrangeSchedule", "buttons", "dragondream")
+	print("endX", originalData.endX)
 
 	self.ui.clickable.dragondream:change{
 		duration = 15,

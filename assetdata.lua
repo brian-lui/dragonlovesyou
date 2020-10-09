@@ -524,4 +524,11 @@ function assetData.getText(gamestateName, aspectRatioOrWhatever)
 	return lookup[gamestateName].text
 end
 
+function assetData.getItem(gamestateName, category, itemName)
+	assert(lookup[gamestateName], "No gamestate named " .. gamestateName)
+	assert(lookup[gamestateName][category], "No category named " .. category)
+	assert(lookup[gamestateName][category][itemName], "No item named " .. itemName)
+	return lookup[gamestateName][category][itemName]
+end
+
 return assetData
