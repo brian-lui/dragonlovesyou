@@ -145,6 +145,14 @@ local imageData = {
 	},
 
 	{
+		name = "pb_tag",
+		image = images.gui_progressbook_tag,
+		endX = stage.width * 0.2,
+		endY = stage.height * 0.12,
+		imageIndex = 1,
+		category = "progressbook",
+	},
+	{
 		name = "pb_bar_attack",
 		image = images.gui_progressbook_bar,
 		endX = stage.width * 0.25,
