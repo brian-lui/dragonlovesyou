@@ -41,10 +41,6 @@ local infocardart = {
 	"wellrestedart",
 }
 
-local main = {
-	"mainlogo",
-}
-
 local title = {
 	"wallpaper", "logo", "start", "achievements", "options", "quit", "splash"
 }
@@ -66,7 +62,6 @@ local categories = {
 	gui = gui,
 	infocard = infocard,
 	infocardart = infocardart,
-	main = main,
 	title = title,
 	particles = particles,
 }

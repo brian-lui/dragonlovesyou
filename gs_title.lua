@@ -87,7 +87,7 @@ function Title:init()
 		endY = stage.height * 0.65,
 		easing = "inQuart",
 		action = function()
-			self:switchState("gs_main")
+			self:switchState("gs_arrangeschedule")
 		end,
 	})
 
@@ -101,7 +101,7 @@ function Title:init()
 		endY = stage.height * 0.75,
 		easing = "inQuart",
 		action = function()
-			self:switchState("gs_main")
+			self:switchState("gs_arrangeschedule")
 		end,
 	})
 
@@ -115,7 +115,7 @@ function Title:init()
 		endY = stage.height * 0.85,
 		easing = "inQuart",
 		action = function()
-			self:switchState("gs_main")
+			self:switchState("gs_arrangeschedule")
 		end,
 	})
 
