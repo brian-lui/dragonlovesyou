@@ -10,8 +10,7 @@
 --]]
 
 local common = require "class.commons"
-local images = require "images"
-local stage = require "stage"
+local assetData = require "assetdata"
 local spairs = require "/helpers/utilities".spairs
 
 local Title = {name = "Title"}
@@ -25,6 +24,15 @@ function Title:createImage(params)
 	return self:_createImage(Title, params)
 end
 
+function Title:createText(params)
+	return self:_createText(Title, params)
+end
+
+local imageData = assetData.getImages("Title")
+local buttonData = assetData.getButtons("Title")
+local draggableData = assetData.getDraggables("Title")
+local textData = assetData.getText("Title")
+
 -- After the initial tween, we keep the icons here if returning to Title screen
 -- So we put it in init(), not enter() like in the other states
 function Title:init()
@@ -32,92 +40,24 @@ function Title:init()
 		clickable = {},
 		draggable = {},
 		static = {},
+		text = {},
 	}
 
-	Title.createImage(self, {
-		name = "wallpaper",
-		image = images.title_wallpaper,
-		endX = stage.width * 0.5,
-		endY = stage.height * 0.5,
-		imageIndex = -2,
-	})
+	for _, data in pairs(imageData) do
+		Title.createImage(self, data)
+	end
 
-	Title.createImage(self, {
-		name = "splash",
-		image = images.title_splash,
-		duration = 15,
-		endX = stage.width * 0.5,
-		endY = stage.height * 0.5,
-		startTransparency = 0,
-		easing = "linear",
-		imageIndex = -1,
-	})
+	for _, data in pairs(buttonData) do
+		Title.createButton(self, data)
+	end
 
-	Title.createImage(self, {
-		name = "logo",
-		image = images.title_logo,
-		duration = 30,
-		endX = stage.width * 0.25,
-		endY = stage.height * 0.75,
-		startTransparency = 0,
-		easing = "linear",
-	})
+	for _, data in pairs(draggableData) do
+		Title.createDraggables(self, data)
+	end
 
-	Title.createButton(self, {
-		name = "start",
-		image = images.title_start,
-		imagePushed = images.title_start,
-		duration = 60,
-		startX = stage.width * -0.2,
-		endX = stage.width * 0.75,
-		endY = stage.height * 0.55,
-		easing = "inQuart",
-		action = function()
-			self:switchState("gs_arrangeschedule")
-		end,
-	})
-
-	Title.createButton(self, {
-		name = "achievements",
-		image = images.title_achievements,
-		imagePushed = images.title_achievements,
-		duration = 60,
-		startX = stage.width * -0.2,
-		endX = stage.width * 0.75,
-		endY = stage.height * 0.65,
-		easing = "inQuart",
-		action = function()
-			self:switchState("gs_arrangeschedule")
-		end,
-	})
-
-	Title.createButton(self, {
-		name = "options",
-		image = images.title_options,
-		imagePushed = images.title_options,
-		duration = 60,
-		startX = stage.width * -0.2,
-		endX = stage.width * 0.75,
-		endY = stage.height * 0.75,
-		easing = "inQuart",
-		action = function()
-			self:switchState("gs_arrangeschedule")
-		end,
-	})
-
-	Title.createButton(self, {
-		name = "quit",
-		image = images.title_quit,
-		imagePushed = images.title_quit,
-		duration = 60,
-		startX = stage.width * -0.2,
-		endX = stage.width * 0.75,
-		endY = stage.height * 0.85,
-		easing = "inQuart",
-		action = function()
-			self:switchState("gs_arrangeschedule")
-		end,
-	})
+	for _, data in pairs(textData) do
+		Title.createText(self, data)
+	end
 
 	Title.currentBackground = common.instance(self.background.plain, self)
 end

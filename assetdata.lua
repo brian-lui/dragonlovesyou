@@ -1,7 +1,103 @@
 local images = require "images"
 local stage = require "stage"
 
-local imageData = {
+-------------------------------------------------------------------------------
+------------------------------------ TITLE ------------------------------------
+-------------------------------------------------------------------------------
+
+local titleImages = {
+	{
+		name = "wallpaper",
+		image = images.title_wallpaper,
+		endX = stage.width * 0.5,
+		endY = stage.height * 0.5,
+		imageIndex = -2,
+	},
+	{
+		name = "splash",
+		image = images.title_splash,
+		duration = 15,
+		endX = stage.width * 0.5,
+		endY = stage.height * 0.5,
+		startTransparency = 0,
+		easing = "linear",
+		imageIndex = -1,
+	},
+	{
+		name = "logo",
+		image = images.title_logo,
+		duration = 30,
+		endX = stage.width * 0.25,
+		endY = stage.height * 0.75,
+		startTransparency = 0,
+		easing = "linear",
+	},
+}
+
+local titleButtons = {
+	{
+		name = "start",
+		image = images.title_start,
+		imagePushed = images.title_start,
+		duration = 60,
+		startX = stage.width * -0.2,
+		endX = stage.width * 0.75,
+		endY = stage.height * 0.55,
+		easing = "inQuart",
+		action = function(_, game)
+			game:switchState("gs_arrangeschedule")
+		end,
+	},
+	{
+		name = "achievements",
+		image = images.title_achievements,
+		imagePushed = images.title_achievements,
+		duration = 60,
+		startX = stage.width * -0.2,
+		endX = stage.width * 0.75,
+		endY = stage.height * 0.65,
+		easing = "inQuart",
+		action = function()
+		end,
+	},
+	{
+		name = "options",
+		image = images.title_options,
+		imagePushed = images.title_options,
+		duration = 60,
+		startX = stage.width * -0.2,
+		endX = stage.width * 0.75,
+		endY = stage.height * 0.75,
+		easing = "inQuart",
+		action = function()
+		end,
+	},
+	{
+		name = "quit",
+		image = images.title_quit,
+		imagePushed = images.title_quit,
+		duration = 60,
+		startX = stage.width * -0.2,
+		endX = stage.width * 0.75,
+		endY = stage.height * 0.85,
+		easing = "inQuart",
+		action = function()
+		end,
+	},
+}
+
+local titleDraggables = {
+}
+
+local titleText = {
+}
+
+
+-------------------------------------------------------------------------------
+------------------------------- ARRANGESCHEDULE -------------------------------
+-------------------------------------------------------------------------------
+
+local arrangeScheduleImages = {
 	{
 		name = "screendark",
 		image = images.gui_screendark,
@@ -252,7 +348,7 @@ local imageData = {
 	},
 }
 
-local buttonData = {
+local arrangeScheduleButtons = {
 	{
 		name = "dragongoal",
 		image = images.dreams_card2,
@@ -306,7 +402,10 @@ local buttonData = {
 	},
 }
 
-local textData = {
+local arrangeScheduleDraggables = {
+}
+
+local arrangeScheduleText = {
 	{
 		name = "pb_dragonability",
 		font = "BIG",
@@ -364,18 +463,41 @@ local textData = {
 	},
 }
 
-local assetData_arrangeschedule = {}
 
-function assetData_arrangeschedule.getImageData(aspectRatioOrWhatever)
-	return imageData
+local lookup = {
+	ArrangeSchedule = {
+		images = arrangeScheduleImages,
+		buttons = arrangeScheduleButtons,
+		draggables = arrangeScheduleDraggables,
+		text = arrangeScheduleText,
+	},
+	Title = {
+		images = titleImages,
+		buttons = titleButtons,
+		draggables = arrangeScheduleDraggables,
+		text = titleText,
+	},
+}
+
+local assetData = {}
+function assetData.getImages(gamestateName, aspectRatioOrWhatever)
+	assert(lookup[gamestateName].images, "No images for gamestate " .. gamestateName)
+	return lookup[gamestateName].images
 end
 
-function assetData_arrangeschedule.getButtonData(aspectRatioOrWhatever)
-	return buttonData
+function assetData.getButtons(gamestateName, aspectRatioOrWhatever)
+	assert(lookup[gamestateName].buttons, "No buttons for gamestate " .. gamestateName)
+	return lookup[gamestateName].buttons
 end
 
-function assetData_arrangeschedule.getTextData(aspectRatioOrWhatever)
-	return textData
+function assetData.getDraggables(gamestateName, aspectRatioOrWhatever)
+	assert(lookup[gamestateName].draggables, "No draggables for gamestate " .. gamestateName)
+	return lookup[gamestateName].draggables
 end
 
-return assetData_arrangeschedule
+function assetData.getText(gamestateName, aspectRatioOrWhatever)
+	assert(lookup[gamestateName].text, "No text for gamestate " .. gamestateName)
+	return lookup[gamestateName].text
+end
+
+return assetData

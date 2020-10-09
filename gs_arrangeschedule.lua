@@ -5,7 +5,7 @@
 
 local common = require "class.commons"
 local spairs = require "/helpers/utilities".spairs
-local assetData = require "assetdata_arrangeschedule"
+local assetData = require "assetdata"
 
 local ArrangeSchedule = {name = "ArrangeSchedule"}
 
@@ -22,9 +22,10 @@ function ArrangeSchedule:createText(params)
 	return self:_createText(ArrangeSchedule, params)
 end
 
-local imageData = assetData.getImageData()
-local buttonData = assetData.getButtonData()
-local textData = assetData.getTextData()
+local imageData = assetData.getImages("ArrangeSchedule")
+local buttonData = assetData.getButtons("ArrangeSchedule")
+local draggableData = assetData.getDraggables("ArrangeSchedule")
+local textData = assetData.getText("ArrangeSchedule")
 
 function ArrangeSchedule:init()
 	ArrangeSchedule.ui = {
@@ -40,6 +41,10 @@ function ArrangeSchedule:init()
 
 	for _, data in pairs(buttonData) do
 		ArrangeSchedule.createButton(self, data)
+	end
+
+	for _, data in pairs(draggableData) do
+		ArrangeSchedule.createDraggables(self, data)
 	end
 
 	for _, data in pairs(textData) do

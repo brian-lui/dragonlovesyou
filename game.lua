@@ -339,7 +339,7 @@ function Game:_controllerReleased(x, y, gamestate)
 
 			if pointIsInRect(x, y, button:getRect())
 			and self.controls.clicked == button then
-				button.action(button.gamestate)
+				button.action(button.gamestate, self)
 				break
 			end
 		end
