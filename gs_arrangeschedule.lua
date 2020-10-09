@@ -88,7 +88,7 @@ function ArrangeSchedule:_showSubscreen(subscreenName)
 		end
 
 		for _, t in pairs(self.ui.clickable) do
-			if t.category == subscreenName then t.clickable = true end
+			t.clickable = (t.category == subscreenName)
 		end
 
 	end
@@ -105,7 +105,11 @@ function ArrangeSchedule:_hideSubscreen(subscreenName)
 		end
 
 		for _, t in pairs(self.ui.clickable) do
-			if t.category == subscreenName then t.clickable = false end
+			if t.category == subscreenName then
+				t.clickable = false
+			elseif not t.category then
+				t.clickable = true
+			end
 		end
 	end
 end
@@ -113,10 +117,33 @@ end
 
 function ArrangeSchedule:showDragonGoal()
 	self:_showSubscreen("dragongoal")
+
+	self.ui.clickable.dragongoal.imageIndex = 2
+	self.ui.clickable.dragongoal.clickable = false
+
+	self.ui.clickable.dragongoal:change{
+		duration = 15,
+		scaling = 1,
+		x = stage.width * 0.4,
+		y = stage.height * 0.5,
+	}
 end
 
 function ArrangeSchedule:hideDragonGoal()
 	self:_hideSubscreen("dragongoal")
+
+	local original = assetData.getItem("ArrangeSchedule", "buttons", "dragongoal")
+
+	self.ui.clickable.dragongoal:change{
+		duration = 15,
+		scaling = 0.2,
+		x = original.endX,
+		y = original.endY,
+		exitFunc = function()
+			self.ui.clickable.dragongoal.imageIndex = original.imageIndex
+			self.ui.clickable.dragongoal.clickable = true
+		end,
+	}
 end
 
 function ArrangeSchedule:showDragonDream()
@@ -131,22 +158,22 @@ function ArrangeSchedule:showDragonDream()
 		x = stage.width * 0.4,
 		y = stage.height * 0.5,
 	}
-
-	print(self.ui.clickable.dragondream)
 end
 
 function ArrangeSchedule:hideDragonDream()
 	self:_hideSubscreen("dragondream")
 
-	self.ui.clickable.dragondream.imageIndex = -1
-	self.ui.clickable.dragondream.clickable = true
-
-	local originalData = assetData.getItem("ArrangeSchedule", "buttons", "dragondream")
-	print("endX", originalData.endX)
+	local original = assetData.getItem("ArrangeSchedule", "buttons", "dragondream")
 
 	self.ui.clickable.dragondream:change{
 		duration = 15,
 		scaling = 0.2,
+		x = original.endX,
+		y = original.endY,
+		exitFunc = function()
+			self.ui.clickable.dragondream.imageIndex = original.imageIndex
+			self.ui.clickable.dragondream.clickable = true
+		end,
 	}
 end
 
