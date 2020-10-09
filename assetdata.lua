@@ -357,8 +357,8 @@ local arrangeScheduleButtons = {
 		endY = stage.height * 0.07,
 		endScaling = 0.2,
 		imageIndex = -1,
-		action = function()
-			print("test")
+		action = function(ArrangeSchedule)
+			ArrangeSchedule:_showDragonGoal()
 		end,
 	},
 	{
@@ -369,8 +369,8 @@ local arrangeScheduleButtons = {
 		endY = stage.height * 0.07,
 		endScaling = 0.2,
 		imageIndex = -1,
-		action = function()
-			print("test")
+		action = function(ArrangeSchedule)
+			ArrangeSchedule:_showDragonDream()
 		end,
 	},
 	{
@@ -381,9 +381,7 @@ local arrangeScheduleButtons = {
 		endY = stage.height * 0.93,
 		imageIndex = -1,
 		action = function(ArrangeSchedule)
-			if not ArrangeSchedule.shownProgressBook then
-				ArrangeSchedule:_showProgressBook()
-			end
+			ArrangeSchedule:_showProgressBook()
 		end,
 	},
 	{
@@ -394,9 +392,7 @@ local arrangeScheduleButtons = {
 		endY = stage.height * 0.5,
 		imageIndex = 1,
 		action = function(ArrangeSchedule)
-			if ArrangeSchedule.shownProgressBook then
-				ArrangeSchedule:_hideProgressBook()
-			end
+			ArrangeSchedule:_hideProgressBook()
 		end,
 		category = "progressbook",
 	},

@@ -61,7 +61,7 @@ function ArrangeSchedule:enter()
 		self.queue:add(45, self.sound.newBGM, self.sound, "mainBGM", true)
 	end
 
-	self.shownProgressBook = false
+	self.shownSubscreen = false
 
 	for _, tbl in pairs(ArrangeSchedule.ui) do
 		for _, t in pairs(tbl) do
@@ -70,26 +70,58 @@ function ArrangeSchedule:enter()
 	end
 end
 
+function ArrangeSchedule:_showDragonGoal()
+	if not self.shownSubscreen then
+		self.shownSubscreen = "dragongoal"
+
+	end
+end
+
+function ArrangeSchedule:_hideDragonGoal()
+	if self.shownSubscreen == "dragongoal" then
+		self.shownSubscreen = false
+
+	end
+end
+
+function ArrangeSchedule:_showDragonDream()
+	if not self.shownSubscreen then
+		self.shownSubscreen = "dragondream"
+
+	end
+end
+
+function ArrangeSchedule:_hideDragonDream()
+	if self.shownSubscreen == "dragondream" then
+		self.shownSubscreen = false
+
+	end
+end
+
 function ArrangeSchedule:_showProgressBook()
-	self.shownProgressBook = true
+	if not self.shownSubscreen then
+		self.shownSubscreen = "progress"
 
-	self.ui.static.screendark.transparency = 1
+		self.ui.static.screendark.transparency = 1
 
-	for _, tbl in pairs(self.ui) do
-		for _, t in pairs(tbl) do
-			if t.category == "progressbook" then t.transparency = 1 end
+		for _, tbl in pairs(self.ui) do
+			for _, t in pairs(tbl) do
+				if t.category == "progressbook" then t.transparency = 1 end
+			end
 		end
 	end
 end
 
 function ArrangeSchedule:_hideProgressBook()
-	self.shownProgressBook = false
+	if self.shownSubscreen == "progress" then
+		self.shownSubscreen = false
 
-	self.ui.static.screendark.transparency = 0
+		self.ui.static.screendark.transparency = 0
 
-	for _, tbl in pairs(self.ui) do
-		for _, t in pairs(tbl) do
-			if t.category == "progressbook" then t.transparency = 0 end
+		for _, tbl in pairs(self.ui) do
+			for _, t in pairs(tbl) do
+				if t.category == "progressbook" then t.transparency = 0 end
+			end
 		end
 	end
 end
