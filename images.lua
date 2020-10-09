@@ -25,7 +25,7 @@ local gui = {
 
 	"cardcloseup_box",
 
-	"progressbook_bar", "progressbook_infoscreen", "progressbook_tag",
+	"progress_bar", "progress_infoscreen", "progress_tag",
 
 	"stats_actionicon", "stats_actionplusblock", "stats_blockback",
 	"stats_blockframe", "stats_blue", "stats_energyback", "stats_energyicon",

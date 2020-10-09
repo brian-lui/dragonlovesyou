@@ -146,7 +146,7 @@ local imageData = {
 
 	{
 		name = "pb_tag",
-		image = images.gui_progressbook_tag,
+		image = images.gui_progress_tag,
 		endX = stage.width * 0.2,
 		endY = stage.height * 0.12,
 		imageIndex = 1,
@@ -154,7 +154,7 @@ local imageData = {
 	},
 	{
 		name = "pb_bar_attack",
-		image = images.gui_progressbook_bar,
+		image = images.gui_progress_bar,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.27 + 0.056 * 0),
 		imageIndex = 1,
@@ -162,7 +162,7 @@ local imageData = {
 	},
 	{
 		name = "pb_bar_defense",
-		image = images.gui_progressbook_bar,
+		image = images.gui_progress_bar,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.27 + 0.056 * 1),
 		imageIndex = 1,
@@ -170,7 +170,7 @@ local imageData = {
 	},
 	{
 		name = "pb_bar_flight",
-		image = images.gui_progressbook_bar,
+		image = images.gui_progress_bar,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.27 + 0.056 * 2),
 		imageIndex = 1,
@@ -179,7 +179,7 @@ local imageData = {
 
 	{
 		name = "pb_bar_fire",
-		image = images.gui_progressbook_bar,
+		image = images.gui_progress_bar,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.54 + 0.056 * 0),
 		imageIndex = 1,
@@ -187,7 +187,7 @@ local imageData = {
 	},
 	{
 		name = "pb_bar_water",
-		image = images.gui_progressbook_bar,
+		image = images.gui_progress_bar,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.54 + 0.056 * 1),
 		imageIndex = 1,
@@ -195,7 +195,7 @@ local imageData = {
 	},
 	{
 		name = "pb_bar_earth",
-		image = images.gui_progressbook_bar,
+		image = images.gui_progress_bar,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.54 + 0.056 * 2),
 		imageIndex = 1,
@@ -203,7 +203,7 @@ local imageData = {
 	},
 	{
 		name = "pb_bar_ice",
-		image = images.gui_progressbook_bar,
+		image = images.gui_progress_bar,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.54 + 0.056 * 3),
 		imageIndex = 1,
@@ -211,7 +211,7 @@ local imageData = {
 	},
 	{
 		name = "pb_bar_light",
-		image = images.gui_progressbook_bar,
+		image = images.gui_progress_bar,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.54 + 0.056 * 4),
 		imageIndex = 1,
@@ -219,7 +219,7 @@ local imageData = {
 	},
 	{
 		name = "pb_bar_dark",
-		image = images.gui_progressbook_bar,
+		image = images.gui_progress_bar,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.54 + 0.056 * 5),
 		imageIndex = 1,
@@ -228,7 +228,7 @@ local imageData = {
 
 	{
 		name = "pb_bar_world",
-		image = images.gui_progressbook_bar,
+		image = images.gui_progress_bar,
 		endX = stage.width * 0.6,
 		endY = stage.height * (0.27 + 0.056 * 0),
 		imageIndex = 1,
@@ -236,7 +236,7 @@ local imageData = {
 	},
 	{
 		name = "pb_bar_science",
-		image = images.gui_progressbook_bar,
+		image = images.gui_progress_bar,
 		endX = stage.width * 0.6,
 		endY = stage.height * (0.27 + 0.056 * 1),
 		imageIndex = 1,
@@ -244,7 +244,7 @@ local imageData = {
 	},
 	{
 		name = "pb_bar_math",
-		image = images.gui_progressbook_bar,
+		image = images.gui_progress_bar,
 		endX = stage.width * 0.6,
 		endY = stage.height * (0.27 + 0.056 * 2),
 		imageIndex = 1,
@@ -292,8 +292,8 @@ local buttonData = {
 	},
 	{
 		name = "pb_infoscreen",
-		image = images.gui_progressbook_infoscreen,
-		imagePushed = images.gui_progressbook_infoscreen,
+		image = images.gui_progress_infoscreen,
+		imagePushed = images.gui_progress_infoscreen,
 		endX = stage.width * 0.5,
 		endY = stage.height * 0.5,
 		imageIndex = 1,
