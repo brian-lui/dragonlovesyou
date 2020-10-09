@@ -246,7 +246,7 @@ local arrangeScheduleImages = {
 		endX = stage.width * 0.2,
 		endY = stage.height * 0.12,
 		imageIndex = 1,
-		category = "progressbook",
+		category = "progress",
 	},
 	{
 		name = "pb_bar_attack",
@@ -254,7 +254,7 @@ local arrangeScheduleImages = {
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.27 + 0.056 * 0),
 		imageIndex = 1,
-		category = "progressbook",
+		category = "progress",
 	},
 	{
 		name = "pb_bar_defense",
@@ -262,7 +262,7 @@ local arrangeScheduleImages = {
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.27 + 0.056 * 1),
 		imageIndex = 1,
-		category = "progressbook",
+		category = "progress",
 	},
 	{
 		name = "pb_bar_flight",
@@ -270,7 +270,7 @@ local arrangeScheduleImages = {
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.27 + 0.056 * 2),
 		imageIndex = 1,
-		category = "progressbook",
+		category = "progress",
 	},
 
 	{
@@ -279,7 +279,7 @@ local arrangeScheduleImages = {
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.54 + 0.056 * 0),
 		imageIndex = 1,
-		category = "progressbook",
+		category = "progress",
 	},
 	{
 		name = "pb_bar_water",
@@ -287,7 +287,7 @@ local arrangeScheduleImages = {
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.54 + 0.056 * 1),
 		imageIndex = 1,
-		category = "progressbook",
+		category = "progress",
 	},
 	{
 		name = "pb_bar_earth",
@@ -295,7 +295,7 @@ local arrangeScheduleImages = {
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.54 + 0.056 * 2),
 		imageIndex = 1,
-		category = "progressbook",
+		category = "progress",
 	},
 	{
 		name = "pb_bar_ice",
@@ -303,7 +303,7 @@ local arrangeScheduleImages = {
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.54 + 0.056 * 3),
 		imageIndex = 1,
-		category = "progressbook",
+		category = "progress",
 	},
 	{
 		name = "pb_bar_light",
@@ -311,7 +311,7 @@ local arrangeScheduleImages = {
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.54 + 0.056 * 4),
 		imageIndex = 1,
-		category = "progressbook",
+		category = "progress",
 	},
 	{
 		name = "pb_bar_dark",
@@ -319,7 +319,7 @@ local arrangeScheduleImages = {
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.54 + 0.056 * 5),
 		imageIndex = 1,
-		category = "progressbook",
+		category = "progress",
 	},
 
 	{
@@ -328,7 +328,7 @@ local arrangeScheduleImages = {
 		endX = stage.width * 0.6,
 		endY = stage.height * (0.27 + 0.056 * 0),
 		imageIndex = 1,
-		category = "progressbook",
+		category = "progress",
 	},
 	{
 		name = "pb_bar_science",
@@ -336,7 +336,7 @@ local arrangeScheduleImages = {
 		endX = stage.width * 0.6,
 		endY = stage.height * (0.27 + 0.056 * 1),
 		imageIndex = 1,
-		category = "progressbook",
+		category = "progress",
 	},
 	{
 		name = "pb_bar_math",
@@ -344,7 +344,7 @@ local arrangeScheduleImages = {
 		endX = stage.width * 0.6,
 		endY = stage.height * (0.27 + 0.056 * 2),
 		imageIndex = 1,
-		category = "progressbook",
+		category = "progress",
 	},
 }
 
@@ -358,7 +358,7 @@ local arrangeScheduleButtons = {
 		endScaling = 0.2,
 		imageIndex = -1,
 		action = function(ArrangeSchedule)
-			ArrangeSchedule:_showDragonGoal()
+			ArrangeSchedule:showDragonGoal()
 		end,
 	},
 	{
@@ -370,7 +370,7 @@ local arrangeScheduleButtons = {
 		endScaling = 0.2,
 		imageIndex = -1,
 		action = function(ArrangeSchedule)
-			ArrangeSchedule:_showDragonDream()
+			ArrangeSchedule:showDragonDream()
 		end,
 	},
 	{
@@ -381,9 +381,10 @@ local arrangeScheduleButtons = {
 		endY = stage.height * 0.93,
 		imageIndex = -1,
 		action = function(ArrangeSchedule)
-			ArrangeSchedule:_showProgressBook()
+			ArrangeSchedule:showProgressBook()
 		end,
 	},
+
 	{
 		name = "pb_infoscreen",
 		image = images.gui_progress_infoscreen,
@@ -392,10 +393,37 @@ local arrangeScheduleButtons = {
 		endY = stage.height * 0.5,
 		imageIndex = 1,
 		action = function(ArrangeSchedule)
-			ArrangeSchedule:_hideProgressBook()
+			ArrangeSchedule:hideProgressBook()
 		end,
-		category = "progressbook",
+		category = "progress",
 	},
+
+	{
+		name = "dream_screendark",
+		image = images.gui_screendark,
+		imagePushed = images.gui_screendark,
+		endX = stage.width * 0.5,
+		endY = stage.height * 0.5,
+		imageIndex = 0,
+		action = function(ArrangeSchedule)
+			ArrangeSchedule:hideDragonDream()
+		end,
+		category = "dragondream",
+	},
+
+	{
+		name = "goal_screendark",
+		image = images.gui_screendark,
+		imagePushed = images.gui_screendark,
+		endX = stage.width * 0.5,
+		endY = stage.height * 0.5,
+		imageIndex = 0,
+		action = function(ArrangeSchedule)
+			ArrangeSchedule:hideDragonGoal()
+		end,
+		category = "dragongoal",
+	},
+
 }
 
 local arrangeScheduleDraggables = {
@@ -409,7 +437,7 @@ local arrangeScheduleText = {
 		x = stage.width * 0.05,
 		y = stage.height * 0.18,
 		imageIndex = 2,
-		category = "progressbook",
+		category = "progress",
 	},
 	{
 		name = "pb_magic",
@@ -418,7 +446,7 @@ local arrangeScheduleText = {
 		x = stage.width * 0.05,
 		y = stage.height * 0.45,
 		imageIndex = 2,
-		category = "progressbook",
+		category = "progress",
 	},
 	{
 		name = "pb_knowledge",
@@ -427,7 +455,7 @@ local arrangeScheduleText = {
 		x = stage.width * 0.4,
 		y = stage.height * 0.18,
 		imageIndex = 2,
-		category = "progressbook",
+		category = "progress",
 	},
 
 	{
@@ -437,7 +465,7 @@ local arrangeScheduleText = {
 		x = stage.width * 0.05,
 		y = stage.height * 0.25,
 		imageIndex = 2,
-		category = "progressbook",
+		category = "progress",
 	},
 	{
 		name = "pb_magic_substats",
@@ -446,7 +474,7 @@ local arrangeScheduleText = {
 		x = stage.width * 0.05,
 		y = stage.height * 0.52,
 		imageIndex = 2,
-		category = "progressbook",
+		category = "progress",
 	},
 	{
 		name = "pb_knowledge_substats",
@@ -455,7 +483,7 @@ local arrangeScheduleText = {
 		x = stage.width * 0.4,
 		y = stage.height * 0.25,
 		imageIndex = 2,
-		category = "progressbook",
+		category = "progress",
 	},
 }
 

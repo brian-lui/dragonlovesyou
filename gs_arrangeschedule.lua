@@ -63,67 +63,76 @@ function ArrangeSchedule:enter()
 
 	self.shownSubscreen = false
 
+	local categories = {progress = true, dragongoal = true, dragondream = true}
+
 	for _, tbl in pairs(ArrangeSchedule.ui) do
 		for _, t in pairs(tbl) do
-			if t.category == "progressbook" then t.transparency = 0 end
+			if categories[t.category] then t.transparency = 0 end
 		end
 	end
+
+	for _, t in pairs(ArrangeSchedule.ui.clickable) do
+		if categories[t.category] then t.clickable = false end
+	end
 end
 
-function ArrangeSchedule:_showDragonGoal()
+function ArrangeSchedule:_showSubscreen(subscreenName)
 	if not self.shownSubscreen then
-		self.shownSubscreen = "dragongoal"
-
-	end
-end
-
-function ArrangeSchedule:_hideDragonGoal()
-	if self.shownSubscreen == "dragongoal" then
-		self.shownSubscreen = false
-
-	end
-end
-
-function ArrangeSchedule:_showDragonDream()
-	if not self.shownSubscreen then
-		self.shownSubscreen = "dragondream"
-
-	end
-end
-
-function ArrangeSchedule:_hideDragonDream()
-	if self.shownSubscreen == "dragondream" then
-		self.shownSubscreen = false
-
-	end
-end
-
-function ArrangeSchedule:_showProgressBook()
-	if not self.shownSubscreen then
-		self.shownSubscreen = "progress"
-
-		self.ui.static.screendark.transparency = 1
+		self.shownSubscreen = subscreenName
 
 		for _, tbl in pairs(self.ui) do
 			for _, t in pairs(tbl) do
-				if t.category == "progressbook" then t.transparency = 1 end
+				if t.category == subscreenName then t.transparency = 1 end
 			end
+		end
+
+		for _, t in pairs(self.ui.clickable) do
+			if t.category == subscreenName then t.clickable = true end
+		end
+
+	end
+end
+
+function ArrangeSchedule:_hideSubscreen(subscreenName)
+	if self.shownSubscreen == subscreenName then
+		self.shownSubscreen = false
+
+		for _, tbl in pairs(self.ui) do
+			for _, t in pairs(tbl) do
+				if t.category == subscreenName then t.transparency = 0 end
+			end
+		end
+
+		for _, t in pairs(self.ui.clickable) do
+			if t.category == subscreenName then t.clickable = false end
 		end
 	end
 end
 
-function ArrangeSchedule:_hideProgressBook()
-	if self.shownSubscreen == "progress" then
-		self.shownSubscreen = false
 
-		self.ui.static.screendark.transparency = 0
+function ArrangeSchedule:showDragonGoal()
+	self:_showSubscreen("dragongoal")
+end
 
-		for _, tbl in pairs(self.ui) do
-			for _, t in pairs(tbl) do
-				if t.category == "progressbook" then t.transparency = 0 end
-			end
-		end
-	end
+function ArrangeSchedule:hideDragonGoal()
+	self:_hideSubscreen("dragongoal")
+end
+
+function ArrangeSchedule:showDragonDream()
+	self:_showSubscreen("dragondream")
+	print(self.ui.clickable.dragondream)
+end
+
+function ArrangeSchedule:hideDragonDream()
+	self:_hideSubscreen("dragondream")
+end
+
+function ArrangeSchedule:showProgressBook()
+	self:_showSubscreen("progress")
+end
+
+function ArrangeSchedule:hideProgressBook()
+	self:_hideSubscreen("progress")
 end
 
 

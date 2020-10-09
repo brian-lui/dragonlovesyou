@@ -144,6 +144,7 @@ function Game:_createButton(gamestate, params)
 		forceMaxAlpha = params.forceMaxAlpha,
 		sound = self.sound,
 		category = params.category,
+		clickable = true,
 	}
 
 	button:change{
@@ -320,7 +321,7 @@ local pointIsInRect = require "/helpers/utilities".pointIsInRect
 function Game:_controllerPressed(x, y, gamestate)
 	if self.controls.pressedDown == 0 then
 		for _, button in pairs(gamestate.ui.clickable) do
-			if pointIsInRect(x, y, button:getRect()) then
+			if pointIsInRect(x, y, button:getRect()) and button.clickable then
 				self.controls.clicked = button
 				button:pushed()
 			end
