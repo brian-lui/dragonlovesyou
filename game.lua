@@ -75,7 +75,7 @@ end
 
 function Game:reset()
 	self.rng:setSeed(os.time())
-	consts.ID:reset()
+	consts:reset()
 	self.sound:reset()
 	self.particles:reset()
 
@@ -225,7 +225,7 @@ end
 	mandatory parameters: name, image, endX, endY
 	optional parameters: duration, startTransparency, endTransparency,
 		startX, startY, easing, remove, exitFunc, forceMaxAlpha,
-		startScaling, endScaling, container, counter, flipH, imageIndex,
+		startScaling, endScaling, container, flipH, imageIndex,
 		category
 --]]
 function Game:_createImage(gamestate, params)
@@ -240,7 +240,6 @@ function Game:_createImage(gamestate, params)
 		scaling = params.startScaling or 1,
 		image = params.image,
 		imageIndex = params.imageIndex,
-		counter = params.counter,
 		container = params.container or gamestate.ui.static,
 		forceMaxAlpha = params.forceMaxAlpha,
 		flipH = params.flipH,

@@ -13,8 +13,8 @@ local DRAWSPACE_HEIGHT = 2048
 consts.timeStep = 1/60
 consts.timeBucket = 0
 consts.frame = 0
-consts.particle = 0
-consts.backgroundParticle = 0
+consts.particleCount = 0
+consts.backgroundParticleCount = 0
 
 consts.drawspace = {
 	width = DRAWSPACE_WIDTH,
@@ -23,16 +23,14 @@ consts.drawspace = {
 	tlfres = TLfres,
 }
 
-consts.ID = {
-	reset = function(self)
-		self.timeStep = 1/60
-		self.timeBucket = 0
-		self.frame = 0
-		self.particle = 0
-		self.backgroundParticle = 0
-	end
-}
-consts.ID:reset()
+function consts.reset(self)
+	self.timeStep = 1/60
+	self.timeBucket = 0
+	self.frame = 0
+	self.particleCount = 0
+	self.backgroundParticleCount = 0
+end
+consts:reset()
 
 
 consts.FONT = {

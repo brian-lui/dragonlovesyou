@@ -26,7 +26,7 @@ function Plain:init()
 		name = "background",
 	}
 
-	consts.ID.backgroundParticle = 0
+	consts.backgroundParticleCount = 0
 end
 
 function Plain:update(dt)
@@ -49,7 +49,7 @@ function Library:init()
 		name = "background",
 	}
 
-	consts.ID.backgroundParticle = 0
+	consts.backgroundParticleCount = 0
 end
 
 function Library:update(dt)

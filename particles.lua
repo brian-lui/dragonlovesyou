@@ -59,7 +59,7 @@ function Example:init(particles_instance, x, y)
 		y = y,
 		image = images.particles_pow,
 	})
-	local counter = consts.ID.particle
+	local counter = consts.particleCount
 	particles_instance.allParticles.Example[counter] = self
 	self.particles_instance = particles_instance
 end
