@@ -7,12 +7,17 @@ local common = require "class.commons"
 local spairs = require "/helpers/utilities".spairs
 local assetData = require "assetdata"
 local stage = require "stage"
+local Pic = require 'pic'
 
 local ArrangeSchedule = {name = "ArrangeSchedule"}
 
 -- refer to game.lua for instructions for createButton and createImage
 function ArrangeSchedule:createButton(params)
 	return self:_createButton(ArrangeSchedule, params)
+end
+
+function ArrangeSchedule:createDraggable(params)
+	return self:_createDraggable(ArrangeSchedule, params)
 end
 
 function ArrangeSchedule:createImage(params)
@@ -75,6 +80,9 @@ function ArrangeSchedule:enter()
 	for _, t in pairs(ArrangeSchedule.ui.clickable) do
 		if categories[t.category] then t.clickable = false end
 	end
+
+	local images = require "images"
+	ArrangeSchedule.createCard(self, images.cardui_beige, images.cardui_title)
 end
 
 function ArrangeSchedule:_showSubscreen(subscreenName)
@@ -183,6 +191,23 @@ end
 
 function ArrangeSchedule:hideProgressBook()
 	self:_hideSubscreen("progress")
+end
+
+function ArrangeSchedule:createCard(cardBack, cardTitle, blahblah)
+	local card = ArrangeSchedule.createDraggable(self, {
+		name = "testcard",
+		image = cardBack,
+		endX = stage.width * 0.5,
+		endY = stage.height * 0.8,
+		endScaling = 0.2,
+	})
+
+	card.imageTitle = cardTitle
+
+	card.draw = function(_self)
+		Pic.draw(_self)
+		Pic.draw(_self, {image = _self.imageTitle})
+	end
 end
 
 

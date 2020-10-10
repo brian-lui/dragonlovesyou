@@ -127,10 +127,8 @@ end
 --]]
 function Game:_createButton(gamestate, params)
 	params = params or {}
-	if params.name == nil then print("No object name received!") end
-	if params.imagePushed == nil then
-		print("Caution: no push image received for " .. params.name .. "!")
-	end
+	assert(params.name, "No object name received!")
+	assert(params.imagePushed, "No imagePushed received!")
 
 	local button = Pic:create{
 		name = params.name,
@@ -175,17 +173,14 @@ end
 
 -------------------------------------------------------------------------------
 --[[ creates an object that can be dragged and longpressed
-	mandatory parameters: name, image, imagePressed, endX, endY
+	mandatory parameters: name, image, endX, endY
 	optional parameters: duration, startTransparency, endTransparency,
 		startX, startY, easing, exit, pushed, pushedSFX, startScaling, endScaling,
-		releasedSFX, forceMaxAlpha, imageIndex, longpressed, category
+		releasedSFX, forceMaxAlpha, imageIndex, longpressed, category, imagePressed
 --]]
 function Game:_createDraggable(gamestate, params)
 	params = params or {}
-	if params.name == nil then print("No object name received!") end
-	if params.imagePressed == nil then
-		print("Caution: no push image received for " .. params.name .. "!")
-	end
+	assert(params.name, "No object name received!")
 
 	local draggable = Pic:create{
 		name = params.name,
