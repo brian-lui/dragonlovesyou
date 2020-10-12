@@ -66,11 +66,17 @@ function Game:init()
 	self.queue = common.instance(Queue)
 	self.statemanager = common.instance(require "/libraries/statemanager", self)
 
-	self.controls = {clicked = false, pressedDown = 0}
+	self.controls = {
+		clicked = false,
+		checkLongpress = false,
+		lastClickedFrame = false,
+		lastClickedX = false,
+		lastClickedY = false,
+		pressedDown = 0,
+	}
+
 	self:switchState("gs_title")
 	self:reset()
-
-	-- can add more
 end
 
 function Game:reset()
@@ -78,8 +84,6 @@ function Game:reset()
 	consts:reset()
 	self.sound:reset()
 	self.particles:reset()
-
-	-- can add more
 end
 
 -- takes a string
@@ -110,6 +114,13 @@ function Game:update(dt)
 
 	self:timeDip(function()
 		self.queue:update()
+
+		if self.lastClickedFrame then
+			if (consts.frame - self.lastClickedFrame > consts.LONGPRESS_FRAMES)
+			and self.controls.checkLongpress then
+				self.controls.checkLongpress = false
+			end
+		end
 		-- other logic stuff
 	end)
 
@@ -175,7 +186,7 @@ end
 --[[ creates an object that can be dragged and longpressed
 	mandatory parameters: name, image, endX, endY
 	optional parameters: duration, startTransparency, endTransparency,
-		startX, startY, easing, exit, pushed, pushedSFX, startScaling, endScaling,
+		startX, startY, easing, exit, pushedSFX, startScaling, endScaling,
 		releasedSFX, forceMaxAlpha, imageIndex, longpressed, category, imagePressed
 --]]
 function Game:_createDraggable(gamestate, params)
@@ -194,6 +205,8 @@ function Game:_createDraggable(gamestate, params)
 		forceMaxAlpha = params.forceMaxAlpha,
 		sound = self.sound,
 		category = params.category,
+		longpressable = true,
+		draggable = true,
 	}
 
 	draggable:change{
@@ -205,6 +218,11 @@ function Game:_createDraggable(gamestate, params)
 		easing = params.easing or "linear",
 		exitFunc = params.exitFunc,
 	}
+
+	draggable.pushed = params.pushed or function(_self)
+		_self.sound:newSFX(params.pushedSFX or "button")
+	end
+
 	draggable.longpressed = params.longpressed or function(_self)
 		_self:newImage(params.imagePressed)
 	end
@@ -315,10 +333,36 @@ local pointIsInRect = require "/helpers/utilities".pointIsInRect
 --default controllerPressed function if not specified by a sub-state
 function Game:_controllerPressed(x, y, gamestate)
 	if self.controls.pressedDown == 0 then
+		local clickedItems = {}
+
 		for _, button in pairs(gamestate.ui.clickable) do
 			if pointIsInRect(x, y, button:getRect()) and button.clickable then
-				self.controls.clicked = button
-				button:pushed()
+				clickedItems[#clickedItems + 1] = button
+			end
+		end
+
+		for _, draggable in pairs(gamestate.ui.draggable) do
+			if pointIsInRect(x, y, draggable:getRect()) and
+			(draggable.draggable or draggable.longpressable) then
+				clickedItems[#clickedItems + 1] = draggable
+			end
+		end
+
+		if #clickedItems > 0 then
+			local function sortFunc(a, b)
+				return a.imageIndex > b.imageIndex
+			end
+
+			table.sort(clickedItems, sortFunc)
+
+			self.controls.clicked = clickedItems[1]
+			clickedItems[1]:pushed()
+			self.lastClickedFrame = consts.frame
+			self.lastClickedX = x
+			self.lastClickedY = y
+
+			if clickedItems[1].longpressable then
+				self.controls.checkLongpress = true
 			end
 		end
 	end
@@ -330,16 +374,26 @@ end
 function Game:_controllerReleased(x, y, gamestate)
 	if self.controls.clicked then
 		for _, button in pairs(gamestate.ui.clickable) do
-			if self.controls.clicked == button then button:released() end
+			if self.controls.clicked == button then
+				button:released()
 
-			if pointIsInRect(x, y, button:getRect())
-			and self.controls.clicked == button then
-				button.action(button.gamestate, self)
-				break
+				if pointIsInRect(x, y, button:getRect()) then
+					button.action(button.gamestate, self)
+				end
+			end
+		end
+
+		for _, draggable in pairs(gamestate.ui.draggable) do
+			if self.controls.clicked == draggable then
+				draggable:released()
 			end
 		end
 
 		self.controls.clicked = false
+		self.checkLongpress = false
+		self.lastClickedFrame = false
+		self.lastClickedX = false
+		self.lastClickedY = false
 	end
 
 	self.controls.pressedDown = self.controls.pressedDown - 1
@@ -348,10 +402,16 @@ end
 -- default controllerMoved function if not specified by a sub-state
 function Game:_controllerMoved(x, y, gamestate)
 	if self.controls.clicked then
+		if self.controls.clicked.draggable then
+			self.controls.clicked.x = x
+			self.controls.clicked.y = y
+		end
+
 		if not pointIsInRect(x, y, self.controls.clicked:getRect()) then
 			self.controls.clicked:released()
 			self.controls.clicked = false
 		end
+
 	end
 end
 

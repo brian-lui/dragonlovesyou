@@ -16,6 +16,8 @@ consts.frame = 0
 consts.particleCount = 0
 consts.backgroundParticleCount = 0
 
+consts.LONGPRESS_FRAMES = 30
+
 consts.drawspace = {
 	width = DRAWSPACE_WIDTH,
 	height = DRAWSPACE_HEIGHT,
