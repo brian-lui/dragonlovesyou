@@ -118,6 +118,7 @@ function Game:update(dt)
 		if self.lastClickedFrame then
 			if (consts.frame - self.lastClickedFrame > consts.LONGPRESS_FRAMES)
 			and self.controls.checkLongpress then
+				self.controls.clicked:longpressFunc()
 				self.controls.checkLongpress = false
 			end
 		end
@@ -187,7 +188,8 @@ end
 	mandatory parameters: name, image, endX, endY
 	optional parameters: duration, startTransparency, endTransparency,
 		startX, startY, easing, exit, pushedSFX, startScaling, endScaling,
-		releasedSFX, forceMaxAlpha, imageIndex, longpressed, category, imagePressed
+		releasedSFX, forceMaxAlpha, imageIndex, longpressFunc, category, imagePressed
+		releasedFunc,
 --]]
 function Game:_createDraggable(gamestate, params)
 	params = params or {}
@@ -223,11 +225,11 @@ function Game:_createDraggable(gamestate, params)
 		_self.sound:newSFX(params.pushedSFX or "button")
 	end
 
-	draggable.longpressed = params.longpressed or function(_self)
+	draggable.longpressFunc = params.longpressFunc or function(_self)
 		_self:newImage(params.imagePressed)
 	end
 
-	draggable.released = params.released or function(_self)
+	draggable.releasedFunc = params.releasedFunc or function(_self)
 		_self:newImage(params.image)
 	end
 
@@ -385,7 +387,7 @@ function Game:_controllerReleased(x, y, gamestate)
 
 		for _, draggable in pairs(gamestate.ui.draggable) do
 			if self.controls.clicked == draggable then
-				draggable:released()
+				draggable:releasedFunc()
 			end
 		end
 
@@ -405,6 +407,7 @@ function Game:_controllerMoved(x, y, gamestate)
 		if self.controls.clicked.draggable then
 			self.controls.clicked.x = x
 			self.controls.clicked.y = y
+			self.lastClickedFrame = consts.frame
 		end
 
 		if not pointIsInRect(x, y, self.controls.clicked:getRect()) then

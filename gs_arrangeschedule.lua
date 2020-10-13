@@ -82,7 +82,20 @@ function ArrangeSchedule:enter()
 	end
 
 	local images = require "images"
-	ArrangeSchedule.createCard(self, images.cardui_beige, images.cardui_title)
+	ArrangeSchedule.createCard(self, {
+		name = "testcard",
+		cardBack = images.cardui_beige,
+		cardTitle = images.cardui_title,
+		x = stage.width * 0.5,
+		y = stage.height * 0.8,
+		scaling = 0.2,
+		longpressFunc = function(card)
+			card:change{duration = 30, scaling = 1}
+		end,
+		releasedFunc = function(card)
+			card:change{duration = 30, scaling = 0.2}
+		end,
+	})
 end
 
 function ArrangeSchedule:_showSubscreen(subscreenName)
@@ -193,16 +206,25 @@ function ArrangeSchedule:hideProgressBook()
 	self:_hideSubscreen("progress")
 end
 
-function ArrangeSchedule:createCard(cardBack, cardTitle, blahblah)
+-- mandatory: name, cardBack, cardTitle, x, y
+-- optional: scaling, longpressFunc, releasedFunc
+function ArrangeSchedule:createCard(params)
+	assert(params.name, "No card name given!")
+	assert(params.cardBack, "No cardback image given!")
+	assert(params.cardTitle, "No card title image given!")
+	assert(params.x and params.y, "No card x or y given!")
+
 	local card = ArrangeSchedule.createDraggable(self, {
-		name = "testcard",
-		image = cardBack,
-		endX = stage.width * 0.5,
-		endY = stage.height * 0.8,
-		endScaling = 0.2,
+		name = params.name,
+		image = params.cardBack,
+		endX = params.x,
+		endY = params.y,
+		endScaling = params.scaling,
 	})
 
-	card.imageTitle = cardTitle
+	card.imageTitle = params.cardTitle
+	card.longpressFunc = params.longpressFunc or function(clickedObject) end
+	card.releasedFunc = params.releasedFunc or function(clickedObject) end
 
 	card.draw = function(_self)
 		Pic.draw(_self)
