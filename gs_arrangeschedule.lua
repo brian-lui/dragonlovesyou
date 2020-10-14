@@ -96,6 +96,13 @@ function ArrangeSchedule:enter()
 			card:change{duration = 30, scaling = 0.2}
 		end,
 	})
+
+	test:change{duration = 300, quad = {
+		x = true,
+		percentageX = 0.3,
+		anchorX = "left",
+		cropFromX = "right",
+	}}
 end
 
 function ArrangeSchedule:_showSubscreen(subscreenName)

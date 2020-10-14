@@ -215,13 +215,24 @@ local function clearMove(self)
 end
 
 -- this is called from createMoveFunc and from some UI functions
-function Pic:setQuad(x, y, w, h)
+function Pic:setQuad(x, y, w, h, anchorX, anchorY)
 	self.quad = love.graphics.newQuad(x, y, w, h, self.width, self.height)
+
+	local offsetX = 0
+	if anchorX == "right" then
+		offsetX = x
+	end
+
+	local offsetY = 0
+	if anchorY == "right" then
+		offsetY = y
+	end
+
 	self.quadData = {
-		offsetX = x or 0,
-		offsetY = y or 0,
-		x = self.x + (x or 0),
-		y = self.y + (y or 0),
+		offsetX = offsetX,
+		offsetY = offsetY,
+		x = self.x + offsetX,
+		y = self.y + offsetY,
 		pctX = w / self.width,
 		pctY = h / self.height,
 	}
@@ -291,19 +302,32 @@ local function createMoveFunc(self, target)
 		quadFunc = function(_self)
 			local cur_pctX = (endX_pct - startX_pct) * _self.t + startX_pct
 			local curWidth = cur_pctX * _self.width
+
 			local curX = 0
 			if target.quad.x then
-				curX = target.quad.anchorX * (_self.t) * _self.width * endX_pct * _self.scaling
+				if target.quad.cropFromX == "right" then
+					curX =  _self.width * (1 - (endX_pct * _self.t))
+				end
 			end
 
 			local cur_pctY = (endY_pct - startY_pct) * _self.t + startY_pct
 			local curHeight = cur_pctY * _self.height
+
 			local curY = 0
 			if target.quad.y then
-				curY = target.quad.anchorY * (_self.t) * _self.height * endY_pct * _self.scaling
+				if target.quad.cropFromY == "bottom" then
+					curY = _self.height * (1 - (endY_pct * _self.t))
+				end
 			end
 
-			_self:setQuad(curX, curY, curWidth, curHeight)
+			_self:setQuad(
+				curX,
+				curY,
+				curWidth,
+				curHeight,
+				target.quad.anchorX,
+				target.quad.anchorY
+			)
 		end
 	end
 
@@ -363,13 +387,14 @@ end
 			y = bool,
 			percentageX = 0-1,
 			percentageY = 0-1,
-			anchorX = 0-1,
-			anchorY = 0-1
+			anchorX = "left" or "right",
+			anchorY = "top" or "bottom",
+			cropFromX = "left" or "right",
+			cropFromY = "top" or "bottom",
 		}
 		debug: print some unhelpful debug info
 	Junk created: self.t, moveFunc, tweening, curve, exit, during. duringFrame
 	Cleans up after itself when movement or tweening finished during Pic:update()
-	NOTE: quad is a bit buggy if anchor isn't 0
 --]]
 function Pic:change(target)
 	target.easing = target.easing or "linear"
@@ -377,6 +402,32 @@ function Pic:change(target)
 	if target.queue ~= false then target.queue = true end
 	if target.debug then print("New move instruction received")	end
 	if target.duration == 0 then target.duration = 0.0078125 end
+	if target.quad then
+		if target.quad.x then
+			assert(
+				target.quad.anchorX == "left" or
+				target.quad.anchorX == "right",
+				"invalid anchorX!"
+			)
+			assert(
+				target.quad.cropFromX == "left" or
+				target.quad.cropFromX == "right",
+				"invalid anchorX!"
+			)
+		end
+		if target.quad.y then
+			assert(
+				target.quad.anchorY == "top" or
+				target.quad.anchorY == "bottom",
+				"invalid anchorY!"
+			)
+			assert(
+				target.quad.cropFromY == "top" or
+				target.quad.cropFromY == "bottom",
+				"invalid anchorY!"
+			)
+		end
+	end
 
 	if not target.duration then -- apply instantly, interrupting all moves
 		clearMove(self)
