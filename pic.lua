@@ -291,10 +291,18 @@ local function createMoveFunc(self, target)
 		quadFunc = function(_self)
 			local cur_pctX = (endX_pct - startX_pct) * _self.t + startX_pct
 			local curWidth = cur_pctX * _self.width
-			local curX = target.quad.x and target.quad.anchorX * (1-_self.t) * _self.width * endX_pct or 0
+			local curX = 0
+			if target.quad.x then
+				curX = target.quad.anchorX * (_self.t) * _self.width * endX_pct * _self.scaling
+			end
+
 			local cur_pctY = (endY_pct - startY_pct) * _self.t + startY_pct
 			local curHeight = cur_pctY * _self.height
-			local curY = target.quad.y and target.quad.anchorY * (1-_self.t) * _self.height * endY_pct or 0
+			local curY = 0
+			if target.quad.y then
+				curY = target.quad.anchorY * (_self.t) * _self.height * endY_pct * _self.scaling
+			end
+
 			_self:setQuad(curX, curY, curWidth, curHeight)
 		end
 	end
@@ -361,6 +369,7 @@ end
 		debug: print some unhelpful debug info
 	Junk created: self.t, moveFunc, tweening, curve, exit, during. duringFrame
 	Cleans up after itself when movement or tweening finished during Pic:update()
+	NOTE: quad is a bit buggy if anchor isn't 0
 --]]
 function Pic:change(target)
 	target.easing = target.easing or "linear"

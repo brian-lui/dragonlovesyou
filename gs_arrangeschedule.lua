@@ -82,7 +82,7 @@ function ArrangeSchedule:enter()
 	end
 
 	local images = require "images"
-	ArrangeSchedule.createCard(self, {
+	local test = ArrangeSchedule.createCard(self, {
 		name = "testcard",
 		cardBack = images.cardui_beige,
 		cardTitle = images.cardui_title,
@@ -230,6 +230,8 @@ function ArrangeSchedule:createCard(params)
 		Pic.draw(_self)
 		Pic.draw(_self, {image = _self.imageTitle})
 	end
+
+	return card
 end
 
 
