@@ -220,20 +220,27 @@ function ArrangeSchedule:showProgressBook()
 
 	for _, stat in ipairs(pbstats) do
 		local value = stateInfo.get("stats", stat[1], stat[2])
-		local x = self.ui.static["pb_bar_" .. stat[2]].x
-		local y = self.ui.static["pb_bar_" .. stat[2]].y
-		local image = images.gui_stats_blue
+		local blockback = self.ui.static[ "pb_blockback_" .. stat[2] ]
 
-		ArrangeSchedule.createImage(self, {
+		local p = ArrangeSchedule.createImage(self, {
 			name = "pb_statbar_" .. stat[2],
-			image = image,
-			duration = 20,
-			endX = x,
-			endY = y,
-			easing = "linear",
-			imageIndex = 1,
+			image = blockback.extraInfo.meterImage,
+			endX = blockback.x - stage.width * 0.025,
+			endY = blockback.y,
+			imageIndex = 2,
 			category = "progress",
 		})
+
+		p:change{
+			duration = value * 0.5,
+			easing = "outCubic",
+			quad = {
+				x = true,
+				percentageX = value * 0.01,
+				anchorX = "left",
+				cropFromX = "right",
+			},
+		}
 	end
 end
 
@@ -284,7 +291,7 @@ end
 function ArrangeSchedule:draw()
 	ArrangeSchedule.currentBackground:draw()
 
-	local indexes = {-3, -2, -1, 0, 1, 2}
+	local indexes = {-3, -2, -1, 0, 1, 2, 3}
 
 	for _, i in ipairs(indexes) do
 		for _, tbl in spairs(ArrangeSchedule.ui) do
