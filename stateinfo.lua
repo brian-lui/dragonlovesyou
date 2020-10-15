@@ -32,9 +32,10 @@ returns item = {
 }
 --]]
 function stateInfo.get(...)
+	local args = {...}
 	local ret = data
 
-	for _, category in ipairs{...} do
+	for _, category in ipairs(args) do
 		ret = ret[category]
 		assert(ret, "stateInfo category " .. category .. " not found!")
 	end
@@ -43,13 +44,18 @@ function stateInfo.get(...)
 end
 
 function stateInfo.set(value, ...)
-	local s = data
+	local args = {...}
+	local set = data
 
-	for i = 1, #arg - 1 do
-		s = s[ arg[i] ]
-		assert(s, "stateInfo category" .. arg[i] .. " not found!")
+	for i = 1, #args - 1 do
+		set = set[ args[i] ]
+		assert(set, "stateInfo category" .. args[i] .. " not found!")
 	end
 
-	s[ arg[#arg] ] = value
+	if type(set[ args[#args] ]) == "table" then
+		assert(type(value) == "table", "tried to write non-table to table!")
+	end
+
+	set[ args[#args] ] = value
 end
 return stateInfo
