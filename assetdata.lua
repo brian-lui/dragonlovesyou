@@ -44,7 +44,7 @@ local titleButtons = {
 		endX = stage.width * 0.75,
 		endY = stage.height * 0.55,
 		easing = "inQuart",
-		action = function(_, game)
+		action = function()
 			game:switchState("gs_arrangeschedule")
 		end,
 	},
@@ -256,6 +256,15 @@ local arrangeScheduleImages = {
 		imageIndex = 1,
 		category = "progress",
 	},
+	--[[ LIKE THIS ]]
+	pb_statbar_attack = {
+		name = "pb_statbar_attack",
+		image = images.gui_stats_blue,
+		endX = stage.width * 0.20,
+		endY = stage.height * (0.27 + 0.056 * 0),
+		imageIndex = 2,
+		category = "progress",
+	},
 	pb_bar_defense = {
 		name = "pb_bar_defense",
 		image = images.gui_progress_bar,
@@ -272,7 +281,6 @@ local arrangeScheduleImages = {
 		imageIndex = 1,
 		category = "progress",
 	},
-
 	pb_bar_fire = {
 		name = "pb_bar_fire",
 		image = images.gui_progress_bar,
@@ -321,7 +329,6 @@ local arrangeScheduleImages = {
 		imageIndex = 1,
 		category = "progress",
 	},
-
 	pb_bar_world = {
 		name = "pb_bar_world",
 		image = images.gui_progress_bar,

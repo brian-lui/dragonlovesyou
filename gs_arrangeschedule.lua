@@ -6,26 +6,28 @@
 local common = require "class.commons"
 local spairs = require "/helpers/utilities".spairs
 local assetData = require "assetdata"
+local stateInfo = require "stateinfo"
 local stage = require "stage"
 local Pic = require 'pic'
+local images = require "images"
 
 local ArrangeSchedule = {name = "ArrangeSchedule"}
 
 -- refer to game.lua for instructions for createButton and createImage
 function ArrangeSchedule:createButton(params)
-	return self:_createButton(ArrangeSchedule, params)
+	return game:_createButton(ArrangeSchedule, params)
 end
 
 function ArrangeSchedule:createDraggable(params)
-	return self:_createDraggable(ArrangeSchedule, params)
+	return game:_createDraggable(ArrangeSchedule, params)
 end
 
 function ArrangeSchedule:createImage(params)
-	return self:_createImage(ArrangeSchedule, params)
+	return game:_createImage(ArrangeSchedule, params)
 end
 
 function ArrangeSchedule:createText(params)
-	return self:_createText(ArrangeSchedule, params)
+	return game:_createText(ArrangeSchedule, params)
 end
 
 local imageData = assetData.getImages("ArrangeSchedule")
@@ -96,13 +98,6 @@ function ArrangeSchedule:enter()
 			card:change{duration = 30, scaling = 0.2}
 		end,
 	})
-
-	test:change{duration = 300, quad = {
-		x = true,
-		percentageX = 0.3,
-		anchorX = "left",
-		cropFromX = "right",
-	}}
 end
 
 function ArrangeSchedule:_showSubscreen(subscreenName)
@@ -205,12 +200,49 @@ function ArrangeSchedule:hideDragonDream()
 	}
 end
 
+local pbstats = {
+	{"dragonability", "attack"},
+	{"dragonability", "defense"},
+	{"dragonability", "flight"},
+	{"magic", "fire"},
+	{"magic", "water"},
+	{"magic", "earth"},
+	{"magic", "ice"},
+	{"magic", "light"},
+	{"magic", "dark"},
+	{"knowledge", "world"},
+	{"knowledge", "science"},
+	{"knowledge", "math"},
+}
+
 function ArrangeSchedule:showProgressBook()
 	self:_showSubscreen("progress")
+
+	for _, stat in ipairs(pbstats) do
+		local value = stateInfo.get("stats", stat[1], stat[2])
+		local x = self.ui.static["pb_bar_" .. stat[2]].x
+		local y = self.ui.static["pb_bar_" .. stat[2]].y
+		local image = images.gui_stats_blue
+
+		ArrangeSchedule.createImage(self, {
+			name = "pb_statbar_" .. stat[2],
+			image = image,
+			duration = 20,
+			endX = x,
+			endY = y,
+			easing = "linear",
+			imageIndex = 1,
+			category = "progress",
+		})
+	end
 end
 
 function ArrangeSchedule:hideProgressBook()
 	self:_hideSubscreen("progress")
+
+	for _, stat in ipairs(pbstats) do
+		self.ui.static["pb_statbar_" .. stat[2] ] = nil
+	end
 end
 
 -- mandatory: name, cardBack, cardTitle, x, y
