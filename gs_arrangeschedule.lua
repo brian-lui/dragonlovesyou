@@ -6,6 +6,7 @@
 local common = require "class.commons"
 local spairs = require "/helpers/utilities".spairs
 local assetData = require "assetdata"
+local cardData = require "carddata"
 local stateInfo = require "stateinfo"
 local stage = require "stage"
 local Pic = require 'pic'
@@ -83,21 +84,11 @@ function ArrangeSchedule:enter()
 		if categories[t.category] then t.clickable = false end
 	end
 
-	local images = require "images"
-	local test = ArrangeSchedule.createCard(self, {
-		name = "testcard",
-		cardBack = images.cardui_beige,
-		cardTitle = images.cardui_title,
-		x = stage.width * 0.5,
-		y = stage.height * 0.8,
-		scaling = 0.2,
-		longpressFunc = function(card)
-			card:change{duration = 30, scaling = 1}
-		end,
-		releasedFunc = function(card)
-			card:change{duration = 30, scaling = 0.2}
-		end,
-	})
+	local testcarddata = cardData.getCard("meditate")
+	testcarddata.x = stage.width * 0.5
+	testcarddata.y = stage.height * 0.8
+	testcarddata.scaling = 0.2
+	local testcard = ArrangeSchedule.createCard(self, testcarddata)
 end
 
 function ArrangeSchedule:_showSubscreen(subscreenName)
@@ -252,29 +243,51 @@ function ArrangeSchedule:hideProgressBook()
 	end
 end
 
--- mandatory: name, cardBack, cardTitle, x, y
+-- mandatory: name, cardImage, cardbackImage, titlebackImage, titleText, descriptionText, x, y
 -- optional: scaling, longpressFunc, releasedFunc
 function ArrangeSchedule:createCard(params)
 	assert(params.name, "No card name given!")
-	assert(params.cardBack, "No cardback image given!")
-	assert(params.cardTitle, "No card title image given!")
+	assert(params.cardImage, "No card image given!")
+	assert(params.cardbackImage, "No cardback image given!")
+	assert(params.titlebackImage, "No titleback image given!")
+	assert(params.descriptionText, "No description text given!")
+	assert(params.titleText, "No title text given!")
 	assert(params.x and params.y, "No card x or y given!")
 
 	local card = ArrangeSchedule.createDraggable(self, {
 		name = params.name,
-		image = params.cardBack,
+		image = params.cardbackImage,
 		endX = params.x,
 		endY = params.y,
 		endScaling = params.scaling,
 	})
+	card.titlebackImage = params.titlebackImage
+	card.cardImage = params.cardImage
+	card.titleText = params.titleText
+	card.descriptionText = params.descriptionText
 
-	card.imageTitle = params.cardTitle
-	card.longpressFunc = params.longpressFunc or function(clickedObject) end
-	card.releasedFunc = params.releasedFunc or function(clickedObject) end
+	card.longpressFunc = params.longpressFunc or function(_card)
+		_card:change{duration = 30, scaling = 1}
+		-- create descriptionBackground
+		-- create titleTextObject, descriptionTextObject
+	end
+	card.releasedFunc = params.releasedFunc or function(_card)
+		-- TODO:
+		-- if longpressed then
+			_card:change{duration = 30, scaling = 0.2}
+			-- remove titleTextObject
+			-- remove descriptionTextObject
+		-- elseif released over the schedule area then
+		-- end
+	end
 
 	card.draw = function(_self)
 		Pic.draw(_self)
-		Pic.draw(_self, {image = _self.imageTitle})
+		Pic.draw(_self, {image = _self.cardImage})
+		Pic.draw(_self, {image = _self.titlebackImage})
+		-- if longpressed then
+			-- draw descriptionBackground, draw titleTextObject,  draw descriptionTextObject
+		-- end
 	end
 
 	return card
