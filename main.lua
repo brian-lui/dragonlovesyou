@@ -11,7 +11,6 @@ require "/libraries/classcommons"
 local common = require "class.commons"
 local consts = require "/helpers/consts"
 local __NOP__ = function () end
-local game
 
 function love.load()
 	print("Debug folder is at: " .. love.filesystem.getSaveDirectory())
