@@ -119,6 +119,9 @@ function Game:update(dt)
 			if (consts.frame - self.lastClickedFrame > consts.LONGPRESS_FRAMES)
 			and self.controls.checkLongpress then
 				self.controls.clicked:longpressFunc()
+				self.controls.clicked.longpressed = true
+				self.controls.clicked.longpressable = false
+				self.controls.clicked.draggable = false
 				self.controls.checkLongpress = false
 			end
 		end
@@ -210,7 +213,9 @@ function Game:_createDraggable(gamestate, params)
 		category = params.category,
 		extraInfo = params.extraInfo,
 		longpressable = true,
+		longpressed = false,
 		draggable = true,
+		dragged = false,
 	}
 
 	draggable:change{
@@ -389,9 +394,13 @@ function Game:_controllerReleased(x, y, gamestate)
 			end
 		end
 
-		for _, draggable in pairs(gamestate.ui.draggable) do
-			if self.controls.clicked == draggable then
-				draggable:releasedFunc()
+		for _, obj in pairs(gamestate.ui.draggable) do
+			if self.controls.clicked == obj then
+				obj:releasedFunc()
+				obj.dragged = false
+				obj.draggable = true
+				obj.longpressed = false
+				obj.longpressable = true
 			end
 		end
 
@@ -407,18 +416,14 @@ end
 
 -- default controllerMoved function if not specified by a sub-state
 function Game:_controllerMoved(x, y, gamestate)
-	if self.controls.clicked then
-		if self.controls.clicked.draggable then
-			self.controls.clicked.x = x
-			self.controls.clicked.y = y
+	local obj = self.controls.clicked
+	if obj then
+		if obj.draggable then
+			obj.x = x
+			obj.y = y
+			obj.dragged = true
 			self.lastClickedFrame = consts.frame
 		end
-
-		if not pointIsInRect(x, y, self.controls.clicked:getRect()) then
-			self.controls.clicked:released()
-			self.controls.clicked = false
-		end
-
 	end
 end
 

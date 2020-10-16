@@ -445,6 +445,23 @@ local arrangeScheduleImages = {
 		imageIndex = 3,
 		category = "progress",
 	},
+
+	card_screendark = {
+		name = "card_screendark",
+		image = images.gui_screendark,
+		endX = stage.width * 0.5,
+		endY = stage.height * 0.5,
+		imageIndex = 0,
+		category = "cardcloseup",
+	},
+	card_description_background = {
+		name = "card_description_background",
+		image = images.gui_cardcloseup_box,
+		endX = stage.width * 0.7,
+		endY = stage.height * 0.7,
+		imageIndex = 1,
+		category = "cardcloseup",
+	},
 }
 
 local arrangeScheduleButtons = {

@@ -19,7 +19,16 @@ local data = {
 			math = 60,
 		},
 	},
+	deck = {
+		"meditate",
+		"meditate",
+		"meditate",
+		"sleep",
+		"fireball",
+	}
 }
+
+
 
 local stateInfo = {}
 

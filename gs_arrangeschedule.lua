@@ -72,7 +72,12 @@ function ArrangeSchedule:enter()
 
 	self.shownSubscreen = false
 
-	local categories = {progress = true, dragongoal = true, dragondream = true}
+	local categories = {
+		progress = true,
+		dragongoal = true,
+		dragondream = true,
+		cardcloseup = true,
+	}
 
 	for _, tbl in pairs(ArrangeSchedule.ui) do
 		for _, t in pairs(tbl) do
@@ -85,6 +90,7 @@ function ArrangeSchedule:enter()
 	end
 
 	local testcarddata = cardData.getCard("meditate")
+
 	testcarddata.x = stage.width * 0.5
 	testcarddata.y = stage.height * 0.8
 	testcarddata.scaling = 0.2
@@ -243,6 +249,29 @@ function ArrangeSchedule:hideProgressBook()
 	end
 end
 
+function ArrangeSchedule:showCard(card)
+	print("showing closeup card")
+	self:_showSubscreen("cardcloseup")
+
+	card.imageIndex = 2
+	card:change{duration = 10,
+		scaling = 1,
+		x = stage.width * 0.35,
+		y = stage.height * 0.5,
+	}
+	-- create descriptionBackground
+	-- create titleTextObject, descriptionTextObject
+
+end
+
+function ArrangeSchedule:hideCard(card)
+	self:_hideSubscreen("cardcloseup")
+	card:change{duration = 10, scaling = 0.2}
+	card.imageIndex = -1
+	-- snap back to origin
+end
+
+
 -- mandatory: name, cardImage, cardbackImage, titlebackImage, titleText, descriptionText, x, y
 -- optional: scaling, longpressFunc, releasedFunc
 function ArrangeSchedule:createCard(params)
@@ -266,19 +295,15 @@ function ArrangeSchedule:createCard(params)
 	card.titleText = params.titleText
 	card.descriptionText = params.descriptionText
 
-	card.longpressFunc = params.longpressFunc or function(_card)
-		_card:change{duration = 30, scaling = 1}
-		-- create descriptionBackground
-		-- create titleTextObject, descriptionTextObject
-	end
-	card.releasedFunc = params.releasedFunc or function(_card)
-		-- TODO:
-		-- if longpressed then
-			_card:change{duration = 30, scaling = 0.2}
-			-- remove titleTextObject
-			-- remove descriptionTextObject
-		-- elseif released over the schedule area then
-		-- end
+	card.longpressFunc = function(_card) ArrangeSchedule:showCard(_card) end
+
+	card.releasedFunc = function(_card)
+		if _card.longpressed then
+			ArrangeSchedule:hideCard(_card)
+		elseif _card.dragged then
+			-- if released over the schedule area then
+			-- else snap back
+		end
 	end
 
 	card.draw = function(_self)
