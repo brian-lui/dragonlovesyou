@@ -68,7 +68,6 @@ function Game:init()
 
 	self.controls = {
 		clicked = false,
-		checkLongpress = false,
 		lastClickedFrame = false,
 		lastClickedX = false,
 		lastClickedY = false,
@@ -115,15 +114,15 @@ function Game:update(dt)
 	self:timeDip(function()
 		self.queue:update()
 
-		if self.lastClickedFrame then
-			if (consts.frame - self.lastClickedFrame > consts.LONGPRESS_FRAMES)
-			and self.controls.checkLongpress then
-				self.controls.clicked:longpressFunc()
-				self.controls.clicked.longpressed = true
-				self.controls.clicked.longpressable = false
-				self.controls.clicked.draggable = false
-				self.controls.checkLongpress = false
-			end
+		local obj = self.controls.clicked
+		if self.lastClickedFrame
+		and (consts.frame - self.lastClickedFrame > consts.LONGPRESS_FRAMES)
+		and obj
+		and obj.longpressable then
+			obj:longpressFunc()
+			obj.longpressed = true
+			obj.longpressable = false
+			obj.draggable = false
 		end
 		-- other logic stuff
 	end)
@@ -371,10 +370,6 @@ function Game:_controllerPressed(x, y, gamestate)
 			self.lastClickedFrame = consts.frame
 			self.lastClickedX = x
 			self.lastClickedY = y
-
-			if clickedItems[1].longpressable then
-				self.controls.checkLongpress = true
-			end
 		end
 	end
 
@@ -405,7 +400,6 @@ function Game:_controllerReleased(x, y, gamestate)
 		end
 
 		self.controls.clicked = false
-		self.checkLongpress = false
 		self.lastClickedFrame = false
 		self.lastClickedX = false
 		self.lastClickedY = false
@@ -422,7 +416,7 @@ function Game:_controllerMoved(x, y, gamestate)
 			obj.x = x
 			obj.y = y
 			obj.dragged = true
-			self.lastClickedFrame = consts.frame
+			obj.longpressable = false
 		end
 	end
 end
