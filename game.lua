@@ -123,6 +123,7 @@ function Game:update(dt)
 			obj.longpressed = true
 			obj.longpressable = false
 			obj.draggable = false
+			obj.dragged = false
 		end
 		-- other logic stuff
 	end)
@@ -136,7 +137,7 @@ end
 --[[ create a clickable object
 	mandatory parameters: name, image, imagePushed, endX, endY, action
 	optional parameters: duration, startTransparency, endTransparency,
-		startX, startY, easing, exit, pushed, pushedSFX, released, startScaling,
+		startX, startY, easing, exit, pushedFunc, pushedSFX, releasedFunc, startScaling,
 		endScaling, releasedSFX, forceMaxAlpha, imageIndex, category, extraInfo
 --]]
 function Game:_createButton(gamestate, params)
@@ -169,11 +170,11 @@ function Game:_createButton(gamestate, params)
 		easing = params.easing or "linear",
 		exitFunc = params.exitFunc,
 	}
-	button.pushed = params.pushed or function(_self)
+	button.pushedFunc = params.pushedFunc or function(_self)
 		_self.sound:newSFX(params.pushedSFX or "button")
 		_self:newImage(params.imagePushed)
 	end
-	button.released = params.released or function(_self)
+	button.releasedFunc = params.releasedFunc or function(_self)
 		if params.releasedSFX then
 			_self.sound:newSFX(params.releasedSFX)
 		end
@@ -227,7 +228,7 @@ function Game:_createDraggable(gamestate, params)
 		exitFunc = params.exitFunc,
 	}
 
-	draggable.pushed = params.pushed or function(_self)
+	draggable.pushedFunc = params.pushedFunc or function(_self)
 		_self.sound:newSFX(params.pushedSFX or "button")
 	end
 
@@ -351,10 +352,10 @@ function Game:_controllerPressed(x, y, gamestate)
 			end
 		end
 
-		for _, draggable in pairs(gamestate.ui.draggable) do
-			if pointIsInRect(x, y, draggable:getRect()) and
-			(draggable.draggable or draggable.longpressable) then
-				clickedItems[#clickedItems + 1] = draggable
+		for _, obj in pairs(gamestate.ui.draggable) do
+			if pointIsInRect(x, y, obj:getRect()) and
+			(obj.draggable or obj.longpressable) then
+				clickedItems[#clickedItems + 1] = obj
 			end
 		end
 
@@ -366,7 +367,7 @@ function Game:_controllerPressed(x, y, gamestate)
 			table.sort(clickedItems, sortFunc)
 
 			self.controls.clicked = clickedItems[1]
-			clickedItems[1]:pushed()
+			clickedItems[1]:pushedFunc()
 			self.lastClickedFrame = consts.frame
 			self.lastClickedX = x
 			self.lastClickedY = y
@@ -381,7 +382,7 @@ function Game:_controllerReleased(x, y, gamestate)
 	if self.controls.clicked then
 		for _, button in pairs(gamestate.ui.clickable) do
 			if self.controls.clicked == button then
-				button:released()
+				button:releasedFunc()
 
 				if pointIsInRect(x, y, button:getRect()) then
 					button.action(button.gamestate)
@@ -417,6 +418,7 @@ function Game:_controllerMoved(x, y, gamestate)
 			obj.y = y
 			obj.dragged = true
 			obj.longpressable = false
+			obj.longpressed = false
 		end
 	end
 end
