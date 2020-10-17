@@ -397,6 +397,12 @@ function Game:_controllerReleased(x, y, gamestate)
 				obj.draggable = true
 				obj.longpressed = false
 				obj.longpressable = true
+
+				if not obj.skipSnapback then
+					obj:change{	duration = 5, x = obj.originalX, y = obj.originalY}
+					obj.originalX = nil
+					obj.originalY = nil
+				end
 			end
 		end
 
@@ -414,6 +420,9 @@ function Game:_controllerMoved(x, y, gamestate)
 	local obj = self.controls.clicked
 	if obj then
 		if obj.draggable then
+			if not obj.originalX then obj.originalX = obj.x end
+			if not obj.originalY then obj.originalY = obj.y end
+
 			obj.x = x
 			obj.y = y
 			obj.dragged = true

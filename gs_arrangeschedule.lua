@@ -250,8 +250,11 @@ function ArrangeSchedule:hideProgressBook()
 end
 
 function ArrangeSchedule:showCard(card)
-	print("showing closeup card")
 	self:_showSubscreen("cardcloseup")
+
+	card.originalX = card.x
+	card.originalY = card.y
+	card.originalScaling = card.scaling
 
 	card.imageIndex = 2
 	card:change{duration = 10,
@@ -259,16 +262,43 @@ function ArrangeSchedule:showCard(card)
 		x = stage.width * 0.35,
 		y = stage.height * 0.5,
 	}
-	-- create descriptionBackground
-	-- create titleTextObject, descriptionTextObject
 
+	ArrangeSchedule.createText(self, {
+		name = "titleText",
+		font = "BIG",
+		text = card.titleText,
+		x = stage.width * 0.3,
+		y = stage.height * 0.1,
+		imageIndex = 2,
+	})
+
+	ArrangeSchedule.createText(self, {
+		name = "descriptionText",
+		font = "MEDIUM",
+		text = card.descriptionText,
+		x = stage.width * 0.6,
+		y = stage.height * 0.6,
+		imageIndex = 2,
+	})
 end
 
 function ArrangeSchedule:hideCard(card)
 	self:_hideSubscreen("cardcloseup")
-	card:change{duration = 10, scaling = 0.2}
+	card:change{
+		duration = 10,
+		scaling = card.originalScaling,
+		x = card.originalX,
+		y = card.originalY,
+	}
+
+	card.originalX = nil
+	card.originalY = nil
+	card.originalScaling = nil
+
 	card.imageIndex = -1
-	-- snap back to origin
+
+	self.ui.text.titleText = nil
+	self.ui.text.descriptionText = nil
 end
 
 
