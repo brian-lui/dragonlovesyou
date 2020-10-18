@@ -319,6 +319,7 @@ function ArrangeSchedule:createCard(params)
 		endX = params.x,
 		endY = params.y,
 		endScaling = params.scaling,
+		imageIndex = -1,
 	})
 	card.titlebackImage = params.titlebackImage
 	card.cardImage = params.cardImage
