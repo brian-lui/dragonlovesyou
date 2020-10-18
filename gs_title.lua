@@ -79,8 +79,6 @@ function Title:update(dt)
 end
 
 function Title:draw()
-	Title.currentBackground:draw()
-
 	local indexes = {-2, -1, 0, 1}
 
 	for _, i in ipairs(indexes) do

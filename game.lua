@@ -133,6 +133,10 @@ function Game:update(dt)
 	-- other non-logic update stuff
 end
 
+function Game:drawBackground()
+	self.currentGamestate.currentBackground:draw()
+end
+
 -------------------------------------------------------------------------------
 --[[ create a clickable object
 	mandatory parameters: name, image, imagePushed, endX, endY, action

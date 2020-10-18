@@ -21,7 +21,7 @@ function Plain:init()
 	Pic:create{
 		x = stage.width * 0.5,
 		y = stage.height * 0.5,
-		image = love.graphics.newImage('images/backgrounds/plain/plainbackground.png'),
+		image = love.graphics.newImage('images/backgrounds/plainbackground.png'),
 		container = self,
 		name = "background",
 	}
@@ -30,6 +30,14 @@ function Plain:init()
 end
 
 function Plain:update(dt)
+	local w, h = love.window.getMode()
+	local widthRatio = w / self.background.width
+	local heightRatio = h / self.background.height
+
+	local biggestRatio = math.max(widthRatio, heightRatio)
+	self.background.scaling = biggestRatio
+	self.background.x = w * 0.5
+	self.background.y = h * 0.5
 end
 
 function Plain:draw(params)
@@ -53,6 +61,14 @@ function Library:init()
 end
 
 function Library:update(dt)
+	local w, h = love.window.getMode()
+	local widthRatio = w / self.background.width
+	local heightRatio = h / self.background.height
+
+	local biggestRatio = math.max(widthRatio, heightRatio)
+	self.background.scaling = biggestRatio
+	self.background.x = w * 0.5
+	self.background.y = h * 0.5
 end
 
 function Library:draw(params)

@@ -41,9 +41,11 @@ function love.quit()
 	lily.quit()
 end
 
-local backgroundRGB = {254/255, 228/255, 179/255, 1}
+local backgroundRGB = {254/255, 228/255, 179/255, 0}
 function love.draw()
 	local drawspace = consts.drawspace
+	game:drawBackground()
+
 	drawspace.tlfres.beginRendering(drawspace.width, drawspace.height)
 	game:draw()
 	drawspace.tlfres.endRendering(backgroundRGB)

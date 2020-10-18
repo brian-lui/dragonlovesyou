@@ -357,8 +357,6 @@ function ArrangeSchedule:update(dt)
 end
 
 function ArrangeSchedule:draw()
-	ArrangeSchedule.currentBackground:draw()
-
 	local indexes = {-3, -2, -1, 0, 1, 2, 3}
 
 	for _, i in ipairs(indexes) do
