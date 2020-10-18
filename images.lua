@@ -42,7 +42,9 @@ local infocardart = {
 }
 
 local title = {
-	"wallpaper", "logo", "start", "achievements", "options", "quit", "splash"
+	"achievements", "achievementspressed", "extras", "extraspressed",
+	"newgame", "newgamepressed", "ongoingback", "ongoinggameback", "ongoingtitle",
+	"quit", "quitpressed", "settings", "settingspressed",
 }
 
 local particles = {

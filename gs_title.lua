@@ -59,7 +59,7 @@ function Title:init()
 		Title.createText(self, data)
 	end
 
-	Title.currentBackground = common.instance(self.background.plain, self)
+	Title.currentBackground = common.instance(self.background.library, self)
 end
 
 function Title:enter()

@@ -6,43 +6,48 @@ local stage = require "stage"
 -------------------------------------------------------------------------------
 
 local titleImages = {
-	wallpaper = {
-		name = "wallpaper",
-		image = images.title_wallpaper,
-		endX = stage.width * 0.5,
-		endY = stage.height * 0.5,
-		imageIndex = -2,
+	ongoingtitle = {
+		name = "ongoingtitle",
+		image = images.title_ongoingtitle,
+		duration = 30,
+		startX = stage.width * -0.4,
+		endX = stage.width * 0.16,
+		endY = stage.height * 0.2,
+		easing = "inCubic",
+		imageIndex = 0,
 	},
-	splash = {
-		name = "splash",
-		image = images.title_splash,
-		duration = 15,
-		endX = stage.width * 0.5,
-		endY = stage.height * 0.5,
+	ongoingback = {
+		name = "ongoingback",
+		image = images.title_ongoingback,
+		duration = 30,
+		endX = stage.width * 0.16,
+		endY = stage.height * 0.45,
 		startTransparency = 0,
-		easing = "linear",
 		imageIndex = -1,
 	},
-	logo = {
-		name = "logo",
-		image = images.title_logo,
+
+	-- TEMP: this should be generated based on # games
+	ongoinggameback = {
+		name = "ongoinggameback",
+		image = images.title_ongoinggameback,
 		duration = 30,
-		endX = stage.width * 0.25,
-		endY = stage.height * 0.75,
+		endX = stage.width * 0.16,
+		endY = stage.height * 0.3,
 		startTransparency = 0,
-		easing = "linear",
+		imageIndex = 0,
+		easing = "inCubic",
 	},
 }
 
 local titleButtons = {
-	start = {
-		name = "start",
-		image = images.title_start,
-		imagePushed = images.title_start,
-		duration = 60,
+	newgame = {
+		name = "newgame",
+		image = images.title_newgame,
+		imagePushed = images.title_newgamepressed,
+		duration = 45,
 		startX = stage.width * -0.2,
-		endX = stage.width * 0.75,
-		endY = stage.height * 0.55,
+		endX = stage.width * 0.85,
+		endY = stage.height * 0.45,
 		easing = "inQuart",
 		action = function()
 			game:switchState("gs_arrangeschedule")
@@ -51,22 +56,34 @@ local titleButtons = {
 	achievements = {
 		name = "achievements",
 		image = images.title_achievements,
-		imagePushed = images.title_achievements,
-		duration = 60,
+		imagePushed = images.title_achievementspressed,
+		duration = 45,
 		startX = stage.width * -0.2,
-		endX = stage.width * 0.75,
+		endX = stage.width * 0.85,
+		endY = stage.height * 0.55,
+		easing = "inQuart",
+		action = function()
+		end,
+	},
+	extras = {
+		name = "extras",
+		image = images.title_extras,
+		imagePushed = images.title_extraspressed,
+		duration = 45,
+		startX = stage.width * -0.2,
+		endX = stage.width * 0.85,
 		endY = stage.height * 0.65,
 		easing = "inQuart",
 		action = function()
 		end,
 	},
-	options = {
-		name = "options",
-		image = images.title_options,
-		imagePushed = images.title_options,
-		duration = 60,
+	settings = {
+		name = "settings",
+		image = images.title_settings,
+		imagePushed = images.title_settingspressed,
+		duration = 45,
 		startX = stage.width * -0.2,
-		endX = stage.width * 0.75,
+		endX = stage.width * 0.85,
 		endY = stage.height * 0.75,
 		easing = "inQuart",
 		action = function()
@@ -75,10 +92,10 @@ local titleButtons = {
 	quit = {
 		name = "quit",
 		image = images.title_quit,
-		imagePushed = images.title_quit,
-		duration = 60,
+		imagePushed = images.title_quitpressed,
+		duration = 45,
 		startX = stage.width * -0.2,
-		endX = stage.width * 0.75,
+		endX = stage.width * 0.85,
 		endY = stage.height * 0.85,
 		easing = "inQuart",
 		action = function()
