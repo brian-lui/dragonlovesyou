@@ -10,7 +10,6 @@ local love = _G.love
 require "/libraries/classcommons"
 local common = require "class.commons"
 local consts = require "/helpers/consts"
-local __NOP__ = function () end
 
 function love.load()
 	print("Debug folder is at: " .. love.filesystem.getSaveDirectory())
@@ -41,30 +40,29 @@ function love.quit()
 	lily.quit()
 end
 
-local backgroundRGB = {254/255, 228/255, 179/255, 0}
+local backgroundRGB = {0, 0, 0, 0}
 function love.draw()
-	local drawspace = consts.drawspace
 	game:drawBackground()
 
+	local drawspace = consts.drawspace
 	drawspace.tlfres.beginRendering(drawspace.width, drawspace.height)
-	game:draw()
+		game:draw()
 	drawspace.tlfres.endRendering(backgroundRGB)
 end
 
 function love.update(dt)
-	(game.update or __NOP__)(game, dt)
+	game.update(game, dt)
 end
 
 function love.keypressed(key)
-	(game.keypressed or __NOP__)(game, key)
+	game.keypressed(game, key)
 end
 
 function love.mousepressed(x, y, button, istouch)
 	if button == 1 then
 		local drawspace = consts.drawspace
 		x, y = drawspace.tlfres.getMousePosition(drawspace.width, drawspace.height)
-		local f = game.mousepressed or __NOP__
-		f(game, x, y, button, istouch)
+		game.mousepressed(game, x, y, button, istouch)
 	end
 end
 
@@ -72,8 +70,7 @@ function love.mousereleased(x, y, button, istouch)
 	if button == 1 then
 		local drawspace = consts.drawspace
 		x, y = drawspace.tlfres.getMousePosition(drawspace.width, drawspace.height)
-		local f = game.mousereleased or __NOP__
-		f(game, x, y, button, istouch)
+		game.mousereleased(game, x, y, button, istouch)
 	end
 end
 
