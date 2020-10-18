@@ -40,7 +40,7 @@ function love.quit()
 	lily.quit()
 end
 
-local backgroundRGB = {0, 0, 0, 0}
+local backgroundRGB = {0, 0, 0, 0.4}
 function love.draw()
 	game:drawBackground()
 
