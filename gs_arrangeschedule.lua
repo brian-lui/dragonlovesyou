@@ -144,7 +144,7 @@ function ArrangeSchedule:showDragonGoal()
 	self.ui.clickable.dragongoal:change{
 		duration = 15,
 		scaling = 1,
-		x = stage.width * 0.4,
+		x = stage.width * 0.3,
 		y = stage.height * 0.5,
 	}
 end
@@ -175,7 +175,7 @@ function ArrangeSchedule:showDragonDream()
 	self.ui.clickable.dragondream:change{
 		duration = 15,
 		scaling = 1,
-		x = stage.width * 0.4,
+		x = stage.width * 0.3,
 		y = stage.height * 0.5,
 	}
 end

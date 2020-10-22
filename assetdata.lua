@@ -479,6 +479,25 @@ local arrangeScheduleImages = {
 		imageIndex = 1,
 		category = "cardcloseup",
 	},
+
+
+	goal_closeupbox = {
+		name = "goal_closeupbox",
+		image = images.gui_cardcloseup_box,
+		endX = stage.width * 0.7,
+		endY = stage.height * 0.7,
+		imageIndex = 1,
+		category = "dragongoal",
+	},
+
+	dream_closeupbox = {
+		name = "dream_closeupbox",
+		image = images.gui_cardcloseup_box,
+		endX = stage.width * 0.7,
+		endY = stage.height * 0.7,
+		imageIndex = 1,
+		category = "dragondream",
+	},
 }
 
 local arrangeScheduleButtons = {
