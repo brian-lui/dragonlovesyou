@@ -25,7 +25,9 @@ local data = {
 		"meditate",
 		"sleep",
 		"fireball",
-	}
+	},
+	hand = {
+	},
 }
 
 
@@ -52,6 +54,7 @@ function stateInfo.get(...)
 	return ret
 end
 
+-- general set for if there's no specific thingy
 function stateInfo.set(value, ...)
 	local args = {...}
 	local set = data
@@ -67,4 +70,47 @@ function stateInfo.set(value, ...)
 
 	set[ args[#args] ] = value
 end
+
+function stateInfo.addHandCard(cardName)
+	data.hand[#data.hand + 1] = cardName
+end
+
+function stateInfo.removeHandCard(cardName)
+	print("at start, data hand contains")
+	for k, v in pairs(data.hand) do print(k, v) end
+
+
+	for i = 1, #data.hand do
+		local item = data.hand[i]
+		if item == cardName then
+			table.remove(data.hand, i)
+
+			print("now data hand contains")
+			for k, v in pairs(data.hand) do print(k, v) end
+			return
+		end
+	end
+end
+
+function stateInfo.addDeckCard(cardName)
+	data.deck[#data.deck + 1] = cardName
+end
+
+function stateInfo.removeDeckCard(cardName)
+	print("at start, data deck contains")
+	for k, v in pairs(data.deck) do print(k, v) end
+
+
+	for i = 1, #data.deck do
+		local item = data.deck[i]
+		if item == cardName then
+			table.remove(data.deck, i)
+
+			print("now data deck contains")
+			for k, v in pairs(data.deck) do print(k, v) end
+			return
+		end
+	end
+end
+
 return stateInfo

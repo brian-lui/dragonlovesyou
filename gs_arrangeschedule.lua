@@ -89,12 +89,7 @@ function ArrangeSchedule:enter()
 		if categories[t.category] then t.clickable = false end
 	end
 
-	local testcarddata = cardData.getCard("meditate")
-
-	testcarddata.x = stage.width * 0.5
-	testcarddata.y = stage.height * 0.8
-	testcarddata.scaling = 0.2
-	local testcard = ArrangeSchedule.createCard(self, testcarddata)
+	ArrangeSchedule:createHand(3)
 end
 
 function ArrangeSchedule:_showSubscreen(subscreenName)
@@ -133,7 +128,6 @@ function ArrangeSchedule:_hideSubscreen(subscreenName)
 		end
 	end
 end
-
 
 function ArrangeSchedule:showDragonGoal()
 	self:_showSubscreen("dragongoal")
@@ -255,9 +249,11 @@ function ArrangeSchedule:showCard(card)
 	card.originalX = card.x
 	card.originalY = card.y
 	card.originalScaling = card.scaling
+	card.originalRotation = card.rotation
 
 	card.imageIndex = 2
 	card:change{duration = 10,
+		rotation = 0,
 		scaling = 1,
 		x = stage.width * 0.35,
 		y = stage.height * 0.5,
@@ -286,6 +282,7 @@ function ArrangeSchedule:hideCard(card)
 	self:_hideSubscreen("cardcloseup")
 	card:change{
 		duration = 10,
+		rotation = card.originalRotation,
 		scaling = card.originalScaling,
 		x = card.originalX,
 		y = card.originalY,
@@ -294,11 +291,27 @@ function ArrangeSchedule:hideCard(card)
 	card.originalX = nil
 	card.originalY = nil
 	card.originalScaling = nil
+	card.originalRotation = nil
 
 	card.imageIndex = -1
 
 	self.ui.text.titleText = nil
 	self.ui.text.descriptionText = nil
+end
+
+
+function ArrangeSchedule:createHand(totalCards)
+	for i = 1, totalCards do
+		local data = cardData.getCard("meditate")
+		local loc = cardData.getCardPosition(i, totalCards)
+
+		data.x = loc.x
+		data.y = loc.y
+		data.rotation = loc.rotation
+		data.scaling = 0.2
+
+		ArrangeSchedule.createCard(self, data)
+	end
 end
 
 
@@ -313,18 +326,28 @@ function ArrangeSchedule:createCard(params)
 	assert(params.titleText, "No title text given!")
 	assert(params.x and params.y, "No card x or y given!")
 
+	stateInfo.addHandCard(params.name)
+
+	local cardHandle = params.name
+	while ArrangeSchedule.ui.draggable[cardHandle] do
+		cardHandle = cardHandle .. "_"
+	end
+
 	local card = ArrangeSchedule.createDraggable(self, {
-		name = params.name,
+		name = cardHandle,
 		image = params.cardbackImage,
 		endX = params.x,
 		endY = params.y,
 		endScaling = params.scaling,
 		imageIndex = -1,
 	})
+
+	card.rotation = params.rotation
 	card.titlebackImage = params.titlebackImage
 	card.cardImage = params.cardImage
 	card.titleText = params.titleText
 	card.descriptionText = params.descriptionText
+	card.stateDataName = params.name
 
 	card.longpressFunc = function(_card) ArrangeSchedule:showCard(_card) end
 
