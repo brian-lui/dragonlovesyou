@@ -302,7 +302,8 @@ end
 
 function ArrangeSchedule:createHand(totalCards)
 	for i = 1, totalCards do
-		local data = cardData.getCard("meditate")
+		local cardName = stateInfo.popDeckCard(game.rng)
+		local data = cardData.getCardInfo(cardName)
 		local loc = cardData.getCardPosition(i, totalCards)
 
 		data.x = loc.x
@@ -314,6 +315,17 @@ function ArrangeSchedule:createHand(totalCards)
 	end
 end
 
+function ArrangeSchedule:discardHand()
+	local toDelete = {}
+	for _, item in pairs(self.ui.draggable) do
+		if item.category == "card" then
+			stateInfo.addDeckCard(item.stateDataName)
+			toDelete[#toDelete + 1] = item
+		end
+	end
+
+	for _, item in pairs(toDelete) do item:remove() end
+end
 
 -- mandatory: name, cardImage, cardbackImage, titlebackImage, titleText, descriptionText, x, y
 -- optional: scaling, longpressFunc, releasedFunc
@@ -340,6 +352,7 @@ function ArrangeSchedule:createCard(params)
 		endY = params.y,
 		endScaling = params.scaling,
 		imageIndex = -1,
+		category = "card",
 	})
 
 	card.rotation = params.rotation
