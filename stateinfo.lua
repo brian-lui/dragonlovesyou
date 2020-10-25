@@ -75,42 +75,20 @@ function stateInfo.addHandCard(cardName)
 	data.hand[#data.hand + 1] = cardName
 end
 
-function stateInfo.removeHandCard(cardName)
-	print("at start, data hand contains")
-	for k, v in pairs(data.hand) do print(k, v) end
-
-
-	for i = 1, #data.hand do
-		local item = data.hand[i]
-		if item == cardName then
-			table.remove(data.hand, i)
-
-			print("now data hand contains")
-			for k, v in pairs(data.hand) do print(k, v) end
-			return
-		end
-	end
+function stateInfo.popHandCard(gameRng)
+	local rand = gameRng:random(#data.hand)
+	local card = table.remove(data.hand, rand)
+	return card
 end
 
 function stateInfo.addDeckCard(cardName)
 	data.deck[#data.deck + 1] = cardName
 end
 
-function stateInfo.removeDeckCard(cardName)
-	print("at start, data deck contains")
-	for k, v in pairs(data.deck) do print(k, v) end
-
-
-	for i = 1, #data.deck do
-		local item = data.deck[i]
-		if item == cardName then
-			table.remove(data.deck, i)
-
-			print("now data deck contains")
-			for k, v in pairs(data.deck) do print(k, v) end
-			return
-		end
-	end
+function stateInfo.popDeckCard(gameRng)
+	local rand = gameRng:random(#data.deck)
+	local card = table.remove(data.deck, rand)
+	return card
 end
 
 return stateInfo
