@@ -1,4 +1,10 @@
 local data = {
+	energy = 30,
+	happy = 10,
+	love = 60,
+	money = 3,
+	action = 5,
+
 	stats = {
 		dragonability = {
 			attack = 30,
@@ -19,6 +25,7 @@ local data = {
 			math = 60,
 		},
 	},
+
 	deck = {
 		"meditate",
 		"meditate",
@@ -26,6 +33,7 @@ local data = {
 		"sleep",
 		"fireball",
 	},
+
 	hand = {
 	},
 }
