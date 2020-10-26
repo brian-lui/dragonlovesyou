@@ -89,6 +89,7 @@ function ArrangeSchedule:enter()
 		if categories[t.category] then t.clickable = false end
 	end
 
+	ArrangeSchedule:discardHand()
 	ArrangeSchedule:createHand(3)
 end
 
@@ -306,12 +307,28 @@ function ArrangeSchedule:createHand(totalCards)
 		local data = cardData.getCardInfo(cardName)
 		local loc = cardData.getCardPosition(i, totalCards)
 
-		data.x = loc.x
-		data.y = loc.y
-		data.rotation = loc.rotation
+		data.x = stage.width * 0.5
+		data.y = stage.height * 2
+		data.rotation = 0
 		data.scaling = 0.2
 
-		ArrangeSchedule.createCard(self, data)
+		local card = ArrangeSchedule.createCard(self, data)
+		card.draggable = false
+		card.longpressable = false
+		card.drawPriority = i
+
+		card:wait((i - 1) * 10)
+		card:change{
+			duration = 30,
+			x = loc.x,
+			y = loc.y,
+			rotation = loc.rotation,
+			easing = "outCubic",
+			exitFunc = function()
+				card.draggable = true
+				card.longpressable = true
+			end,
+		}
 	end
 end
 
@@ -385,6 +402,29 @@ function ArrangeSchedule:createCard(params)
 	return card
 end
 
+function ArrangeSchedule:drawCards()
+	local cards = {}
+	for _, item in pairs(self.ui.draggable) do
+		if item.category == "card" then
+			cards[#cards + 1] = item
+		end
+	end
+
+	local function sortFunc(a, b)
+		return a.drawPriority > b.drawPriority
+	end
+
+	table.sort(cards, sortFunc)
+
+	for _, card in ipairs(cards) do
+		if not card.longpressed then card:draw() end
+	end
+
+	for _, card in ipairs(cards) do
+		if card.longpressed then card:draw() end
+	end
+end
+
 
 function ArrangeSchedule:update(dt)
 	ArrangeSchedule.currentBackground:update(dt)
@@ -399,12 +439,14 @@ function ArrangeSchedule:draw()
 	for _, i in ipairs(indexes) do
 		for _, tbl in spairs(ArrangeSchedule.ui) do
 			for _, v in spairs(tbl) do
-				if v.imageIndex == i then
+				if v.imageIndex == i and v.category ~= "card" then
 					v:draw()
 				end
 			end
 		end
 	end
+
+	ArrangeSchedule:drawCards()
 
 	self.particles:draw()
 end
