@@ -289,7 +289,7 @@ end
 
 --[[ creates an object that displays text
 	mandatory parameters: name, font, text, x, y
-	optional parameters: RGBColor, imageIndex, transparency, category, extraInfo
+	optional parameters: RGBColor, imageIndex, transparency, category, extraInfo, align
 --]]
 function Game:_createText(gamestate, params)
 	params = params or {}
@@ -297,12 +297,21 @@ function Game:_createText(gamestate, params)
 	assert(consts.FONT[params.font], "No font received or invalid font name!")
 	assert(params.text, "No text received!")
 	assert(params.x and params.y, "No x-value or y-value received!")
+	if params.align then
+		assert(
+			params.align == "left" or
+			params.align == "center" or
+			params.align == "right",
+			"Incorrect alignment specified!"
+		)
+	end
 
 	local text = {
 		container = gamestate.ui.text,
 		name = params.name,
 		font = consts.FONT[params.font],
 		text = params.text,
+		align = params.align or "left",
 		x = params.x,
 		y = params.y,
 		color = params.RGBColor or {0, 0, 0},
@@ -311,6 +320,7 @@ function Game:_createText(gamestate, params)
 		category = params.category,
 		extraInfo = params.extraInfo,
 	}
+	text.width = text.font:getWidth(text.text)
 
 	text.draw = function(_self)
 		if _self.transparency == 0 then return end
@@ -323,10 +333,17 @@ function Game:_createText(gamestate, params)
 		}
 
 		love.graphics.push("all")
-			love.graphics.setFont(_self.font)
 			love.graphics.setColor(RGBT)
-			love.graphics.printf(_self.text, _self.x, _self.y, math.huge, "left")
-			-- love.graphics.printf( text, x, y, limit, align, r, sx, sy, ox, oy, kx, ky )
+			local x
+			if _self.align == "left" then
+				x = _self.x
+			elseif _self.align == "center" then
+				x = _self.x - _self.width * 0.5
+			elseif _self.align == "right" then
+				x = _self.x - _self.width
+			end
+
+			love.graphics.printf(_self.text, _self.font, x, _self.y, _self.width)
 		love.graphics.pop()
 	end
 
@@ -334,6 +351,11 @@ function Game:_createText(gamestate, params)
 
 	text.remove = function(_self)
 		_self.container[_self.name] = nil
+	end
+
+	text.changeText = function(_self, newText)
+		_self.text = newText
+		_self.width = _self.font:getWidth(_self.text)
 	end
 
 	gamestate.ui.text[text.name] = text
