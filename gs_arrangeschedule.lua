@@ -91,6 +91,7 @@ function ArrangeSchedule:enter()
 
 	ArrangeSchedule:discardHand()
 	ArrangeSchedule:createHand(3)
+	ArrangeSchedule:updateStats()
 end
 
 function ArrangeSchedule:_showSubscreen(subscreenName)
@@ -416,15 +417,32 @@ function ArrangeSchedule:drawCards(layer)
 
 	table.sort(cards, sortFunc)
 
-	for _, card in ipairs(cards) do
-		if not card.longpressed then card:draw() end
-	end
-
-	for _, card in ipairs(cards) do
-		if card.longpressed then card:draw() end
-	end
+	for _, card in ipairs(cards) do	card:draw() end
 end
 
+function ArrangeSchedule:updateStats()
+	local stats = {
+		energy = ArrangeSchedule.ui.static.energyblockbar,
+		happy = ArrangeSchedule.ui.static.happyblockbar,
+		love = ArrangeSchedule.ui.static.loveblockbar,
+	}
+
+	for item, pic in pairs(stats) do
+		local stat = stateInfo.get(item)
+		pic:change{
+			duration = stat * 0.5,
+			easing = "outCubic",
+			quad = {
+				x = true,
+				percentageX = stat * 0.01,
+				anchorX = "left",
+				cropFromX = "right",
+			},
+		}
+	end
+
+	-- update money and action
+end
 
 function ArrangeSchedule:update(dt)
 	ArrangeSchedule.currentBackground:update(dt)
@@ -434,7 +452,7 @@ function ArrangeSchedule:update(dt)
 end
 
 function ArrangeSchedule:draw()
-	local indexes = {-3, -2, -1, 0, 1, 2, 3}
+	local indexes = {-4, -3, -2, -1, 0, 1, 2, 3}
 
 	for _, i in ipairs(indexes) do
 		for _, tbl in spairs(ArrangeSchedule.ui) do

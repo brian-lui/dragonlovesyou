@@ -76,6 +76,7 @@ function stateInfo.set(value, ...)
 		assert(type(value) == "table", "tried to write non-table to table!")
 	end
 
+	print("set, args#args", set, args[#args])
 	set[ args[#args] ] = value
 end
 

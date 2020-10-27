@@ -1,3 +1,5 @@
+local stateInfo = require "stateinfo"
+
 local debugKeys = {}
 
 function debugKeys.keypressed(key)
@@ -42,6 +44,16 @@ function debugKeys.keypressed(key)
 		if game.currentGamestate.name == "ArrangeSchedule" then
 			game.currentGamestate:discardHand()
 			game.currentGamestate:createHand(5)
+		end
+	elseif key == "a" then
+		if game.currentGamestate.name == "ArrangeSchedule" then
+			stateInfo.set(math.random(100), "energy")
+			stateInfo.set(math.random(100), "happy")
+			stateInfo.set(math.random(100), "love")
+			stateInfo.set(math.random(50), "money")
+			stateInfo.set(math.random(10), "action")
+			print("energy, happy, love now", stateInfo.get("energy"), stateInfo.get("happy"), stateInfo.get("love"))
+			game.currentGamestate:updateStats()
 		end
 	end
 end
