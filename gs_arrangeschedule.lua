@@ -402,10 +402,10 @@ function ArrangeSchedule:createCard(params)
 	return card
 end
 
-function ArrangeSchedule:drawCards()
+function ArrangeSchedule:drawCards(layer)
 	local cards = {}
 	for _, item in pairs(self.ui.draggable) do
-		if item.category == "card" then
+		if item.category == "card" and item.imageIndex == layer then
 			cards[#cards + 1] = item
 		end
 	end
@@ -443,10 +443,10 @@ function ArrangeSchedule:draw()
 					v:draw()
 				end
 			end
+
+			ArrangeSchedule:drawCards(i)
 		end
 	end
-
-	ArrangeSchedule:drawCards()
 
 	self.particles:draw()
 end
