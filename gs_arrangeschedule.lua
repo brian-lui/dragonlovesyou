@@ -441,7 +441,15 @@ function ArrangeSchedule:updateStats()
 		}
 	end
 
-	-- update money and action
+	local numbers = {
+		money = ArrangeSchedule.ui.text.moneyamount,
+		action = ArrangeSchedule.ui.text.actionamount,
+	}
+
+	for item, txt in pairs(numbers) do
+		local stat = stateInfo.get(item)
+		txt:changeText(stat)
+	end
 end
 
 function ArrangeSchedule:update(dt)

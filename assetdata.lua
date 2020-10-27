@@ -636,6 +636,25 @@ local arrangeScheduleDraggables = {
 }
 
 local arrangeScheduleText = {
+	moneyamount = {
+		name = "moneyamount",
+		font = "MEDIUM",
+		text = "0",
+		align = "center",
+		x = stage.width * 0.08,
+		y = stage.height * 0.72,
+		imageIndex = -2,
+	},
+	actionamount = {
+		name = "actionamount",
+		font = "MEDIUM",
+		text = "0",
+		align = "center",
+		x = stage.width * 0.08,
+		y = stage.height * 0.77,
+		imageIndex = -2,
+	},
+
 	pb_dragonability = {
 		name = "pb_dragonability",
 		font = "BIG",
