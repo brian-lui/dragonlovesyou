@@ -89,12 +89,9 @@ function ArrangeSchedule:enter()
 		if categories[t.category] then t.clickable = false end
 	end
 
-	local testcarddata = cardData.getCard("meditate")
-
-	testcarddata.x = stage.width * 0.5
-	testcarddata.y = stage.height * 0.8
-	testcarddata.scaling = 0.2
-	local testcard = ArrangeSchedule.createCard(self, testcarddata)
+	ArrangeSchedule:discardHand()
+	ArrangeSchedule:createHand(3)
+	ArrangeSchedule:updateStats()
 end
 
 function ArrangeSchedule:_showSubscreen(subscreenName)
@@ -134,7 +131,6 @@ function ArrangeSchedule:_hideSubscreen(subscreenName)
 	end
 end
 
-
 function ArrangeSchedule:showDragonGoal()
 	self:_showSubscreen("dragongoal")
 
@@ -144,7 +140,7 @@ function ArrangeSchedule:showDragonGoal()
 	self.ui.clickable.dragongoal:change{
 		duration = 15,
 		scaling = 1,
-		x = stage.width * 0.4,
+		x = stage.width * 0.3,
 		y = stage.height * 0.5,
 	}
 end
@@ -175,7 +171,7 @@ function ArrangeSchedule:showDragonDream()
 	self.ui.clickable.dragondream:change{
 		duration = 15,
 		scaling = 1,
-		x = stage.width * 0.4,
+		x = stage.width * 0.3,
 		y = stage.height * 0.5,
 	}
 end
@@ -255,9 +251,11 @@ function ArrangeSchedule:showCard(card)
 	card.originalX = card.x
 	card.originalY = card.y
 	card.originalScaling = card.scaling
+	card.originalRotation = card.rotation
 
 	card.imageIndex = 2
 	card:change{duration = 10,
+		rotation = 0,
 		scaling = 1,
 		x = stage.width * 0.35,
 		y = stage.height * 0.5,
@@ -286,6 +284,7 @@ function ArrangeSchedule:hideCard(card)
 	self:_hideSubscreen("cardcloseup")
 	card:change{
 		duration = 10,
+		rotation = card.originalRotation,
 		scaling = card.originalScaling,
 		x = card.originalX,
 		y = card.originalY,
@@ -294,6 +293,7 @@ function ArrangeSchedule:hideCard(card)
 	card.originalX = nil
 	card.originalY = nil
 	card.originalScaling = nil
+	card.originalRotation = nil
 
 	card.imageIndex = -1
 
@@ -301,6 +301,49 @@ function ArrangeSchedule:hideCard(card)
 	self.ui.text.descriptionText = nil
 end
 
+
+function ArrangeSchedule:createHand(totalCards)
+	for i = 1, totalCards do
+		local cardName = stateInfo.popDeckCard(game.rng)
+		local data = cardData.getCardInfo(cardName)
+		local loc = cardData.getCardPosition(i, totalCards)
+
+		data.x = stage.width * 0.5
+		data.y = stage.height * 2
+		data.rotation = 0
+		data.scaling = 0.2
+
+		local card = ArrangeSchedule.createCard(self, data)
+		card.draggable = false
+		card.longpressable = false
+		card.drawPriority = i
+
+		card:wait((i - 1) * 10)
+		card:change{
+			duration = 30,
+			x = loc.x,
+			y = loc.y,
+			rotation = loc.rotation,
+			easing = "outCubic",
+			exitFunc = function()
+				card.draggable = true
+				card.longpressable = true
+			end,
+		}
+	end
+end
+
+function ArrangeSchedule:discardHand()
+	local toDelete = {}
+	for _, item in pairs(self.ui.draggable) do
+		if item.category == "card" then
+			stateInfo.addDeckCard(item.stateDataName)
+			toDelete[#toDelete + 1] = item
+		end
+	end
+
+	for _, item in pairs(toDelete) do item:remove() end
+end
 
 -- mandatory: name, cardImage, cardbackImage, titlebackImage, titleText, descriptionText, x, y
 -- optional: scaling, longpressFunc, releasedFunc
@@ -313,18 +356,29 @@ function ArrangeSchedule:createCard(params)
 	assert(params.titleText, "No title text given!")
 	assert(params.x and params.y, "No card x or y given!")
 
+	stateInfo.addHandCard(params.name)
+
+	local cardHandle = params.name
+	while ArrangeSchedule.ui.draggable[cardHandle] do
+		cardHandle = cardHandle .. "_"
+	end
+
 	local card = ArrangeSchedule.createDraggable(self, {
-		name = params.name,
+		name = cardHandle,
 		image = params.cardbackImage,
 		endX = params.x,
 		endY = params.y,
 		endScaling = params.scaling,
 		imageIndex = -1,
+		category = "card",
 	})
+
+	card.rotation = params.rotation
 	card.titlebackImage = params.titlebackImage
 	card.cardImage = params.cardImage
 	card.titleText = params.titleText
 	card.descriptionText = params.descriptionText
+	card.stateDataName = params.name
 
 	card.longpressFunc = function(_card) ArrangeSchedule:showCard(_card) end
 
@@ -349,6 +403,54 @@ function ArrangeSchedule:createCard(params)
 	return card
 end
 
+function ArrangeSchedule:drawCards(layer)
+	local cards = {}
+	for _, item in pairs(self.ui.draggable) do
+		if item.category == "card" and item.imageIndex == layer then
+			cards[#cards + 1] = item
+		end
+	end
+
+	local function sortFunc(a, b)
+		return a.drawPriority > b.drawPriority
+	end
+
+	table.sort(cards, sortFunc)
+
+	for _, card in ipairs(cards) do	card:draw() end
+end
+
+function ArrangeSchedule:updateStats()
+	local stats = {
+		energy = ArrangeSchedule.ui.static.energyblockbar,
+		happy = ArrangeSchedule.ui.static.happyblockbar,
+		love = ArrangeSchedule.ui.static.loveblockbar,
+	}
+
+	for item, pic in pairs(stats) do
+		local stat = stateInfo.get(item)
+		pic:change{
+			duration = stat * 0.5,
+			easing = "outCubic",
+			quad = {
+				x = true,
+				percentageX = stat * 0.01,
+				anchorX = "left",
+				cropFromX = "right",
+			},
+		}
+	end
+
+	local numbers = {
+		money = ArrangeSchedule.ui.text.moneyamount,
+		action = ArrangeSchedule.ui.text.actionamount,
+	}
+
+	for item, txt in pairs(numbers) do
+		local stat = stateInfo.get(item)
+		txt:changeText(stat)
+	end
+end
 
 function ArrangeSchedule:update(dt)
 	ArrangeSchedule.currentBackground:update(dt)
@@ -358,15 +460,17 @@ function ArrangeSchedule:update(dt)
 end
 
 function ArrangeSchedule:draw()
-	local indexes = {-3, -2, -1, 0, 1, 2, 3}
+	local indexes = {-4, -3, -2, -1, 0, 1, 2, 3}
 
 	for _, i in ipairs(indexes) do
 		for _, tbl in spairs(ArrangeSchedule.ui) do
 			for _, v in spairs(tbl) do
-				if v.imageIndex == i then
+				if v.imageIndex == i and v.category ~= "card" then
 					v:draw()
 				end
 			end
+
+			ArrangeSchedule:drawCards(i)
 		end
 	end
 

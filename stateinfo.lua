@@ -1,4 +1,10 @@
 local data = {
+	energy = 30,
+	happy = 10,
+	love = 60,
+	money = 3,
+	action = 5,
+
 	stats = {
 		dragonability = {
 			attack = 30,
@@ -19,13 +25,17 @@ local data = {
 			math = 60,
 		},
 	},
+
 	deck = {
 		"meditate",
 		"meditate",
 		"meditate",
 		"sleep",
 		"fireball",
-	}
+	},
+
+	hand = {
+	},
 }
 
 
@@ -52,6 +62,7 @@ function stateInfo.get(...)
 	return ret
 end
 
+-- general set for if there's no specific thingy
 function stateInfo.set(value, ...)
 	local args = {...}
 	local set = data
@@ -67,4 +78,25 @@ function stateInfo.set(value, ...)
 
 	set[ args[#args] ] = value
 end
+
+function stateInfo.addHandCard(cardName)
+	data.hand[#data.hand + 1] = cardName
+end
+
+function stateInfo.popHandCard(gameRng)
+	local rand = gameRng:random(#data.hand)
+	local card = table.remove(data.hand, rand)
+	return card
+end
+
+function stateInfo.addDeckCard(cardName)
+	data.deck[#data.deck + 1] = cardName
+end
+
+function stateInfo.popDeckCard(gameRng)
+	local rand = gameRng:random(#data.deck)
+	local card = table.remove(data.deck, rand)
+	return card
+end
+
 return stateInfo

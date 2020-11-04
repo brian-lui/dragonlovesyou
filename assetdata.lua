@@ -20,7 +20,7 @@ local titleImages = {
 		name = "ongoingback",
 		image = images.title_ongoingback,
 		duration = 30,
-		endX = stage.width * 0.16,
+		endX = stage.width * 0.134,
 		endY = stage.height * 0.45,
 		startTransparency = 0,
 		imageIndex = -1,
@@ -31,7 +31,7 @@ local titleImages = {
 		name = "ongoinggameback",
 		image = images.title_ongoinggameback,
 		duration = 30,
-		endX = stage.width * 0.16,
+		endX = stage.width * 0.134,
 		endY = stage.height * 0.3,
 		startTransparency = 0,
 		imageIndex = 0,
@@ -46,7 +46,7 @@ local titleButtons = {
 		imagePushed = images.title_newgamepressed,
 		duration = 45,
 		startX = stage.width * -0.2,
-		endX = stage.width * 0.85,
+		endX = stage.width * 0.86,
 		endY = stage.height * 0.45,
 		easing = "inQuart",
 		action = function()
@@ -59,7 +59,7 @@ local titleButtons = {
 		imagePushed = images.title_achievementspressed,
 		duration = 45,
 		startX = stage.width * -0.2,
-		endX = stage.width * 0.85,
+		endX = stage.width * 0.86,
 		endY = stage.height * 0.55,
 		easing = "inQuart",
 		action = function()
@@ -71,7 +71,7 @@ local titleButtons = {
 		imagePushed = images.title_extraspressed,
 		duration = 45,
 		startX = stage.width * -0.2,
-		endX = stage.width * 0.85,
+		endX = stage.width * 0.86,
 		endY = stage.height * 0.65,
 		easing = "inQuart",
 		action = function()
@@ -83,7 +83,7 @@ local titleButtons = {
 		imagePushed = images.title_settingspressed,
 		duration = 45,
 		startX = stage.width * -0.2,
-		endX = stage.width * 0.85,
+		endX = stage.width * 0.86,
 		endY = stage.height * 0.75,
 		easing = "inQuart",
 		action = function()
@@ -95,7 +95,7 @@ local titleButtons = {
 		imagePushed = images.title_quitpressed,
 		duration = 45,
 		startX = stage.width * -0.2,
-		endX = stage.width * 0.85,
+		endX = stage.width * 0.86,
 		endY = stage.height * 0.85,
 		easing = "inQuart",
 		action = function()
@@ -120,7 +120,7 @@ local arrangeScheduleImages = {
 		image = images.gui_activitiesframe,
 		endX = stage.width * 0.15,
 		endY = stage.height * 0.29,
-		imageIndex = -3,
+		imageIndex = -4,
 	},
 	activitiestxt = {
 		name = "activitiestxt",
@@ -141,7 +141,7 @@ local arrangeScheduleImages = {
 		image = images.gui_scheduleframe,
 		endX = stage.width * 0.87,
 		endY = stage.height * 0.45,
-		imageIndex = -3,
+		imageIndex = -4,
 	},
 	scheduletxt = {
 		name = "scheduletxt",
@@ -169,21 +169,21 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_moneyplusblock,
 		endX = stage.width * 0.07,
 		endY = stage.height * 0.74,
-		imageIndex = -2,
+		imageIndex = -3,
 	},
 	actionplusblock = {
 		name = "actionplusblock",
 		image = images.gui_stats_actionplusblock,
 		endX = stage.width * 0.07,
 		endY = stage.height * 0.79,
-		imageIndex = -2,
+		imageIndex = -3,
 	},
 	energyback = {
 		name = "energyback",
 		image = images.gui_stats_energyback,
 		endX = stage.width * 0.08,
 		endY = stage.height * 0.915,
-		imageIndex = -2,
+		imageIndex = -4,
 	},
 	energyicon = {
 		name = "energyicon",
@@ -211,21 +211,63 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockback,
 		endX = stage.width * 0.11,
 		endY = stage.height * 0.87,
+		imageIndex = -3,
+	},
+	energyblockbar = {
+		name = "energyblockbar",
+		image = images.gui_stats_blue,
+		endX = stage.width * 0.086,
+		endY = stage.height * 0.87,
 		imageIndex = -2,
+	},
+	energyblockframe = {
+		name = "energyblockframe",
+		image = images.gui_stats_blockframe,
+		endX = stage.width * 0.11,
+		endY = stage.height * 0.87,
+		imageIndex = -1,
 	},
 	happyblockback = {
 		name = "happyblockback",
 		image = images.gui_stats_blockback,
 		endX = stage.width * 0.11,
 		endY = stage.height * 0.92,
+		imageIndex = -3,
+	},
+	happyblockbar = {
+		name = "happyblockbar",
+		image = images.gui_stats_yellow,
+		endX = stage.width * 0.086,
+		endY = stage.height * 0.92,
 		imageIndex = -2,
+	},
+	happyblockframe = {
+		name = "happyblockframe",
+		image = images.gui_stats_blockframe,
+		endX = stage.width * 0.11,
+		endY = stage.height * 0.92,
+		imageIndex = -1,
 	},
 	loveblockback = {
 		name = "loveblockback",
 		image = images.gui_stats_blockback,
 		endX = stage.width * 0.11,
 		endY = stage.height * 0.97,
+		imageIndex = -3,
+	},
+	loveblockbar = {
+		name = "loveblockbar",
+		image = images.gui_stats_pink,
+		endX = stage.width * 0.086,
+		endY = stage.height * 0.97,
 		imageIndex = -2,
+	},
+	loveblockframe = {
+		name = "loveblockframe",
+		image = images.gui_stats_blockframe,
+		endX = stage.width * 0.11,
+		endY = stage.height * 0.97,
+		imageIndex = -1,
 	},
 	dragonmoonicon = {
 		name = "dragonmoonicon",
@@ -479,6 +521,25 @@ local arrangeScheduleImages = {
 		imageIndex = 1,
 		category = "cardcloseup",
 	},
+
+
+	goal_closeupbox = {
+		name = "goal_closeupbox",
+		image = images.gui_cardcloseup_box,
+		endX = stage.width * 0.7,
+		endY = stage.height * 0.7,
+		imageIndex = 1,
+		category = "dragongoal",
+	},
+
+	dream_closeupbox = {
+		name = "dream_closeupbox",
+		image = images.gui_cardcloseup_box,
+		endX = stage.width * 0.7,
+		endY = stage.height * 0.7,
+		imageIndex = 1,
+		category = "dragondream",
+	},
 }
 
 local arrangeScheduleButtons = {
@@ -575,6 +636,25 @@ local arrangeScheduleDraggables = {
 }
 
 local arrangeScheduleText = {
+	moneyamount = {
+		name = "moneyamount",
+		font = "MEDIUM",
+		text = "0",
+		align = "center",
+		x = stage.width * 0.08,
+		y = stage.height * 0.72,
+		imageIndex = -2,
+	},
+	actionamount = {
+		name = "actionamount",
+		font = "MEDIUM",
+		text = "0",
+		align = "center",
+		x = stage.width * 0.08,
+		y = stage.height * 0.77,
+		imageIndex = -2,
+	},
+
 	pb_dragonability = {
 		name = "pb_dragonability",
 		font = "BIG",
