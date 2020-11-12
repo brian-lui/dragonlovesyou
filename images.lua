@@ -6,6 +6,16 @@ specific. It uses a multithreaded image loader to improve performance.
 local love = _G.love
 local lily = require "/libraries/lily"
 
+local achievement = {
+	"1p", "1ptag", "2p", "2ptag", "3p", "3ptag", "4p", "4ptag", "back", "book",
+	"doodle", "endings", "highestscore", "next", "pic", "press",
+}
+
+local actionselect = {
+	"actionpopup", "battleground", "battlegroundtag", "card", "center",
+	"centerbare", "home", "hometag", "inventory", "inventorytag", "library",
+	"librarytag", "outing", "outingtag", "separationcenter",
+}
 local cardart = {
 	"idea", "magic", "sleepydragon",
 }
@@ -14,8 +24,20 @@ local cardui = {
 	"beige", "beigetexture", "tealtexture", "title", "txtbox",
 }
 
+local coparent = {
+	"2p", "3p", "4p", "nametag", "p1", "p2", "p3", "p4", "playerschedule",
+	"quickdown",
+}
+
+local dreamart = {
+	"temp1", "temp2",
+}
 local dreams = {
 	"back", "card1", "card2", "dragondream", "personal",
+}
+
+local finalizescreen = {
+	"back", "screendark", "skip",
 }
 
 local gui = {
@@ -42,15 +64,30 @@ local infocardart = {
 	"wellrestedart",
 }
 
+local items = {
+	"logiccube",
+}
+local particles = {
+	"pow",
+}
+
+local personality = {
+	"cloud", "hate", "love", "middle",
+}
+
+local shop = {
+	"banner", "buy", "cardback", "cost", "gem", "itemback", "shopback", "view",
+}
+
+local story = {
+	"money", "start1", "start2", "storyback", "storyframe",
+}
 local title = {
 	"achievements", "achievementspressed", "extras", "extraspressed",
 	"newgame", "newgamepressed", "ongoingback", "ongoinggameback", "ongoingtitle",
 	"quit", "quitpressed", "settings", "settingspressed",
 }
 
-local particles = {
-	"pow",
-}
 
 
 
@@ -59,14 +96,23 @@ local particles = {
 -- e.g. buttons = buttons will create
 -- imageNames["buttons_" .. item] = "images/buttons/" .. item .. ".png"
 local categories = {
+	achievement = achievement,
+	actionselect = actionselect,
 	cardart = cardart,
 	cardui = cardui,
+	coparent = coparent,
+	dreamart = dreamart,
 	dreams = dreams,
+	finalizescreen = finalizescreen,
 	gui = gui,
 	infocard = infocard,
 	infocardart = infocardart,
-	title = title,
+	items = items,
 	particles = particles,
+	personality = personality,
+	shop = shop,
+	story = story,
+	title = title,
 }
 
 local images = {
