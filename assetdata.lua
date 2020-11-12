@@ -129,13 +129,6 @@ local arrangeScheduleImages = {
 		endY = stage.height * 0.05,
 		imageIndex = -2,
 	},
-	actionbox = {
-		name = "actionbox",
-		image = images.gui_actionbox,
-		endX = stage.width * 0.15,
-		endY = stage.height * 0.12,
-		imageIndex = -1,
-	},
 	scheduleframe = {
 		name = "scheduleframe",
 		image = images.gui_scheduleframe,
@@ -289,6 +282,15 @@ local arrangeScheduleImages = {
 		endX = stage.width * 0.96,
 		endY = stage.height * 0.96,
 		imageIndex = -1,
+	},
+
+	activitysubmenu_frame = {
+		name = "activitysubmenu_frame",
+		image = images.gui_activitysubmenuframe,
+		endX = stage.width * 0.5,
+		endY = stage.height * 0.5,
+		imageIndex = 1,
+		category = "activitysubmenu",
 	},
 
 	pb_tag = {
@@ -590,6 +592,76 @@ local arrangeScheduleButtons = {
 			ArrangeSchedule:hideProgressBook()
 		end,
 		category = "progress",
+	},
+
+	activities_home = {
+		name = "activities_home",
+		image = images.gui_activitiesbutton,
+		imagePushed = images.gui_activitiesbutton,
+		endX = stage.width * 0.15,
+		endY = stage.height * 0.13,
+		imageIndex = 1,
+		action = function(ArrangeSchedule)
+			ArrangeSchedule:showActionMenu("home")
+		end,
+	},
+	activities_outing = {
+		name = "activities_outing",
+		image = images.gui_activitiesbutton,
+		imagePushed = images.gui_activitiesbutton,
+		endX = stage.width * 0.15,
+		endY = stage.height * 0.22,
+		imageIndex = 1,
+		action = function(ArrangeSchedule)
+			ArrangeSchedule:showActionMenu("outing")
+		end,
+	},
+	activities_magiclibrary = {
+		name = "activities_magiclibrary",
+		image = images.gui_activitiesbutton,
+		imagePushed = images.gui_activitiesbutton,
+		endX = stage.width * 0.15,
+		endY = stage.height * 0.31,
+		imageIndex = 1,
+		action = function(ArrangeSchedule)
+			ArrangeSchedule:showActionMenu("magiclibrary")
+		end,
+	},
+	activities_battleground = {
+		name = "activities_battleground",
+		image = images.gui_activitiesbutton,
+		imagePushed = images.gui_activitiesbutton,
+		endX = stage.width * 0.15,
+		endY = stage.height * 0.40,
+		imageIndex = 1,
+		action = function(ArrangeSchedule)
+			ArrangeSchedule:showActionMenu("battleground")
+		end,
+	},
+	activities_shop = {
+		name = "activities_shop",
+		image = images.gui_activitiesbutton,
+		imagePushed = images.gui_activitiesbutton,
+		endX = stage.width * 0.15,
+		endY = stage.height * 0.49,
+		imageIndex = 1,
+		action = function(ArrangeSchedule)
+			ArrangeSchedule:showActionMenu("shop")
+		end,
+	},
+
+	activitysubmenu_screentransparent = {
+		name = "activitysubmenu_screentransparent",
+		image = images.gui_screentransparent,
+		imagePushed = images.gui_screentransparent,
+		endX = stage.width * 0.5,
+		endY = stage.height * 0.5,
+		imageIndex = 0,
+		action = function(ArrangeSchedule)
+			print("clicked on screentransparent")
+			ArrangeSchedule:hideActionMenu()
+		end,
+		category = "activitysubmenu",
 	},
 
 	dream_screendark = {

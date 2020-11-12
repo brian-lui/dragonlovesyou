@@ -71,12 +71,14 @@ function ArrangeSchedule:enter()
 	end
 
 	self.shownSubscreen = false
+	self.shownActionMenu = false
 
 	local categories = {
 		progress = true,
 		dragongoal = true,
 		dragondream = true,
 		cardcloseup = true,
+		activitysubmenu = true,
 	}
 
 	for _, tbl in pairs(ArrangeSchedule.ui) do
@@ -243,6 +245,18 @@ function ArrangeSchedule:hideProgressBook()
 	for _, stat in ipairs(pbstats) do
 		self.ui.static["pb_statbar_" .. stat[2] ] = nil
 	end
+end
+
+function ArrangeSchedule:showActionMenu(submenuName)
+	print("show action menu")
+	self.shownActionMenu = submenuName
+	self:_showSubscreen("activitysubmenu")
+end
+
+function ArrangeSchedule:hideActionMenu()
+	print("hide action menu")
+	self.shownActionMenu = false
+	self:_hideSubscreen("activitysubmenu")
 end
 
 function ArrangeSchedule:showCard(card)
