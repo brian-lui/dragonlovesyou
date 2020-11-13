@@ -286,9 +286,9 @@ local arrangeScheduleImages = {
 
 	activitysubmenu_frame = {
 		name = "activitysubmenu_frame",
-		image = images.gui_activitysubmenuframe,
+		image = images.actionselect_actionpopup,
 		endX = stage.width * 0.5,
-		endY = stage.height * 0.5,
+		endY = stage.height * 0.45,
 		imageIndex = 1,
 		category = "activitysubmenu",
 	},
@@ -596,8 +596,8 @@ local arrangeScheduleButtons = {
 
 	activities_home = {
 		name = "activities_home",
-		image = images.gui_activitiesbutton,
-		imagePushed = images.gui_activitiesbutton,
+		image = images.actionselect_hometag,
+		imagePushed = images.actionselect_hometag,
 		endX = stage.width * 0.15,
 		endY = stage.height * 0.13,
 		imageIndex = 1,
@@ -607,8 +607,8 @@ local arrangeScheduleButtons = {
 	},
 	activities_outing = {
 		name = "activities_outing",
-		image = images.gui_activitiesbutton,
-		imagePushed = images.gui_activitiesbutton,
+		image = images.actionselect_outingtag,
+		imagePushed = images.actionselect_outingtag,
 		endX = stage.width * 0.15,
 		endY = stage.height * 0.22,
 		imageIndex = 1,
@@ -618,8 +618,8 @@ local arrangeScheduleButtons = {
 	},
 	activities_magiclibrary = {
 		name = "activities_magiclibrary",
-		image = images.gui_activitiesbutton,
-		imagePushed = images.gui_activitiesbutton,
+		image = images.actionselect_librarytag,
+		imagePushed = images.actionselect_librarytag,
 		endX = stage.width * 0.15,
 		endY = stage.height * 0.31,
 		imageIndex = 1,
@@ -629,8 +629,8 @@ local arrangeScheduleButtons = {
 	},
 	activities_battleground = {
 		name = "activities_battleground",
-		image = images.gui_activitiesbutton,
-		imagePushed = images.gui_activitiesbutton,
+		image = images.actionselect_battlegroundtag,
+		imagePushed = images.actionselect_battlegroundtag,
 		endX = stage.width * 0.15,
 		endY = stage.height * 0.40,
 		imageIndex = 1,
@@ -640,8 +640,8 @@ local arrangeScheduleButtons = {
 	},
 	activities_shop = {
 		name = "activities_shop",
-		image = images.gui_activitiesbutton,
-		imagePushed = images.gui_activitiesbutton,
+		image = images.actionselect_inventorytag,
+		imagePushed = images.actionselect_inventorytag,
 		endX = stage.width * 0.15,
 		endY = stage.height * 0.49,
 		imageIndex = 1,
@@ -649,6 +649,72 @@ local arrangeScheduleButtons = {
 			ArrangeSchedule:showActionMenu("shop")
 		end,
 	},
+
+	activitysubmenu_home = {
+		name = "activitysubmenu_home",
+		image = images.actionselect_home,
+		imagePushed = images.actionselect_home,
+		endX = stage.width * 0.32,
+		endY = stage.height * 0.25,
+		imageIndex = 2,
+		action = function(ArrangeSchedule)
+			print("tbc")
+		end,
+		category = "activitysubmenu",
+	},
+
+	activitysubmenu_outing = {
+		name = "activitysubmenu_outing",
+		image = images.actionselect_outing,
+		imagePushed = images.actionselect_outing,
+		endX = stage.width * 0.32,
+		endY = stage.height * 0.35,
+		imageIndex = 2,
+		action = function(ArrangeSchedule)
+			print("tbc")
+		end,
+		category = "activitysubmenu",
+	},
+
+	activitysubmenu_magiclibrary = {
+		name = "activitysubmenu_library",
+		image = images.actionselect_library,
+		imagePushed = images.actionselect_library,
+		endX = stage.width * 0.32,
+		endY = stage.height * 0.45,
+		imageIndex = 2,
+		action = function(ArrangeSchedule)
+			print("tbc")
+		end,
+		category = "activitysubmenu",
+	},
+
+	activitysubmenu_battleground = {
+		name = "activitysubmenu_battleground",
+		image = images.actionselect_battleground,
+		imagePushed = images.actionselect_battleground,
+		endX = stage.width * 0.32,
+		endY = stage.height * 0.55,
+		imageIndex = 2,
+		action = function(ArrangeSchedule)
+			print("tbc")
+		end,
+		category = "activitysubmenu",
+	},
+
+	activitysubmenu_shop = {
+		name = "activitysubmenu_shop",
+		image = images.actionselect_inventory,
+		imagePushed = images.actionselect_inventory,
+		endX = stage.width * 0.32,
+		endY = stage.height * 0.65,
+		imageIndex = 2,
+		action = function(ArrangeSchedule)
+			print("tbc")
+		end,
+		category = "activitysubmenu",
+	},
+
 
 	activitysubmenu_screentransparent = {
 		name = "activitysubmenu_screentransparent",
