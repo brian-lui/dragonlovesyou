@@ -142,7 +142,7 @@ end
 	mandatory parameters: name, image, imagePushed, endX, endY, action
 	optional parameters: duration, startTransparency, endTransparency,
 		startX, startY, easing, exit, pushedFunc, pushedSFX, releasedFunc, startScaling,
-		endScaling, releasedSFX, forceMaxAlpha, imageIndex, category, extraInfo
+		endScaling, releasedSFX, forceMaxAlpha, imageLayer, category, extraInfo
 --]]
 function Game:_createButton(gamestate, params)
 	params = params or {}
@@ -156,7 +156,7 @@ function Game:_createButton(gamestate, params)
 		transparency = params.startTransparency or 1,
 		scaling = params.startScaling or 1,
 		image = params.image,
-		imageIndex = params.imageIndex,
+		imageLayer = params.imageLayer,
 		container = params.container or gamestate.ui.clickable,
 		forceMaxAlpha = params.forceMaxAlpha,
 		sound = self.sound,
@@ -196,7 +196,7 @@ end
 	mandatory parameters: name, image, endX, endY
 	optional parameters: duration, startTransparency, endTransparency,
 		startX, startY, easing, exit, pushedSFX, startScaling, endScaling,
-		releasedSFX, forceMaxAlpha, imageIndex, longpressFunc, category, imagePressed
+		releasedSFX, forceMaxAlpha, imageLayer, longpressFunc, category, imagePressed
 		releasedFunc, extraInfo
 --]]
 function Game:_createDraggable(gamestate, params)
@@ -210,7 +210,7 @@ function Game:_createDraggable(gamestate, params)
 		transparency = params.startTransparency or 1,
 		scaling = params.startScaling or 1,
 		image = params.image,
-		imageIndex = params.imageIndex,
+		imageLayer = params.imageLayer,
 		container = params.container or gamestate.ui.draggable,
 		forceMaxAlpha = params.forceMaxAlpha,
 		sound = self.sound,
@@ -252,7 +252,7 @@ end
 	mandatory parameters: name, image, endX, endY
 	optional parameters: duration, startTransparency, endTransparency,
 		startX, startY, easing, remove, exitFunc, forceMaxAlpha,
-		startScaling, endScaling, container, flipH, imageIndex,
+		startScaling, endScaling, container, flipH, imageLayer,
 		category, extraInfo
 --]]
 function Game:_createImage(gamestate, params)
@@ -266,7 +266,7 @@ function Game:_createImage(gamestate, params)
 		transparency = params.startTransparency or 1,
 		scaling = params.startScaling or 1,
 		image = params.image,
-		imageIndex = params.imageIndex,
+		imageLayer = params.imageLayer,
 		container = params.container or gamestate.ui.static,
 		forceMaxAlpha = params.forceMaxAlpha,
 		flipH = params.flipH,
@@ -289,7 +289,7 @@ end
 
 --[[ creates an object that displays text
 	mandatory parameters: name, font, text, x, y
-	optional parameters: RGBColor, imageIndex, transparency, category, extraInfo, align
+	optional parameters: RGBColor, imageLayer, transparency, category, extraInfo, align
 --]]
 function Game:_createText(gamestate, params)
 	params = params or {}
@@ -315,7 +315,7 @@ function Game:_createText(gamestate, params)
 		x = params.x,
 		y = params.y,
 		color = params.RGBColor or {0, 0, 0},
-		imageIndex = params.imageIndex or 0,
+		imageLayer = params.imageLayer or 0,
 		transparency = params.transparency or 1,
 		category = params.category,
 		extraInfo = params.extraInfo,
@@ -387,7 +387,7 @@ function Game:_controllerPressed(x, y, gamestate)
 
 		if #clickedItems > 0 then
 			local function sortFunc(a, b)
-				return a.imageIndex > b.imageIndex
+				return a.imageLayer > b.imageLayer
 			end
 
 			table.sort(clickedItems, sortFunc)

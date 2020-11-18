@@ -136,7 +136,7 @@ end
 function ArrangeSchedule:showDragonGoal()
 	self:_showSubscreen("dragongoal")
 
-	self.ui.clickable.dragongoal.imageIndex = 2
+	self.ui.clickable.dragongoal.imageLayer = 2
 	self.ui.clickable.dragongoal.clickable = false
 
 	self.ui.clickable.dragongoal:change{
@@ -158,7 +158,7 @@ function ArrangeSchedule:hideDragonGoal()
 		x = original.endX,
 		y = original.endY,
 		exitFunc = function()
-			self.ui.clickable.dragongoal.imageIndex = original.imageIndex
+			self.ui.clickable.dragongoal.imageLayer = original.imageLayer
 			self.ui.clickable.dragongoal.clickable = true
 		end,
 	}
@@ -167,7 +167,7 @@ end
 function ArrangeSchedule:showDragonDream()
 	self:_showSubscreen("dragondream")
 
-	self.ui.clickable.dragondream.imageIndex = 2
+	self.ui.clickable.dragondream.imageLayer = 2
 	self.ui.clickable.dragondream.clickable = false
 
 	self.ui.clickable.dragondream:change{
@@ -189,7 +189,7 @@ function ArrangeSchedule:hideDragonDream()
 		x = original.endX,
 		y = original.endY,
 		exitFunc = function()
-			self.ui.clickable.dragondream.imageIndex = original.imageIndex
+			self.ui.clickable.dragondream.imageLayer = original.imageLayer
 			self.ui.clickable.dragondream.clickable = true
 		end,
 	}
@@ -222,7 +222,7 @@ function ArrangeSchedule:showProgressBook()
 			image = blockback.extraInfo.meterImage,
 			endX = blockback.x - stage.width * 0.025,
 			endY = blockback.y,
-			imageIndex = 2,
+			imageLayer = 2,
 			category = "progress",
 		})
 
@@ -267,7 +267,7 @@ function ArrangeSchedule:showCard(card)
 	card.originalScaling = card.scaling
 	card.originalRotation = card.rotation
 
-	card.imageIndex = 2
+	card.imageLayer = 2
 	card:change{duration = 10,
 		rotation = 0,
 		scaling = 1,
@@ -281,7 +281,7 @@ function ArrangeSchedule:showCard(card)
 		text = card.titleText,
 		x = stage.width * 0.3,
 		y = stage.height * 0.1,
-		imageIndex = 2,
+		imageLayer = 2,
 	})
 
 	ArrangeSchedule.createText(self, {
@@ -290,7 +290,7 @@ function ArrangeSchedule:showCard(card)
 		text = card.descriptionText,
 		x = stage.width * 0.6,
 		y = stage.height * 0.6,
-		imageIndex = 2,
+		imageLayer = 2,
 	})
 end
 
@@ -309,7 +309,7 @@ function ArrangeSchedule:hideCard(card)
 	card.originalScaling = nil
 	card.originalRotation = nil
 
-	card.imageIndex = -1
+	card.imageLayer = -1
 
 	self.ui.text.titleText = nil
 	self.ui.text.descriptionText = nil
@@ -383,7 +383,7 @@ function ArrangeSchedule:createCard(params)
 		endX = params.x,
 		endY = params.y,
 		endScaling = params.scaling,
-		imageIndex = -1,
+		imageLayer = -1,
 		category = "card",
 	})
 
@@ -420,7 +420,7 @@ end
 function ArrangeSchedule:drawCards(layer)
 	local cards = {}
 	for _, item in pairs(self.ui.draggable) do
-		if item.category == "card" and item.imageIndex == layer then
+		if item.category == "card" and item.imageLayer == layer then
 			cards[#cards + 1] = item
 		end
 	end
@@ -479,7 +479,7 @@ function ArrangeSchedule:draw()
 	for _, i in ipairs(indexes) do
 		for _, tbl in spairs(ArrangeSchedule.ui) do
 			for _, v in spairs(tbl) do
-				if v.imageIndex == i and v.category ~= "card" then
+				if v.imageLayer == i and v.category ~= "card" then
 					v:draw()
 				end
 			end

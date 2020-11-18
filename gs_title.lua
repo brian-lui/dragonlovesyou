@@ -84,19 +84,19 @@ function Title:draw()
 	for _, i in ipairs(indexes) do
 
 		for _, v in spairs(Title.ui.static) do
-			if v.imageIndex == i then
+			if v.imageLayer == i then
 				v:draw()
 			end
 		end
 
 		for _, v in spairs(Title.ui.clickable) do
-			if v.imageIndex == i then
+			if v.imageLayer == i then
 				v:draw()
 			end
 		end
 
 		for _, v in spairs(Title.ui.draggable) do
-			if v.imageIndex == i then
+			if v.imageLayer == i then
 				v:draw()
 			end
 		end

@@ -21,7 +21,7 @@ function Pic:init(tbl)
 	self.rotation = 0
 	self.scaling = 1
 	self.transparency = 1
-	self.imageIndex = 0
+	self.imageLayer = 0
 
 	for k, v in pairs(tbl) do
 		self[k] = v

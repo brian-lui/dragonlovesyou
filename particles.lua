@@ -38,7 +38,7 @@ function Particles:draw(layer)
 	if layer then
 		for _, particleTbl in pairs(self.allParticles) do
 			for _, particle in pairs(particleTbl) do
-				if particle.imageIndex == layer then
+				if particle.imageLayer == layer then
 					particle:draw()
 				end
 			end

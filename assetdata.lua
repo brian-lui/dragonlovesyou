@@ -14,7 +14,7 @@ local titleImages = {
 		endX = stage.width * 0.16,
 		endY = stage.height * 0.2,
 		easing = "inCubic",
-		imageIndex = 0,
+		imageLayer = 0,
 	},
 	ongoingback = {
 		name = "ongoingback",
@@ -23,7 +23,7 @@ local titleImages = {
 		endX = stage.width * 0.134,
 		endY = stage.height * 0.45,
 		startTransparency = 0,
-		imageIndex = -1,
+		imageLayer = -1,
 	},
 
 	-- TEMP: this should be generated based on # games
@@ -34,7 +34,7 @@ local titleImages = {
 		endX = stage.width * 0.134,
 		endY = stage.height * 0.3,
 		startTransparency = 0,
-		imageIndex = 0,
+		imageLayer = 0,
 		easing = "inCubic",
 	},
 }
@@ -120,168 +120,168 @@ local arrangeScheduleImages = {
 		image = images.gui_activitiesframe,
 		endX = stage.width * 0.15,
 		endY = stage.height * 0.29,
-		imageIndex = -4,
+		imageLayer = -4,
 	},
 	activitiestxt = {
 		name = "activitiestxt",
 		image = images.gui_activitiestxt,
 		endX = stage.width * 0.15,
 		endY = stage.height * 0.05,
-		imageIndex = -2,
+		imageLayer = -2,
 	},
 	scheduleframe = {
 		name = "scheduleframe",
 		image = images.gui_scheduleframe,
 		endX = stage.width * 0.87,
 		endY = stage.height * 0.45,
-		imageIndex = -4,
+		imageLayer = -4,
 	},
 	scheduletxt = {
 		name = "scheduletxt",
 		image = images.gui_scheduletxt,
 		endX = stage.width * 0.87,
 		endY = stage.height * 0.15,
-		imageIndex = -2,
+		imageLayer = -2,
 	},
 	coparent = {
 		name = "coparent",
 		image = images.gui_coparent,
 		endX = stage.width * 0.68,
 		endY = stage.height * 0.05,
-		imageIndex = -1,
+		imageLayer = -1,
 	},
 	finalize = {
 		name = "finalize",
 		image = images.gui_finalizetxt,
 		endX = stage.width * 0.88,
 		endY = stage.height * 0.05,
-		imageIndex = -1,
+		imageLayer = -1,
 	},
 	moneyplusblock = {
 		name = "moneyplusblock",
 		image = images.gui_stats_moneyplusblock,
 		endX = stage.width * 0.07,
 		endY = stage.height * 0.74,
-		imageIndex = -3,
+		imageLayer = -3,
 	},
 	actionplusblock = {
 		name = "actionplusblock",
 		image = images.gui_stats_actionplusblock,
 		endX = stage.width * 0.07,
 		endY = stage.height * 0.79,
-		imageIndex = -3,
+		imageLayer = -3,
 	},
 	energyback = {
 		name = "energyback",
 		image = images.gui_stats_energyback,
 		endX = stage.width * 0.08,
 		endY = stage.height * 0.915,
-		imageIndex = -4,
+		imageLayer = -4,
 	},
 	energyicon = {
 		name = "energyicon",
 		image = images.gui_stats_energyicon,
 		endX = stage.width * 0.03,
 		endY = stage.height * 0.87,
-		imageIndex = -1,
+		imageLayer = -1,
 	},
 	happyicon = {
 		name = "happyicon",
 		image = images.gui_stats_happyicon,
 		endX = stage.width * 0.03,
 		endY = stage.height * 0.92,
-		imageIndex = -1,
+		imageLayer = -1,
 	},
 	loveicon = {
 		name = "loveicon",
 		image = images.gui_stats_loveicon,
 		endX = stage.width * 0.03,
 		endY = stage.height * 0.97,
-		imageIndex = -1,
+		imageLayer = -1,
 	},
 	energyblockback = {
 		name = "energyblockback",
 		image = images.gui_stats_blockback,
 		endX = stage.width * 0.11,
 		endY = stage.height * 0.87,
-		imageIndex = -3,
+		imageLayer = -3,
 	},
 	energyblockbar = {
 		name = "energyblockbar",
 		image = images.gui_stats_blue,
 		endX = stage.width * 0.086,
 		endY = stage.height * 0.87,
-		imageIndex = -2,
+		imageLayer = -2,
 	},
 	energyblockframe = {
 		name = "energyblockframe",
 		image = images.gui_stats_blockframe,
 		endX = stage.width * 0.11,
 		endY = stage.height * 0.87,
-		imageIndex = -1,
+		imageLayer = -1,
 	},
 	happyblockback = {
 		name = "happyblockback",
 		image = images.gui_stats_blockback,
 		endX = stage.width * 0.11,
 		endY = stage.height * 0.92,
-		imageIndex = -3,
+		imageLayer = -3,
 	},
 	happyblockbar = {
 		name = "happyblockbar",
 		image = images.gui_stats_yellow,
 		endX = stage.width * 0.086,
 		endY = stage.height * 0.92,
-		imageIndex = -2,
+		imageLayer = -2,
 	},
 	happyblockframe = {
 		name = "happyblockframe",
 		image = images.gui_stats_blockframe,
 		endX = stage.width * 0.11,
 		endY = stage.height * 0.92,
-		imageIndex = -1,
+		imageLayer = -1,
 	},
 	loveblockback = {
 		name = "loveblockback",
 		image = images.gui_stats_blockback,
 		endX = stage.width * 0.11,
 		endY = stage.height * 0.97,
-		imageIndex = -3,
+		imageLayer = -3,
 	},
 	loveblockbar = {
 		name = "loveblockbar",
 		image = images.gui_stats_pink,
 		endX = stage.width * 0.086,
 		endY = stage.height * 0.97,
-		imageIndex = -2,
+		imageLayer = -2,
 	},
 	loveblockframe = {
 		name = "loveblockframe",
 		image = images.gui_stats_blockframe,
 		endX = stage.width * 0.11,
 		endY = stage.height * 0.97,
-		imageIndex = -1,
+		imageLayer = -1,
 	},
 	dragonmoonicon = {
 		name = "dragonmoonicon",
 		image = images.gui_dragonmoonicon,
 		endX = stage.width * 0.89,
 		endY = stage.height * 0.93,
-		imageIndex = -1,
+		imageLayer = -1,
 	},
 	questionicon = {
 		name = "questionicon",
 		image = images.gui_questionicon,
 		endX = stage.width * 0.96,
 		endY = stage.height * 0.89,
-		imageIndex = -1,
+		imageLayer = -1,
 	},
 	settingsicon = {
 		name = "settingsicon",
 		image = images.gui_settingsicon,
 		endX = stage.width * 0.96,
 		endY = stage.height * 0.96,
-		imageIndex = -1,
+		imageLayer = -1,
 	},
 
 	activitysubmenu_frame = {
@@ -289,7 +289,7 @@ local arrangeScheduleImages = {
 		image = images.actionselect_actionpopup,
 		endX = stage.width * 0.5,
 		endY = stage.height * 0.45,
-		imageIndex = 1,
+		imageLayer = 1,
 		category = "activitysubmenu",
 	},
 
@@ -298,7 +298,7 @@ local arrangeScheduleImages = {
 		image = images.gui_progress_tag,
 		endX = stage.width * 0.2,
 		endY = stage.height * 0.12,
-		imageIndex = 1,
+		imageLayer = 1,
 		category = "progress",
 	},
 	pb_blockback_attack = {
@@ -306,7 +306,7 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockback,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.27 + 0.056 * 0),
-		imageIndex = 1,
+		imageLayer = 1,
 		category = "progress",
 		extraInfo = {meterImage = images.gui_stats_blue},
 	},
@@ -315,7 +315,7 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockframe,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.27 + 0.056 * 0),
-		imageIndex = 3,
+		imageLayer = 3,
 		category = "progress",
 	},
 	pb_blockback_defense = {
@@ -323,7 +323,7 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockback,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.27 + 0.056 * 1),
-		imageIndex = 1,
+		imageLayer = 1,
 		category = "progress",
 		extraInfo = {meterImage = images.gui_stats_blue},
 	},
@@ -332,7 +332,7 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockframe,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.27 + 0.056 * 1),
-		imageIndex = 3,
+		imageLayer = 3,
 		category = "progress",
 	},
 	pb_blockback_flight = {
@@ -340,7 +340,7 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockback,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.27 + 0.056 * 2),
-		imageIndex = 1,
+		imageLayer = 1,
 		category = "progress",
 		extraInfo = {meterImage = images.gui_stats_blue},
 	},
@@ -349,7 +349,7 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockframe,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.27 + 0.056 * 2),
-		imageIndex = 3,
+		imageLayer = 3,
 		category = "progress",
 	},
 	pb_blockback_fire = {
@@ -357,7 +357,7 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockback,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.54 + 0.056 * 0),
-		imageIndex = 1,
+		imageLayer = 1,
 		category = "progress",
 		extraInfo = {meterImage = images.gui_stats_pink},
 	},
@@ -366,7 +366,7 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockframe,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.54 + 0.056 * 0),
-		imageIndex = 3,
+		imageLayer = 3,
 		category = "progress",
 	},
 	pb_blockback_water = {
@@ -374,7 +374,7 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockback,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.54 + 0.056 * 1),
-		imageIndex = 1,
+		imageLayer = 1,
 		category = "progress",
 		extraInfo = {meterImage = images.gui_stats_pink},
 	},
@@ -383,7 +383,7 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockframe,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.54 + 0.056 * 1),
-		imageIndex = 3,
+		imageLayer = 3,
 		category = "progress",
 	},
 	pb_blockback_earth = {
@@ -391,7 +391,7 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockback,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.54 + 0.056 * 2),
-		imageIndex = 1,
+		imageLayer = 1,
 		category = "progress",
 		extraInfo = {meterImage = images.gui_stats_pink},
 	},
@@ -400,7 +400,7 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockframe,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.54 + 0.056 * 2),
-		imageIndex = 3,
+		imageLayer = 3,
 		category = "progress",
 	},
 	pb_blockback_ice = {
@@ -408,7 +408,7 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockback,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.54 + 0.056 * 3),
-		imageIndex = 1,
+		imageLayer = 1,
 		category = "progress",
 		extraInfo = {meterImage = images.gui_stats_pink},
 	},
@@ -417,7 +417,7 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockframe,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.54 + 0.056 * 3),
-		imageIndex = 3,
+		imageLayer = 3,
 		category = "progress",
 	},
 	pb_blockback_light = {
@@ -425,7 +425,7 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockback,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.54 + 0.056 * 4),
-		imageIndex = 1,
+		imageLayer = 1,
 		category = "progress",
 		extraInfo = {meterImage = images.gui_stats_pink},
 	},
@@ -434,7 +434,7 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockframe,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.54 + 0.056 * 4),
-		imageIndex = 3,
+		imageLayer = 3,
 		category = "progress",
 		extraInfo = {meterImage = images.gui_stats_pink},
 	},
@@ -443,7 +443,7 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockback,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.54 + 0.056 * 5),
-		imageIndex = 1,
+		imageLayer = 1,
 		category = "progress",
 		extraInfo = {meterImage = images.gui_stats_pink},
 	},
@@ -452,7 +452,7 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockframe,
 		endX = stage.width * 0.25,
 		endY = stage.height * (0.54 + 0.056 * 5),
-		imageIndex = 3,
+		imageLayer = 3,
 		category = "progress",
 	},
 	pb_blockback_world = {
@@ -460,7 +460,7 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockback,
 		endX = stage.width * 0.6,
 		endY = stage.height * (0.27 + 0.056 * 0),
-		imageIndex = 1,
+		imageLayer = 1,
 		category = "progress",
 		extraInfo = {meterImage = images.gui_stats_yellow},
 	},
@@ -469,7 +469,7 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockframe,
 		endX = stage.width * 0.6,
 		endY = stage.height * (0.27 + 0.056 * 0),
-		imageIndex = 3,
+		imageLayer = 3,
 		category = "progress",
 	},
 	pb_blockback_science = {
@@ -477,7 +477,7 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockback,
 		endX = stage.width * 0.6,
 		endY = stage.height * (0.27 + 0.056 * 1),
-		imageIndex = 1,
+		imageLayer = 1,
 		category = "progress",
 		extraInfo = {meterImage = images.gui_stats_yellow},
 	},
@@ -486,7 +486,7 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockframe,
 		endX = stage.width * 0.6,
 		endY = stage.height * (0.27 + 0.056 * 1),
-		imageIndex = 3,
+		imageLayer = 3,
 		category = "progress",
 	},
 	pb_blockback_math = {
@@ -494,7 +494,7 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockback,
 		endX = stage.width * 0.6,
 		endY = stage.height * (0.27 + 0.056 * 2),
-		imageIndex = 1,
+		imageLayer = 1,
 		category = "progress",
 		extraInfo = {meterImage = images.gui_stats_yellow},
 	},
@@ -503,7 +503,7 @@ local arrangeScheduleImages = {
 		image = images.gui_stats_blockframe,
 		endX = stage.width * 0.6,
 		endY = stage.height * (0.27 + 0.056 * 2),
-		imageIndex = 3,
+		imageLayer = 3,
 		category = "progress",
 	},
 
@@ -512,7 +512,7 @@ local arrangeScheduleImages = {
 		image = images.gui_screendark,
 		endX = stage.width * 0.5,
 		endY = stage.height * 0.5,
-		imageIndex = 0,
+		imageLayer = 0,
 		category = "cardcloseup",
 	},
 	card_description_background = {
@@ -520,7 +520,7 @@ local arrangeScheduleImages = {
 		image = images.gui_cardcloseup_box,
 		endX = stage.width * 0.7,
 		endY = stage.height * 0.7,
-		imageIndex = 1,
+		imageLayer = 1,
 		category = "cardcloseup",
 	},
 
@@ -530,7 +530,7 @@ local arrangeScheduleImages = {
 		image = images.gui_cardcloseup_box,
 		endX = stage.width * 0.7,
 		endY = stage.height * 0.7,
-		imageIndex = 1,
+		imageLayer = 1,
 		category = "dragongoal",
 	},
 
@@ -539,7 +539,7 @@ local arrangeScheduleImages = {
 		image = images.gui_cardcloseup_box,
 		endX = stage.width * 0.7,
 		endY = stage.height * 0.7,
-		imageIndex = 1,
+		imageLayer = 1,
 		category = "dragondream",
 	},
 }
@@ -552,7 +552,7 @@ local arrangeScheduleButtons = {
 		endX = stage.width * 0.38,
 		endY = stage.height * 0.07,
 		endScaling = 0.2,
-		imageIndex = -1,
+		imageLayer = -1,
 		action = function(ArrangeSchedule)
 			ArrangeSchedule:showDragonGoal()
 		end,
@@ -564,7 +564,7 @@ local arrangeScheduleButtons = {
 		endX = stage.width * 0.5,
 		endY = stage.height * 0.07,
 		endScaling = 0.2,
-		imageIndex = -1,
+		imageLayer = -1,
 		action = function(ArrangeSchedule)
 			ArrangeSchedule:showDragonDream()
 		end,
@@ -575,7 +575,7 @@ local arrangeScheduleButtons = {
 		imagePushed = images.gui_progressbookicon,
 		endX = stage.width * 0.8,
 		endY = stage.height * 0.93,
-		imageIndex = -1,
+		imageLayer = -1,
 		action = function(ArrangeSchedule)
 			ArrangeSchedule:showProgressBook()
 		end,
@@ -587,7 +587,7 @@ local arrangeScheduleButtons = {
 		imagePushed = images.gui_progress_infoscreen,
 		endX = stage.width * 0.5,
 		endY = stage.height * 0.5,
-		imageIndex = 1,
+		imageLayer = 1,
 		action = function(ArrangeSchedule)
 			ArrangeSchedule:hideProgressBook()
 		end,
@@ -600,7 +600,7 @@ local arrangeScheduleButtons = {
 		imagePushed = images.actionselect_hometag,
 		endX = stage.width * 0.15,
 		endY = stage.height * 0.13,
-		imageIndex = 1,
+		imageLayer = 1,
 		action = function(ArrangeSchedule)
 			ArrangeSchedule:showActionMenu("home")
 		end,
@@ -611,7 +611,7 @@ local arrangeScheduleButtons = {
 		imagePushed = images.actionselect_outingtag,
 		endX = stage.width * 0.15,
 		endY = stage.height * 0.22,
-		imageIndex = 1,
+		imageLayer = 1,
 		action = function(ArrangeSchedule)
 			ArrangeSchedule:showActionMenu("outing")
 		end,
@@ -622,7 +622,7 @@ local arrangeScheduleButtons = {
 		imagePushed = images.actionselect_librarytag,
 		endX = stage.width * 0.15,
 		endY = stage.height * 0.31,
-		imageIndex = 1,
+		imageLayer = 1,
 		action = function(ArrangeSchedule)
 			ArrangeSchedule:showActionMenu("magiclibrary")
 		end,
@@ -633,7 +633,7 @@ local arrangeScheduleButtons = {
 		imagePushed = images.actionselect_battlegroundtag,
 		endX = stage.width * 0.15,
 		endY = stage.height * 0.40,
-		imageIndex = 1,
+		imageLayer = 1,
 		action = function(ArrangeSchedule)
 			ArrangeSchedule:showActionMenu("battleground")
 		end,
@@ -644,7 +644,7 @@ local arrangeScheduleButtons = {
 		imagePushed = images.actionselect_inventorytag,
 		endX = stage.width * 0.15,
 		endY = stage.height * 0.49,
-		imageIndex = 1,
+		imageLayer = 1,
 		action = function(ArrangeSchedule)
 			ArrangeSchedule:showActionMenu("shop")
 		end,
@@ -656,7 +656,7 @@ local arrangeScheduleButtons = {
 		imagePushed = images.actionselect_home,
 		endX = stage.width * 0.32,
 		endY = stage.height * 0.25,
-		imageIndex = 2,
+		imageLayer = 2,
 		action = function(ArrangeSchedule)
 			print("tbc")
 		end,
@@ -669,7 +669,7 @@ local arrangeScheduleButtons = {
 		imagePushed = images.actionselect_outing,
 		endX = stage.width * 0.32,
 		endY = stage.height * 0.35,
-		imageIndex = 2,
+		imageLayer = 2,
 		action = function(ArrangeSchedule)
 			print("tbc")
 		end,
@@ -682,7 +682,7 @@ local arrangeScheduleButtons = {
 		imagePushed = images.actionselect_library,
 		endX = stage.width * 0.32,
 		endY = stage.height * 0.45,
-		imageIndex = 2,
+		imageLayer = 2,
 		action = function(ArrangeSchedule)
 			print("tbc")
 		end,
@@ -695,7 +695,7 @@ local arrangeScheduleButtons = {
 		imagePushed = images.actionselect_battleground,
 		endX = stage.width * 0.32,
 		endY = stage.height * 0.55,
-		imageIndex = 2,
+		imageLayer = 2,
 		action = function(ArrangeSchedule)
 			print("tbc")
 		end,
@@ -708,7 +708,7 @@ local arrangeScheduleButtons = {
 		imagePushed = images.actionselect_inventory,
 		endX = stage.width * 0.32,
 		endY = stage.height * 0.65,
-		imageIndex = 2,
+		imageLayer = 2,
 		action = function(ArrangeSchedule)
 			print("tbc")
 		end,
@@ -722,7 +722,7 @@ local arrangeScheduleButtons = {
 		imagePushed = images.gui_screentransparent,
 		endX = stage.width * 0.5,
 		endY = stage.height * 0.5,
-		imageIndex = 0,
+		imageLayer = 0,
 		action = function(ArrangeSchedule)
 			print("clicked on screentransparent")
 			ArrangeSchedule:hideActionMenu()
@@ -736,7 +736,7 @@ local arrangeScheduleButtons = {
 		imagePushed = images.gui_screendark,
 		endX = stage.width * 0.5,
 		endY = stage.height * 0.5,
-		imageIndex = 0,
+		imageLayer = 0,
 		action = function(ArrangeSchedule)
 			ArrangeSchedule:hideDragonDream()
 		end,
@@ -749,7 +749,7 @@ local arrangeScheduleButtons = {
 		imagePushed = images.gui_screendark,
 		endX = stage.width * 0.5,
 		endY = stage.height * 0.5,
-		imageIndex = 0,
+		imageLayer = 0,
 		action = function(ArrangeSchedule)
 			ArrangeSchedule:hideDragonGoal()
 		end,
@@ -762,7 +762,7 @@ local arrangeScheduleButtons = {
 		imagePushed = images.gui_screendark,
 		endX = stage.width * 0.5,
 		endY = stage.height * 0.5,
-		imageIndex = 0,
+		imageLayer = 0,
 		action = function(ArrangeSchedule)
 			ArrangeSchedule:hideProgressBook()
 		end,
@@ -781,7 +781,7 @@ local arrangeScheduleText = {
 		align = "center",
 		x = stage.width * 0.08,
 		y = stage.height * 0.72,
-		imageIndex = -2,
+		imageLayer = -2,
 	},
 	actionamount = {
 		name = "actionamount",
@@ -790,7 +790,7 @@ local arrangeScheduleText = {
 		align = "center",
 		x = stage.width * 0.08,
 		y = stage.height * 0.77,
-		imageIndex = -2,
+		imageLayer = -2,
 	},
 
 	pb_dragonability = {
@@ -799,7 +799,7 @@ local arrangeScheduleText = {
 		text = "DRAGON ABILITY",
 		x = stage.width * 0.05,
 		y = stage.height * 0.18,
-		imageIndex = 2,
+		imageLayer = 2,
 		category = "progress",
 	},
 	pb_magic = {
@@ -808,7 +808,7 @@ local arrangeScheduleText = {
 		text = "MAGIC",
 		x = stage.width * 0.05,
 		y = stage.height * 0.45,
-		imageIndex = 2,
+		imageLayer = 2,
 		category = "progress",
 	},
 	pb_knowledge = {
@@ -817,7 +817,7 @@ local arrangeScheduleText = {
 		text = "KNOWLEDGE",
 		x = stage.width * 0.4,
 		y = stage.height * 0.18,
-		imageIndex = 2,
+		imageLayer = 2,
 		category = "progress",
 	},
 
@@ -827,7 +827,7 @@ local arrangeScheduleText = {
 		text = "ATTACK\nDEFENSE\nFLIGHT",
 		x = stage.width * 0.05,
 		y = stage.height * 0.25,
-		imageIndex = 2,
+		imageLayer = 2,
 		category = "progress",
 	},
 	pb_magic_substats = {
@@ -836,7 +836,7 @@ local arrangeScheduleText = {
 		text = "FIRE\nWATER\nEARTH\nICE\nLIGHT\nDARK",
 		x = stage.width * 0.05,
 		y = stage.height * 0.52,
-		imageIndex = 2,
+		imageLayer = 2,
 		category = "progress",
 	},
 	pb_knowledge_substats = {
@@ -845,7 +845,7 @@ local arrangeScheduleText = {
 		text = "WORLD\nSCIENCE\nMATH",
 		x = stage.width * 0.4,
 		y = stage.height * 0.25,
-		imageIndex = 2,
+		imageLayer = 2,
 		category = "progress",
 	},
 }
