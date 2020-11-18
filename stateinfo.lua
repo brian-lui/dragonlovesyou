@@ -36,6 +36,107 @@ local data = {
 
 	hand = {
 	},
+
+	actions = {
+		home = {
+			[1] = {
+				buttonText = "Watch TV",
+				cardImageName = "cardart_idea",
+				titlebackImageName = "cardui_title",
+				cardbackImageName = "cardui_beige",
+				titleText = "Watch TV",
+				descriptionText = "Ability\n+Attack   +Defense\n-Happy   -Energy",
+			},
+			[2] = {
+				buttonText = "Poop",
+				cardImageName = "cardart_idea",
+				titlebackImageName = "cardui_title",
+				cardbackImageName = "cardui_beige",
+				titleText = "Poop",
+				descriptionText = "Ability\n+Attack   +Defense\n-Happy   -Energy",
+			},
+			[3] = {
+				buttonText = "Play Videogames",
+				cardImageName = "cardart_idea",
+				titlebackImageName = "cardui_title",
+				cardbackImageName = "cardui_beige",
+				titleText = "Play Videogames",
+				descriptionText = "Ability\n+Attack   +Defense\n-Happy   -Energy",
+			},
+			[4] = {
+				buttonText = "Meditate",
+				cardImageName = "cardart_idea",
+				titlebackImageName = "cardui_title",
+				cardbackImageName = "cardui_beige",
+				titleText = "Meditate",
+				descriptionText = "Ability\n+Attack   +Defense\n-Happy   -Energy",
+			},
+		},
+		outing = {
+			[1] = {
+				buttonText = "Picnic",
+				cardImageName = "cardart_idea",
+				titlebackImageName = "cardui_title",
+				cardbackImageName = "cardui_beige",
+				titleText = "Picnic",
+				descriptionText = "Ability\n+Attack   +Defense\n-Happy   -Energy",
+			},
+			[2] = {
+				buttonText = "Sonic Boom",
+				cardImageName = "cardart_idea",
+				titlebackImageName = "cardui_title",
+				cardbackImageName = "cardui_beige",
+				titleText = "Sonic Boom",
+				descriptionText = "Ability\n+Attack   +Defense\n-Happy   -Energy",
+			},
+		},
+		library = {
+			[1] = {
+				buttonText = "Nerd Stuff",
+				cardImageName = "cardart_idea",
+				titlebackImageName = "cardui_title",
+				cardbackImageName = "cardui_beige",
+				titleText = "Nerd Stuff",
+				descriptionText = "Ability\n+Attack   +Defense\n-Happy   -Energy",
+			},
+			[2] = {
+				buttonText = "Learn MMA",
+				cardImageName = "cardart_idea",
+				titlebackImageName = "cardui_title",
+				cardbackImageName = "cardui_beige",
+				titleText = "Learn MMA",
+				descriptionText = "Ability\n+Attack   +Defense\n-Happy   -Energy",
+			},
+		},
+		battleground = {
+			[1] = {
+				buttonText = "Fight kobold",
+				cardImageName = "cardart_idea",
+				titlebackImageName = "cardui_title",
+				cardbackImageName = "cardui_beige",
+				titleText = "Fight kobold",
+				descriptionText = "Ability\n+Attack   +Defense\n-Happy   -Energy",
+			},
+		},
+		shop = {
+			[1] = {
+				buttonText = "Buy buy buy",
+				cardImageName = "cardart_idea",
+				titlebackImageName = "cardui_title",
+				cardbackImageName = "cardui_beige",
+				titleText = "Buy buy buy",
+				descriptionText = "Ability\n+Attack   +Defense\n-Happy   -Energy",
+			},
+			[2] = {
+				buttonText = "Sell sell sell",
+				cardImageName = "cardart_idea",
+				titlebackImageName = "cardui_title",
+				cardbackImageName = "cardui_beige",
+				titleText = "Sell sell sell",
+				descriptionText = "Ability\n+Attack   +Defense\n-Happy   -Energy",
+			},
+		},
+	}
 }
 
 
