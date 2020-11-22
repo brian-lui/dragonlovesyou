@@ -616,15 +616,15 @@ local arrangeScheduleButtons = {
 			ArrangeSchedule:showActionMenu("outing")
 		end,
 	},
-	activities_magiclibrary = {
-		name = "activities_magiclibrary",
+	activities_library = {
+		name = "activities_library",
 		image = images.actionselect_librarytag,
 		imagePushed = images.actionselect_librarytag,
 		endX = stage.width * 0.15,
 		endY = stage.height * 0.31,
 		imageLayer = 1,
 		action = function(ArrangeSchedule)
-			ArrangeSchedule:showActionMenu("magiclibrary")
+			ArrangeSchedule:showActionMenu("library")
 		end,
 	},
 	activities_battleground = {
@@ -640,94 +640,14 @@ local arrangeScheduleButtons = {
 	},
 	activities_shop = {
 		name = "activities_shop",
-		image = images.actionselect_inventorytag,
-		imagePushed = images.actionselect_inventorytag,
+		image = images.actionselect_shoptag,
+		imagePushed = images.actionselect_shoptag,
 		endX = stage.width * 0.15,
 		endY = stage.height * 0.49,
 		imageLayer = 1,
 		action = function(ArrangeSchedule)
 			ArrangeSchedule:showActionMenu("shop")
 		end,
-	},
-
-	activitysubmenu_home = {
-		name = "activitysubmenu_home",
-		image = images.actionselect_home,
-		imagePushed = images.actionselect_home,
-		endX = stage.width * 0.32,
-		endY = stage.height * 0.25,
-		imageLayer = 2,
-		action = function(ArrangeSchedule)
-			print("tbc")
-		end,
-		category = "activitysubmenu",
-	},
-
-	activitysubmenu_outing = {
-		name = "activitysubmenu_outing",
-		image = images.actionselect_outing,
-		imagePushed = images.actionselect_outing,
-		endX = stage.width * 0.32,
-		endY = stage.height * 0.35,
-		imageLayer = 2,
-		action = function(ArrangeSchedule)
-			print("tbc")
-		end,
-		category = "activitysubmenu",
-	},
-
-	activitysubmenu_magiclibrary = {
-		name = "activitysubmenu_library",
-		image = images.actionselect_library,
-		imagePushed = images.actionselect_library,
-		endX = stage.width * 0.32,
-		endY = stage.height * 0.45,
-		imageLayer = 2,
-		action = function(ArrangeSchedule)
-			print("tbc")
-		end,
-		category = "activitysubmenu",
-	},
-
-	activitysubmenu_battleground = {
-		name = "activitysubmenu_battleground",
-		image = images.actionselect_battleground,
-		imagePushed = images.actionselect_battleground,
-		endX = stage.width * 0.32,
-		endY = stage.height * 0.55,
-		imageLayer = 2,
-		action = function(ArrangeSchedule)
-			print("tbc")
-		end,
-		category = "activitysubmenu",
-	},
-
-	activitysubmenu_shop = {
-		name = "activitysubmenu_shop",
-		image = images.actionselect_inventory,
-		imagePushed = images.actionselect_inventory,
-		endX = stage.width * 0.32,
-		endY = stage.height * 0.65,
-		imageLayer = 2,
-		action = function(ArrangeSchedule)
-			print("tbc")
-		end,
-		category = "activitysubmenu",
-	},
-
-
-	activitysubmenu_screentransparent = {
-		name = "activitysubmenu_screentransparent",
-		image = images.gui_screentransparent,
-		imagePushed = images.gui_screentransparent,
-		endX = stage.width * 0.5,
-		endY = stage.height * 0.5,
-		imageLayer = 0,
-		action = function(ArrangeSchedule)
-			print("clicked on screentransparent")
-			ArrangeSchedule:hideActionMenu()
-		end,
-		category = "activitysubmenu",
 	},
 
 	dream_screendark = {

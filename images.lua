@@ -13,7 +13,7 @@ local achievement = {
 
 local actionselect = {
 	"actionpopup", "battleground", "battlegroundtag", "card", "center",
-	"centerbare", "home", "hometag", "inventory", "inventorytag", "library",
+	"centerbare", "home", "hometag", "shop", "shoptag", "library",
 	"librarytag", "outing", "outingtag", "separationcenter",
 }
 local cardart = {

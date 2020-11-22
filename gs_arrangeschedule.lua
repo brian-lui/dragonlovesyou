@@ -248,15 +248,57 @@ function ArrangeSchedule:hideProgressBook()
 end
 
 function ArrangeSchedule:showActionMenu(submenuName)
-	print("show action menu")
 	self.shownActionMenu = submenuName
 	self:_showSubscreen("activitysubmenu")
+
+	local menuItems = stateInfo.get("actions", submenuName)
+
+	for i = 1, #menuItems do
+		local data = {
+			name = "activitysubmenu_" .. submenuName .. "_" .. i,
+			image = images["actionselect_" .. submenuName],
+			imagePushed = images["actionselect_" .. submenuName],
+			endX = stage.width * 0.32,
+			endY = stage.height * (0.15 + 0.1 * i),
+			imageLayer = 2,
+			action = function(_ArrangeSchedule)
+				print("tbc")
+			end,
+			category = "activitysubmenu",
+		}
+		self:createButton(data)
+
+		local card = cardData.getCardInfo(menuItems[i])
+		-- create text on imageLayer 3
+		-- create card
+
+	end
+
+	self:createButton{
+		name = "activitysubmenu_screentransparent",
+		image = images.gui_screentransparent,
+		imagePushed = images.gui_screentransparent,
+		endX = stage.width * 0.5,
+		endY = stage.height * 0.5,
+		imageLayer = 0,
+		action = function(_ArrangeSchedule)
+			print("clicked on screentransparent")
+			_ArrangeSchedule:hideActionMenu()
+		end,
+		category = "activitysubmenu",
+	}
 end
 
 function ArrangeSchedule:hideActionMenu()
-	print("hide action menu")
 	self.shownActionMenu = false
 	self:_hideSubscreen("activitysubmenu")
+
+	for _, t in pairs(self.ui.clickable) do
+		if t.category == "activitysubmenu" then
+			t:remove()
+		end
+	end
+	-- TODO: later also delete other activitysubmenu items like text and cards
 end
 
 function ArrangeSchedule:showCard(card)
