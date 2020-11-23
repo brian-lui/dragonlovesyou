@@ -254,6 +254,8 @@ function ArrangeSchedule:showActionMenu(submenuName)
 	local menuItems = stateInfo.get("actions", submenuName)
 
 	for i = 1, #menuItems do
+		local card = cardData.getCardInfo(menuItems[i])
+
 		self:createButton{
 			name = "activitysubmenu_" .. submenuName .. "_" .. i,
 			image = images["actionselect_" .. submenuName],
@@ -261,13 +263,28 @@ function ArrangeSchedule:showActionMenu(submenuName)
 			endX = stage.width * 0.32,
 			endY = stage.height * (0.15 + 0.1 * i),
 			imageLayer = 2,
-			action = function(_ArrangeSchedule)
-				print("tbc")
+			action = function()
+				-- remove existing other cards first
+				for _, v in pairs(self.ui.draggable) do
+					if v.isSubmenuCard then v:remove() end
+				end
+
+				-- generate a new card
+				local cardItem = card
+				cardItem.x = stage.width * 0.7
+				cardItem.y = stage.height * 0.3
+				cardItem.rotation = 0
+				cardItem.scaling = 0.2
+
+				local c = self:createCard(cardItem)
+				c.isSubmenuCard = true
+				c.drawPriority = 100
+				c.imageLayer = 3
 			end,
 			category = "activitysubmenu",
 		}
 
-		local card = cardData.getCardInfo(menuItems[i])
+
 
 		self:createText{
 			name = "activitysubmenu_" .. submenuName .. "_" .. i .. "_" .. card.name,
@@ -280,7 +297,6 @@ function ArrangeSchedule:showActionMenu(submenuName)
 			category = "activitysubmenu",
 		}
 
-		-- create card
 
 	end
 
@@ -318,7 +334,7 @@ function ArrangeSchedule:hideActionMenu()
 
 	for _, tbl in pairs(self.ui) do
 		for _, t in pairs(tbl) do
-			if t.category == "activitysubmenu" then
+			if t.category == "activitysubmenu" or t.isSubmenuCard then
 				t:remove()
 			end
 		end
@@ -328,12 +344,13 @@ end
 function ArrangeSchedule:showCard(card)
 	self:_showSubscreen("cardcloseup")
 
+	card.originalLayer = card.imageLayer
 	card.originalX = card.x
 	card.originalY = card.y
 	card.originalScaling = card.scaling
 	card.originalRotation = card.rotation
 
-	card.imageLayer = 2
+	card.imageLayer = 4
 	card:change{duration = 10,
 		rotation = 0,
 		scaling = 1,
@@ -347,7 +364,7 @@ function ArrangeSchedule:showCard(card)
 		text = card.titleText,
 		x = stage.width * 0.3,
 		y = stage.height * 0.1,
-		imageLayer = 2,
+		imageLayer = 4,
 	})
 
 	ArrangeSchedule.createText(self, {
@@ -356,7 +373,7 @@ function ArrangeSchedule:showCard(card)
 		text = card.descriptionText,
 		x = stage.width * 0.6,
 		y = stage.height * 0.6,
-		imageLayer = 2,
+		imageLayer = 4,
 	})
 end
 
@@ -370,12 +387,14 @@ function ArrangeSchedule:hideCard(card)
 		y = card.originalY,
 	}
 
+	card.imageLayer = card.originalLayer
+
+	card.originalLayer = nil
 	card.originalX = nil
 	card.originalY = nil
 	card.originalScaling = nil
 	card.originalRotation = nil
 
-	card.imageLayer = -1
 
 	self.ui.text.titleText = nil
 	self.ui.text.descriptionText = nil
@@ -388,6 +407,7 @@ function ArrangeSchedule:createHand(totalCards)
 		local data = cardData.getCardInfo(cardName)
 		local loc = cardData.getCardPosition(i, totalCards)
 
+		data.isHandCard = true
 		data.x = stage.width * 0.5
 		data.y = stage.height * 2
 		data.rotation = 0
@@ -426,7 +446,7 @@ function ArrangeSchedule:discardHand()
 end
 
 -- mandatory: name, cardImage, cardbackImage, titlebackImage, titleText, descriptionText, x, y
--- optional: scaling, longpressFunc, releasedFunc
+-- optional: scaling, longpressFunc, releasedFunc, isHandCard
 function ArrangeSchedule:createCard(params)
 	assert(params.name, "No card name given!")
 	assert(params.cardImage, "No card image given!")
@@ -436,7 +456,7 @@ function ArrangeSchedule:createCard(params)
 	assert(params.titleText, "No title text given!")
 	assert(params.x and params.y, "No card x or y given!")
 
-	stateInfo.addHandCard(params.name)
+	if params.isHandCard then stateInfo.addHandCard(params.name) end
 
 	local cardHandle = params.name
 	while ArrangeSchedule.ui.draggable[cardHandle] do
@@ -540,7 +560,7 @@ function ArrangeSchedule:update(dt)
 end
 
 function ArrangeSchedule:draw()
-	local indexes = {-4, -3, -2, -1, 0, 1, 2, 3}
+	local indexes = {-4, -3, -2, -1, 0, 1, 2, 3, 4}
 
 	for _, i in ipairs(indexes) do
 		for _, tbl in spairs(ArrangeSchedule.ui) do
