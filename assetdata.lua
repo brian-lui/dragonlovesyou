@@ -284,15 +284,6 @@ local arrangeScheduleImages = {
 		imageLayer = -1,
 	},
 
-	activitysubmenu_frame = {
-		name = "activitysubmenu_frame",
-		image = images.actionselect_actionpopup,
-		endX = stage.width * 0.5,
-		endY = stage.height * 0.45,
-		imageLayer = 1,
-		category = "activitysubmenu",
-	},
-
 	pb_tag = {
 		name = "pb_tag",
 		image = images.gui_progress_tag,

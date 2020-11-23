@@ -34,6 +34,8 @@ local cards = {
 		cardbackImage = images.cardui_beige,
 		titleText = "Watch TV",
 		descriptionText = "Ability\n+++Fire",
+		buttonText = "Watch TV",
+		buttonFont = "MEDIUM",
 		submenu = "home",
 	},
 	home_poop = {
@@ -43,6 +45,8 @@ local cards = {
 		cardbackImage = images.cardui_beige,
 		titleText = "Poop",
 		descriptionText = "Ability\n+++Fire",
+		buttonText = "Poop",
+		buttonFont = "MEDIUM",
 		submenu = "home",
 	},
 	home_videogames = {
@@ -52,6 +56,8 @@ local cards = {
 		cardbackImage = images.cardui_beige,
 		titleText = "Play Videogames",
 		descriptionText = "Ability\n+++Fire",
+		buttonText = "Play\nVideogames",
+		buttonFont = "SMALL",
 		submenu = "home",
 	},
 	home_meditate = {
@@ -59,8 +65,10 @@ local cards = {
 		cardImage = images.cardart_idea,
 		titlebackImage = images.cardui_title,
 		cardbackImage = images.cardui_beige,
-		titleText = "Watch TV",
+		titleText = "Meditate",
 		descriptionText = "Ability\n+++Fire",
+		buttonText = "Meditate",
+		buttonFont = "MEDIUM",
 		submenu = "home",
 	},
 
@@ -71,6 +79,8 @@ local cards = {
 		cardbackImage = images.cardui_beige,
 		titleText = "Picnic",
 		descriptionText = "Ability\n+++Fire",
+		buttonText = "Picnic",
+		buttonFont = "MEDIUM",
 		submenu = "outing",
 	},
 	outing_sonicboom = {
@@ -80,6 +90,8 @@ local cards = {
 		cardbackImage = images.cardui_beige,
 		titleText = "Sonic Boom!",
 		descriptionText = "Ability\n+++Fire",
+		buttonText = "Sonic Boom",
+		buttonFont = "MEDIUM",
 		submenu = "outing",
 	},
 
@@ -90,6 +102,8 @@ local cards = {
 		cardbackImage = images.cardui_beige,
 		titleText = "Nerd Stuff",
 		descriptionText = "Ability\n+++Fire",
+		buttonText = "Nerd Stuff",
+		buttonFont = "MEDIUM",
 		submenu = "library",
 	},
 	library_learnMMA = {
@@ -99,6 +113,8 @@ local cards = {
 		cardbackImage = images.cardui_beige,
 		titleText = "Learn MMA",
 		descriptionText = "Ability\n+++Fire",
+		buttonText = "Learn MMA",
+		buttonFont = "MEDIUM",
 		submenu = "library",
 	},
 
@@ -109,6 +125,8 @@ local cards = {
 		cardbackImage = images.cardui_beige,
 		titleText = "Fight Kobold",
 		descriptionText = "Ability\n+++Fire",
+		buttonText = "Fight Kobold",
+		buttonFont = "MEDIUM",
 		submenu = "battleground",
 	},
 
@@ -119,6 +137,8 @@ local cards = {
 		cardbackImage = images.cardui_beige,
 		titleText = "Buy Buy Buy",
 		descriptionText = "Ability\n+++Fire",
+		buttonText = "Buy Buy Buy",
+		buttonFont = "MEDIUM",
 		submenu = "shop",
 	},
 	shop_sellsellsell = {
@@ -128,6 +148,8 @@ local cards = {
 		cardbackImage = images.cardui_beige,
 		titleText = "Sell Sell Sell",
 		descriptionText = "Ability\n+++Fire",
+		buttonText = "Sell Sell Sell",
+		buttonFont = "MEDIUM",
 		submenu = "shop",
 	},
 }

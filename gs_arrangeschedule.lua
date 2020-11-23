@@ -254,7 +254,7 @@ function ArrangeSchedule:showActionMenu(submenuName)
 	local menuItems = stateInfo.get("actions", submenuName)
 
 	for i = 1, #menuItems do
-		local data = {
+		self:createButton{
 			name = "activitysubmenu_" .. submenuName .. "_" .. i,
 			image = images["actionselect_" .. submenuName],
 			imagePushed = images["actionselect_" .. submenuName],
@@ -266,14 +266,25 @@ function ArrangeSchedule:showActionMenu(submenuName)
 			end,
 			category = "activitysubmenu",
 		}
-		self:createButton(data)
 
 		local card = cardData.getCardInfo(menuItems[i])
-		-- create text on imageLayer 3
+
+		self:createText{
+			name = "activitysubmenu_" .. submenuName .. "_" .. i .. "_" .. card.name,
+			font = card.buttonFont,
+			text = card.buttonText,
+			x = stage.width * 0.32,
+			y = stage.height * (0.13 + 0.1 * i),
+			imageLayer = 3,
+			align = "center",
+			category = "activitysubmenu",
+		}
+
 		-- create card
 
 	end
 
+	-- invisible click-to-quit on background
 	self:createButton{
 		name = "activitysubmenu_screentransparent",
 		image = images.gui_screentransparent,
@@ -287,18 +298,31 @@ function ArrangeSchedule:showActionMenu(submenuName)
 		end,
 		category = "activitysubmenu",
 	}
+
+	-- don't click-to-quit on the frame
+	self:createButton{
+		name = "activitysubmenu_frame",
+		image = images.actionselect_actionpopup,
+		imagePushed = images.actionselect_actionpopup,
+		endX = stage.width * 0.5,
+		endY = stage.height * 0.45,
+		imageLayer = 1,
+		action = function() end,
+		category = "activitysubmenu",
+	}
 end
 
 function ArrangeSchedule:hideActionMenu()
 	self.shownActionMenu = false
 	self:_hideSubscreen("activitysubmenu")
 
-	for _, t in pairs(self.ui.clickable) do
-		if t.category == "activitysubmenu" then
-			t:remove()
+	for _, tbl in pairs(self.ui) do
+		for _, t in pairs(tbl) do
+			if t.category == "activitysubmenu" then
+				t:remove()
+			end
 		end
 	end
-	-- TODO: later also delete other activitysubmenu items like text and cards
 end
 
 function ArrangeSchedule:showCard(card)
