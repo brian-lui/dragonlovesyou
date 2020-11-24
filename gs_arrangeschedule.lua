@@ -260,8 +260,8 @@ function ArrangeSchedule:showActionMenu(submenuName)
 			name = "activitysubmenu_" .. submenuName .. "_" .. i,
 			image = images["actionselect_" .. submenuName],
 			imagePushed = images["actionselect_" .. submenuName],
-			endX = stage.width * 0.32,
-			endY = stage.height * (0.15 + 0.1 * i),
+			endX = stage.width * 0.33,
+			endY = stage.height * (0.175 + 0.1 * i),
 			imageLayer = 2,
 			action = function()
 				-- remove existing other cards first
@@ -271,8 +271,8 @@ function ArrangeSchedule:showActionMenu(submenuName)
 
 				-- generate a new card
 				local cardItem = card
-				cardItem.x = stage.width * 0.7
-				cardItem.y = stage.height * 0.3
+				cardItem.x = stage.width * 0.67
+				cardItem.y = stage.height * 0.35
 				cardItem.rotation = 0
 				cardItem.scaling = 0.2
 
@@ -290,8 +290,8 @@ function ArrangeSchedule:showActionMenu(submenuName)
 			name = "activitysubmenu_" .. submenuName .. "_" .. i .. "_" .. card.name,
 			font = card.buttonFont,
 			text = card.buttonText,
-			x = stage.width * 0.32,
-			y = stage.height * (0.13 + 0.1 * i),
+			x = stage.width * 0.33,
+			y = stage.height * (0.155 + 0.1 * i),
 			imageLayer = 3,
 			align = "center",
 			category = "activitysubmenu",
@@ -318,8 +318,8 @@ function ArrangeSchedule:showActionMenu(submenuName)
 	-- don't click-to-quit on the frame
 	self:createButton{
 		name = "activitysubmenu_frame",
-		image = images.actionselect_actionpopup,
-		imagePushed = images.actionselect_actionpopup,
+		image = images.actionselect_center,
+		imagePushed = images.actionselect_center,
 		endX = stage.width * 0.5,
 		endY = stage.height * 0.45,
 		imageLayer = 1,
