@@ -271,10 +271,10 @@ function ArrangeSchedule:showActionMenu(submenuName)
 
 				-- generate a new card
 				local cardItem = card
-				cardItem.x = stage.width * 0.67
-				cardItem.y = stage.height * 0.35
+				cardItem.x = stage.width * 0.665
+				cardItem.y = stage.height * 0.39
 				cardItem.rotation = 0
-				cardItem.scaling = 0.2
+				cardItem.scaling = 0.3
 
 				local c = self:createCard(cardItem)
 				c.isSubmenuCard = true
