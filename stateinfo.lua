@@ -27,11 +27,13 @@ local data = {
 	},
 
 	deck = {
-		"meditate",
-		"meditate",
-		"meditate",
-		"sleep",
-		"fireball",
+		"comfy",
+		"hype",
+		"shopper",
+		"family",
+		"empathy",
+		"excitement",
+		"relax",
 	},
 
 	hand = {
@@ -39,21 +41,20 @@ local data = {
 
 	actions = {
 		home = {
-			"home_watchTV",
-			"home_poop",
-			"home_videogames",
-			"home_meditate",
+			"home_tv",
+			"home_nap",
 		},
 		outing = {
-			"outing_picnic",
-			"outing_sonicboom",
+			"outing_camping",
+			"outing_ant",
 		},
 		library = {
-			"library_nerdstuff",
-			"library_learnMMA",
+			"library_globe",
+			"library_healspell",
 		},
 		battleground = {
-			"battleground_fightkobold",
+			"battleground_fly",
+			"battleground_fire",
 		},
 		shop = {
 			"shop_buybuybuy",

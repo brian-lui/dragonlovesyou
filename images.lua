@@ -11,6 +11,10 @@ local achievement = {
 	"doodle", "endings", "highestscore", "next", "pic", "press",
 }
 
+local actionart = {
+	"tv", "nap", "camping", "ant", "globe", "healspell", "fly", "fire",
+}
+
 local actionselect = {
 	"actionpopup", "battleground", "battlegroundtag", "card", "center",
 	"centerbare", "home", "hometag", "shop", "shoptag", "library",
@@ -18,10 +22,11 @@ local actionselect = {
 }
 local cardart = {
 	"idea", "magic", "sleepydragon",
+	"comfy", "hype", "shopper", "family", "empathy", "excitement", "relax",
 }
 
 local cardui = {
-	"beige", "beigetexture", "tealtexture", "title", "txtbox",
+	"back", "title",
 }
 
 local coparent = {
@@ -30,10 +35,11 @@ local coparent = {
 }
 
 local dreamart = {
-	"temp1", "temp2",
+	"pyro", "binge", "heal", "study",
 }
-local dreams = {
-	"back", "card1", "card2", "dragondream", "personal",
+
+local dreamui = {
+	"dream", "goal", "personal",
 }
 
 local finalizescreen = {
@@ -54,14 +60,6 @@ local gui = {
 	"stats_blockframe", "stats_blue", "stats_energyback", "stats_energyicon",
 	"stats_happyicon", "stats_loveicon", "stats_moneyplusblock",
 	"stats_pink", "stats_yellow",
-}
-
-local infocard = {
-	"back", "frame", "tape", "wellrested",
-}
-
-local infocardart = {
-	"wellrestedart",
 }
 
 local items = {
@@ -97,16 +95,15 @@ local title = {
 -- imageNames["buttons_" .. item] = "images/buttons/" .. item .. ".png"
 local categories = {
 	achievement = achievement,
+	actionart = actionart,
 	actionselect = actionselect,
 	cardart = cardart,
 	cardui = cardui,
 	coparent = coparent,
 	dreamart = dreamart,
-	dreams = dreams,
+	dreamui = dreamui,
 	finalizescreen = finalizescreen,
 	gui = gui,
-	infocard = infocard,
-	infocardart = infocardart,
 	items = items,
 	particles = particles,
 	personality = personality,
