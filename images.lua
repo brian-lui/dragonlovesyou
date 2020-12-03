@@ -20,6 +20,11 @@ local actionselect = {
 	"centerbare", "home", "hometag", "shop", "shoptag", "library",
 	"librarytag", "outing", "outingtag", "separationcenter",
 }
+
+local actionui = {
+	"back", "battleground", "frame", "home", "library", "outing", "shop",
+}
+
 local cardart = {
 	"idea", "magic", "sleepydragon",
 	"comfy", "hype", "shopper", "family", "empathy", "excitement", "relax",
@@ -97,6 +102,7 @@ local categories = {
 	achievement = achievement,
 	actionart = actionart,
 	actionselect = actionselect,
+	actionui = actionui,
 	cardart = cardart,
 	cardui = cardui,
 	coparent = coparent,
