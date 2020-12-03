@@ -274,7 +274,7 @@ function ArrangeSchedule:showActionMenu(submenuName)
 				cardItem.x = stage.width * 0.665
 				cardItem.y = stage.height * 0.39
 				cardItem.rotation = 0
-				cardItem.scaling = 0.3
+				cardItem.scaling = 0.4
 
 				local c = self:createCard(cardItem)
 				c.isSubmenuCard = true
@@ -411,7 +411,7 @@ function ArrangeSchedule:createHand(totalCards)
 		data.x = stage.width * 0.5
 		data.y = stage.height * 2
 		data.rotation = 0
-		data.scaling = 0.2
+		data.scaling = 0.4
 
 		local card = ArrangeSchedule.createCard(self, data)
 		card.draggable = false
