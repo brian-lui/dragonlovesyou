@@ -289,7 +289,8 @@ end
 
 --[[ creates an object that displays text
 	mandatory parameters: name, font, text, x, y
-	optional parameters: RGBColor, imageLayer, transparency, category, extraInfo, align
+	optional parameters: RGBColor, imageLayer, transparency, category,
+	extraInfo, align, attachedObject, attachedObjectXOffset, attachedObjectYOffset
 --]]
 function Game:_createText(gamestate, params)
 	params = params or {}
@@ -317,6 +318,9 @@ function Game:_createText(gamestate, params)
 		color = params.RGBColor or {0, 0, 0},
 		imageLayer = params.imageLayer or 0,
 		transparency = params.transparency or 1,
+		attachedObject = params.attachedObject,
+		attachedObjectXOffset = params.attachedObjectXOffset,
+		attachedObjectYOffset = params.attachedObjectYOffset,
 		category = params.category,
 		extraInfo = params.extraInfo,
 	}
@@ -347,7 +351,12 @@ function Game:_createText(gamestate, params)
 		love.graphics.pop()
 	end
 
-	text.update = function(_self) end
+	text.update = function(_self)
+		if _self.attachedObject then
+			_self.x = _self.attachedObject.x + _self.attachedObjectXOffset
+			_self.y = _self.attachedObject.y + _self.attachedObjectYOffset
+		end
+	end
 
 	text.remove = function(_self)
 		_self.container[_self.name] = nil

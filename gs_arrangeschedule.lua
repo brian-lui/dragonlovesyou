@@ -256,7 +256,7 @@ function ArrangeSchedule:showActionMenu(submenuName)
 	for i = 1, #menuItems do
 		local card = cardData.getCardInfo(menuItems[i])
 
-		self:createButton{
+		local box = self:createDraggable{
 			name = "activitysubmenu_" .. submenuName .. "_" .. i,
 			image = images["actionselect_" .. submenuName],
 			imagePushed = images["actionselect_" .. submenuName],
@@ -284,8 +284,6 @@ function ArrangeSchedule:showActionMenu(submenuName)
 			category = "activitysubmenu",
 		}
 
-
-
 		self:createText{
 			name = "activitysubmenu_" .. submenuName .. "_" .. i .. "_" .. card.name,
 			font = card.buttonFont,
@@ -293,11 +291,12 @@ function ArrangeSchedule:showActionMenu(submenuName)
 			x = stage.width * 0.33,
 			y = stage.height * (0.155 + 0.1 * i),
 			imageLayer = 3,
+			attachedObject = box,
+			attachedObjectXOffset = 0,
+			attachedObjectYOffset = stage.height * -0.02,
 			align = "center",
 			category = "activitysubmenu",
 		}
-
-
 	end
 
 	-- invisible click-to-quit on background
