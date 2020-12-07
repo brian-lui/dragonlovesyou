@@ -262,6 +262,17 @@ function ArrangeSchedule:showActionMenu(submenuName)
 				if v.isSubmenuCard then v:remove() end
 			end
 
+			-- generate frame behind card
+			local portraitBack = self:createImage{
+				name = "activitysubmenu_cardportraitback",
+				image = images.actionui_frame,
+				endX = stage.width * 0.665,
+				endY = stage.height * 0.395,
+				category = "activitysubmenu",
+				imageLayer = 3,
+			}
+			portraitBack.scaling = 0.45
+
 			-- generate a new card
 			local cardItem = card
 			cardItem.x = stage.width * 0.665
@@ -279,8 +290,8 @@ function ArrangeSchedule:showActionMenu(submenuName)
 
 			local c = self:createCard(cardItem)
 			c.isSubmenuCard = true
-			c.drawPriority = 100
-			c.imageLayer = 3
+			c.cardDrawPriority = 100
+			c.imageLayer = 4
 		end
 
 		local box = self:createDraggable{
@@ -433,7 +444,7 @@ function ArrangeSchedule:createHand(totalCards)
 		local card = ArrangeSchedule.createCard(self, data)
 		card.draggable = false
 		card.longpressable = false
-		card.drawPriority = i
+		card.cardDrawPriority = i
 
 		card:wait((i - 1) * 10)
 		card:change{
@@ -539,7 +550,7 @@ function ArrangeSchedule:drawCards(layer)
 	end
 
 	local function sortFunc(a, b)
-		return a.drawPriority > b.drawPriority
+		return a.cardDrawPriority > b.cardDrawPriority
 	end
 
 	table.sort(cards, sortFunc)
