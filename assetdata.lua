@@ -772,7 +772,7 @@ local lookup = {
 	Title = {
 		images = titleImages,
 		buttons = titleButtons,
-		draggables = arrangeScheduleDraggables,
+		draggables = titleDraggables,
 		text = titleText,
 	},
 }

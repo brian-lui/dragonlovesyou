@@ -263,7 +263,14 @@ function ArrangeSchedule:showActionMenu(submenuName)
 			endX = stage.width * 0.33,
 			endY = stage.height * (0.175 + 0.1 * i),
 			imageLayer = 2,
-			action = function()
+			longpressFunc = function() end,
+			releasedFunc = function(_self) if _self.dragged then
+					-- if released over the schedule area then
+					-- else snap back
+					print("remember to program this!")
+				end
+			end,
+			pushedFunc = function()
 				-- remove existing other cards first
 				for _, v in pairs(self.ui.draggable) do
 					if v.isSubmenuCard then v:remove() end
@@ -275,6 +282,13 @@ function ArrangeSchedule:showActionMenu(submenuName)
 				cardItem.y = stage.height * 0.39
 				cardItem.rotation = 0
 				cardItem.scaling = 0.4
+				cardItem.longpressFunc = function() end
+				cardItem.releasedFunc = function(_self) if _self.dragged then
+					-- if released over the schedule area then
+					-- else snap back
+						print("remember to program this!")
+					end
+				end
 
 				local c = self:createCard(cardItem)
 				c.isSubmenuCard = true
@@ -411,6 +425,7 @@ function ArrangeSchedule:createHand(totalCards)
 		data.y = stage.height * 2
 		data.rotation = 0
 		data.scaling = 0.4
+		data.longpressable = true
 
 		local card = ArrangeSchedule.createCard(self, data)
 		card.draggable = false
@@ -479,9 +494,8 @@ function ArrangeSchedule:createCard(params)
 	card.descriptionText = params.descriptionText
 	card.stateDataName = params.name
 
-	card.longpressFunc = function(_card) ArrangeSchedule:showCard(_card) end
-
-	card.releasedFunc = function(_card)
+	local defaultLongpressFunc = function(_card) ArrangeSchedule:showCard(_card) end
+	local defaultReleasedFunc = function(_card)
 		if _card.longpressed then
 			ArrangeSchedule:hideCard(_card)
 		elseif _card.dragged then
@@ -489,6 +503,10 @@ function ArrangeSchedule:createCard(params)
 			-- else snap back
 		end
 	end
+
+	card.longpressFunc = params.longpressFunc or defaultLongpressFunc
+
+	card.releasedFunc = params.releasedFunc or defaultReleasedFunc
 
 	card.draw = function(_self)
 		Pic.draw(_self)
