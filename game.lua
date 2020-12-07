@@ -118,7 +118,8 @@ function Game:update(dt)
 		if self.lastClickedFrame
 		and (consts.frame - self.lastClickedFrame > consts.LONGPRESS_FRAMES)
 		and obj
-		and obj.longpressable then
+		and obj.longpressable
+		and obj.canBeLongpressed then
 			obj:longpressFunc()
 			obj.longpressed = true
 			obj.longpressable = false
@@ -192,8 +193,8 @@ function Game:_createButton(gamestate, params)
 end
 
 -------------------------------------------------------------------------------
---[[ creates an object that can be dragged and longpressed
-	mandatory parameters: name, image, endX, endY
+--[[ creates an object that can be dragged and optionally longpressed
+	mandatory parameters: name, image, endX, endY, canBeLongpressed
 	optional parameters: duration, startTransparency, endTransparency,
 		startX, startY, easing, exit, pushedSFX, startScaling, endScaling,
 		releasedSFX, forceMaxAlpha, imageLayer, longpressFunc, category, imagePressed
@@ -202,6 +203,7 @@ end
 function Game:_createDraggable(gamestate, params)
 	params = params or {}
 	assert(params.name, "No object name received!")
+	assert(params.canBeLongpressed ~= nil, "Not indicated whether canBeLongpressed!")
 
 	local draggable = Pic:create{
 		name = params.name,
@@ -216,6 +218,7 @@ function Game:_createDraggable(gamestate, params)
 		sound = self.sound,
 		category = params.category,
 		extraInfo = params.extraInfo,
+		canBeLongpressed = params.canBeLongpressed,
 		longpressable = true,
 		longpressed = false,
 		draggable = true,

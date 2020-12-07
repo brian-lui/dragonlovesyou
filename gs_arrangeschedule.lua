@@ -256,6 +256,33 @@ function ArrangeSchedule:showActionMenu(submenuName)
 	for i = 1, #menuItems do
 		local card = cardData.getCardInfo(menuItems[i])
 
+		local onMenuitemClick = function()
+			-- remove existing other cards first
+			for _, v in pairs(self.ui.draggable) do
+				if v.isSubmenuCard then v:remove() end
+			end
+
+			-- generate a new card
+			local cardItem = card
+			cardItem.x = stage.width * 0.665
+			cardItem.y = stage.height * 0.39
+			cardItem.rotation = 0
+			cardItem.scaling = 0.4
+			cardItem.canBeLongpressed = false
+			cardItem.longpressFunc = function() end
+			cardItem.releasedFunc = function(_self) if _self.dragged then
+				-- if released over the schedule area then
+				-- else snap back
+					print("remember to program this!")
+				end
+			end
+
+			local c = self:createCard(cardItem)
+			c.isSubmenuCard = true
+			c.drawPriority = 100
+			c.imageLayer = 3
+		end
+
 		local box = self:createDraggable{
 			name = "activitysubmenu_" .. submenuName .. "_" .. i,
 			image = images["actionselect_" .. submenuName],
@@ -263,38 +290,14 @@ function ArrangeSchedule:showActionMenu(submenuName)
 			endX = stage.width * 0.33,
 			endY = stage.height * (0.175 + 0.1 * i),
 			imageLayer = 2,
-			longpressFunc = function() end,
+			canBeLongpressed = false,
 			releasedFunc = function(_self) if _self.dragged then
 					-- if released over the schedule area then
 					-- else snap back
 					print("remember to program this!")
 				end
 			end,
-			pushedFunc = function()
-				-- remove existing other cards first
-				for _, v in pairs(self.ui.draggable) do
-					if v.isSubmenuCard then v:remove() end
-				end
-
-				-- generate a new card
-				local cardItem = card
-				cardItem.x = stage.width * 0.665
-				cardItem.y = stage.height * 0.39
-				cardItem.rotation = 0
-				cardItem.scaling = 0.4
-				cardItem.longpressFunc = function() end
-				cardItem.releasedFunc = function(_self) if _self.dragged then
-					-- if released over the schedule area then
-					-- else snap back
-						print("remember to program this!")
-					end
-				end
-
-				local c = self:createCard(cardItem)
-				c.isSubmenuCard = true
-				c.drawPriority = 100
-				c.imageLayer = 3
-			end,
+			pushedFunc = onMenuitemClick,
 			category = "activitysubmenu",
 		}
 
@@ -425,7 +428,7 @@ function ArrangeSchedule:createHand(totalCards)
 		data.y = stage.height * 2
 		data.rotation = 0
 		data.scaling = 0.4
-		data.longpressable = true
+		data.canBeLongpressed = true
 
 		local card = ArrangeSchedule.createCard(self, data)
 		card.draggable = false
@@ -459,8 +462,11 @@ function ArrangeSchedule:discardHand()
 	for _, item in pairs(toDelete) do item:remove() end
 end
 
--- mandatory: name, cardImage, cardbackImage, titlebackImage, titleText, descriptionText, x, y
--- optional: scaling, longpressFunc, releasedFunc, isHandCard
+--[[
+mandatory: name, cardImage, cardbackImage, titlebackImage, titleText, descriptionText,
+	canBeLongpressed, x, y
+optional: scaling, longpressFunc, releasedFunc, isHandCard
+--]]
 function ArrangeSchedule:createCard(params)
 	assert(params.name, "No card name given!")
 	assert(params.cardImage, "No card image given!")
@@ -469,6 +475,7 @@ function ArrangeSchedule:createCard(params)
 	assert(params.descriptionText, "No description text given!")
 	assert(params.titleText, "No title text given!")
 	assert(params.x and params.y, "No card x or y given!")
+	assert(params.canBeLongpressed ~= nil, "Not indicated whether canBeLongpressed!")
 
 	if params.isHandCard then stateInfo.addHandCard(params.name) end
 
@@ -485,6 +492,7 @@ function ArrangeSchedule:createCard(params)
 		endScaling = params.scaling,
 		imageLayer = -1,
 		category = "card",
+		canBeLongpressed = params.canBeLongpressed,
 	})
 
 	card.rotation = params.rotation
@@ -504,7 +512,9 @@ function ArrangeSchedule:createCard(params)
 		end
 	end
 
-	card.longpressFunc = params.longpressFunc or defaultLongpressFunc
+	if params.canBeLongpressed then
+		card.longpressFunc = params.longpressFunc or defaultLongpressFunc
+	end
 
 	card.releasedFunc = params.releasedFunc or defaultReleasedFunc
 
