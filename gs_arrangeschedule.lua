@@ -292,6 +292,18 @@ function ArrangeSchedule:showActionMenu(submenuName)
 			c.isSubmenuCard = true
 			c.cardDrawPriority = 100
 			c.imageLayer = 4
+
+			-- generate card description text
+			self:createText{
+				name = "activitysubmenu_descriptiontext",
+				font = "SMALL",
+				text = card.descriptionText,
+				align = "center",
+				x = stage.width * 0.665,
+				y = stage.height * 0.57,
+				category = "activitysubmenu",
+				imageLayer = 4,
+			}
 		end
 
 		local box = self:createDraggable{
