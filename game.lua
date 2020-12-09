@@ -293,7 +293,8 @@ end
 --[[ creates an object that displays text
 	mandatory parameters: name, font, text, x, y
 	optional parameters: RGBColor, imageLayer, transparency, category,
-	extraInfo, align, attachedObject, attachedObjectXOffset, attachedObjectYOffset
+	extraInfo, align, attachedObject, attachedObjectXOffset, attachedObjectYOffset,
+	rotation, scaling
 --]]
 function Game:_createText(gamestate, params)
 	params = params or {}
@@ -324,6 +325,8 @@ function Game:_createText(gamestate, params)
 		attachedObject = params.attachedObject,
 		attachedObjectXOffset = params.attachedObjectXOffset,
 		attachedObjectYOffset = params.attachedObjectYOffset,
+		rotation = params.rotation or 0,
+		scaling = params.scaling or 1,
 		category = params.category,
 		extraInfo = params.extraInfo,
 	}
@@ -350,12 +353,24 @@ function Game:_createText(gamestate, params)
 				x = _self.x - _self.width
 			end
 
-			love.graphics.printf(_self.text, _self.font, x, _self.y, _self.width)
+			love.graphics.printf(
+				_self.text,
+				_self.font,
+				x,
+				_self.y,
+				_self.width,
+				nil, -- align
+				_self.rotation,
+				_self.scaling, -- x-scaling
+				_self.scaling -- y-scaling
+			)
 		love.graphics.pop()
 	end
 
 	text.update = function(_self)
 		if _self.attachedObject then
+			_self.rotation = _self.attachedObject.rotation
+			_self.scaling = _self.attachedObject.scaling
 			_self.x = _self.attachedObject.x + _self.attachedObjectXOffset
 			_self.y = _self.attachedObject.y + _self.attachedObjectYOffset
 		end
