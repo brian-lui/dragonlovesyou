@@ -380,7 +380,7 @@ function ArrangeSchedule:hideActionMenu()
 	end
 end
 
-function ArrangeSchedule:showCard(card)
+function ArrangeSchedule:showCardCloseup(card)
 	self:_showSubscreen("cardcloseup")
 
 	card.originalLayer = card.imageLayer
@@ -416,7 +416,7 @@ function ArrangeSchedule:showCard(card)
 	})
 end
 
-function ArrangeSchedule:hideCard(card)
+function ArrangeSchedule:hideCardCloseup(card)
 	self:_hideSubscreen("cardcloseup")
 	card:change{
 		duration = 10,
@@ -525,10 +525,10 @@ function ArrangeSchedule:createCard(params)
 	card.descriptionText = params.descriptionText
 	card.stateDataName = params.name
 
-	local defaultLongpressFunc = function(_card) ArrangeSchedule:showCard(_card) end
+	local defaultLongpressFunc = function(_card) ArrangeSchedule:showCardCloseup(_card) end
 	local defaultReleasedFunc = function(_card)
 		if _card.longpressed then
-			ArrangeSchedule:hideCard(_card)
+			ArrangeSchedule:hideCardCloseup(_card)
 		elseif _card.dragged then
 			-- if released over the schedule area then
 			-- else snap back
