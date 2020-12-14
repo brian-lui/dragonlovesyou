@@ -541,14 +541,30 @@ function ArrangeSchedule:createCard(params)
 
 	card.releasedFunc = params.releasedFunc or defaultReleasedFunc
 
+	-- title text
+	card.titleTextImage = ArrangeSchedule.createText(self, {
+		name = cardHandle .. "text",
+		font = "BIG",
+		RGBColor = {1, 1, 1},
+		text = card.titleText,
+		align = "center",
+		x = card.x,
+		y = card.y,
+		attachedObject = card,
+		attachedObjectYOffset = card.height * -0.4,
+		imageLayer = -100,
+	})
+
 	card.draw = function(_self)
 		Pic.draw(_self)
 		Pic.draw(_self, {image = _self.cardImage})
 		Pic.draw(_self, {image = _self.titlebackImage})
+		card.titleTextImage:draw()
 		-- if longpressed then
 			-- draw descriptionBackground, draw titleTextObject,  draw descriptionTextObject
 		-- end
 	end
+
 
 	return card
 end

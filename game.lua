@@ -323,8 +323,8 @@ function Game:_createText(gamestate, params)
 		imageLayer = params.imageLayer or 0,
 		transparency = params.transparency or 1,
 		attachedObject = params.attachedObject,
-		attachedObjectXOffset = params.attachedObjectXOffset,
-		attachedObjectYOffset = params.attachedObjectYOffset,
+		attachedObjectXOffset = params.attachedObjectXOffset or 0,
+		attachedObjectYOffset = params.attachedObjectYOffset or 0,
 		rotation = params.rotation or 0,
 		scaling = params.scaling or 1,
 		category = params.category,
@@ -348,9 +348,9 @@ function Game:_createText(gamestate, params)
 			if _self.align == "left" then
 				x = _self.x
 			elseif _self.align == "center" then
-				x = _self.x - _self.width * 0.5
+				x = _self.x - _self.width * 0.5 * _self.scaling
 			elseif _self.align == "right" then
-				x = _self.x - _self.width
+				x = _self.x - _self.width * 0.5 * _self.scaling
 			end
 
 			love.graphics.printf(
@@ -369,10 +369,15 @@ function Game:_createText(gamestate, params)
 
 	text.update = function(_self)
 		if _self.attachedObject then
-			_self.rotation = _self.attachedObject.rotation
-			_self.scaling = _self.attachedObject.scaling
-			_self.x = _self.attachedObject.x + _self.attachedObjectXOffset
-			_self.y = _self.attachedObject.y + _self.attachedObjectYOffset
+			local obj = _self.attachedObject
+			_self.rotation = obj.rotation
+			_self.scaling = obj.scaling
+			_self.x = obj.x +
+				(_self.attachedObjectXOffset * math.cos(obj.rotation) * obj.scaling) +
+				(_self.attachedObjectYOffset * -math.sin(obj.rotation) * obj.scaling)
+			_self.y = obj.y +
+				(_self.attachedObjectXOffset * -math.sin(obj.rotation) * obj.scaling) +
+				(_self.attachedObjectYOffset * math.cos(obj.rotation) * obj.scaling)
 		end
 	end
 
