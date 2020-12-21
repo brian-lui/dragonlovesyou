@@ -1,6 +1,23 @@
 local images = require "images"
 local stage = require "stage"
 
+-- the rect where action cards can be played to
+-- rect between x1 x2 and y1 y2
+local actionRect = {
+	x1 = stage.width * 0.75,
+	y1 = stage.height * 0.1,
+	x2 = stage.width * 0.95,
+	y2 = stage.height * 0.75,
+}
+
+-- the rect where hand cards can be played to
+local handRect = {
+	x1 = 0,
+	y1 = 0,
+	x2 = stage.width,
+	y2 = stage.height * 0.6,
+}
+
 local cards = {
 	comfy = {
 		name = "comfy",
@@ -12,6 +29,7 @@ local cards = {
 		actionCost = 1,
 		buyCost = 10,
 		cardType = "hand",
+		releasedRect = handRect,
 	},
 	hype = {
 		name = "hype",
@@ -23,6 +41,7 @@ local cards = {
 		actionCost = 1,
 		buyCost = 10,
 		cardType = "hand",
+		releasedRect = handRect,
 	},
 	shopper = {
 		name = "shopper",
@@ -34,6 +53,7 @@ local cards = {
 		actionCost = 1,
 		buyCost = 10,
 		cardType = "hand",
+		releasedRect = handRect,
 	},
 	family = {
 		name = "family",
@@ -45,6 +65,7 @@ local cards = {
 		actionCost = 2,
 		buyCost = 10,
 		cardType = "hand",
+		releasedRect = handRect,
 	},
 	empathy = {
 		name = "empathy",
@@ -56,6 +77,7 @@ local cards = {
 		actionCost = 1,
 		buyCost = 10,
 		cardType = "hand",
+		releasedRect = handRect,
 	},
 	excitement = {
 		name = "excitement",
@@ -67,6 +89,7 @@ local cards = {
 		actionCost = 1,
 		buyCost = 10,
 		cardType = "hand",
+		releasedRect = handRect,
 	},
 	relax = {
 		name = "relax",
@@ -78,6 +101,7 @@ local cards = {
 		actionCost = 1,
 		buyCost = 10,
 		cardType = "hand",
+		releasedRect = handRect,
 	},
 
 	pyro = {
@@ -133,6 +157,7 @@ local cards = {
 		changeEmpathy = 2,
 		submenu = "home",
 		cardType = "action",
+		releasedRect = actionRect,
 	},
 	home_nap = {
 		name = "home_nap",
@@ -149,6 +174,7 @@ local cards = {
 		changeTrust = 1,
 		submenu = "home",
 		cardType = "action",
+		releasedRect = actionRect,
 	},
 
 	outing_camping = {
@@ -168,6 +194,7 @@ local cards = {
 		changeEmpathy = 2,
 		submenu = "outing",
 		cardType = "action",
+		releasedRect = actionRect,
 	},
 	outing_ant = {
 		name = "outing_ant",
@@ -184,6 +211,7 @@ local cards = {
 		changeEnvironment = -1,
 		submenu = "outing",
 		cardType = "action",
+		releasedRect = actionRect,
 	},
 
 	library_globe = {
@@ -200,6 +228,7 @@ local cards = {
 		changeTrust = -1,
 		submenu = "library",
 		cardType = "action",
+		releasedRect = actionRect,
 	},
 	library_healspell = {
 		name = "library_healspell",
@@ -216,6 +245,7 @@ local cards = {
 		changeHealingMagic = 6,
 		submenu = "library",
 		cardType = "action",
+		releasedRect = actionRect,
 	},
 
 	battleground_fly = {
@@ -232,6 +262,7 @@ local cards = {
 		changeFlying = 6,
 		submenu = "battleground",
 		cardType = "action",
+		releasedRect = actionRect,
 	},
 	battleground_fire = {
 		name = "battleground_fire",
@@ -248,6 +279,7 @@ local cards = {
 		changeFireMagic = 6,
 		submenu = "battleground",
 		cardType = "action",
+		releasedRect = actionRect,
 	},
 
 	shop_buybuybuy = {
@@ -260,6 +292,7 @@ local cards = {
 		buttonText = "Buy Buy Buy",
 		buttonFont = "MEDIUM",
 		submenu = "shop",
+		releasedRect = actionRect,
 	},
 	shop_sellsellsell = {
 		name = "sellsellsell",
@@ -271,6 +304,7 @@ local cards = {
 		buttonText = "Sell Sell Sell",
 		buttonFont = "MEDIUM",
 		submenu = "shop",
+		releasedRect = actionRect,
 	},
 }
 

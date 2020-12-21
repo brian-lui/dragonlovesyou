@@ -198,7 +198,7 @@ end
 	optional parameters: duration, startTransparency, endTransparency,
 		startX, startY, easing, exit, pushedSFX, startScaling, endScaling,
 		releasedSFX, forceMaxAlpha, imageLayer, longpressFunc, category, imagePressed
-		releasedFunc, extraInfo
+		releasedFunc, extraInfo, releasedRect
 --]]
 function Game:_createDraggable(gamestate, params)
 	params = params or {}
@@ -223,6 +223,7 @@ function Game:_createDraggable(gamestate, params)
 		longpressed = false,
 		draggable = true,
 		dragged = false,
+		releasedRect = params.releasedRect,
 	}
 
 	draggable:change{
@@ -369,6 +370,7 @@ function Game:_createText(gamestate, params)
 
 	text.update = function(_self)
 		if _self.attachedObject then
+			-- TODO: Fix the _self.x and _self.y shit
 			local obj = _self.attachedObject
 			_self.rotation = obj.rotation
 			_self.scaling = obj.scaling
@@ -440,7 +442,7 @@ function Game:_controllerReleased(x, y, gamestate)
 	if self.controls.clicked then
 		for _, button in pairs(gamestate.ui.clickable) do
 			if self.controls.clicked == button then
-				button:releasedFunc()
+				button:releasedFunc(x, y)
 
 				if pointIsInRect(x, y, button:getRect()) then
 					button.action(button.gamestate)
@@ -450,7 +452,7 @@ function Game:_controllerReleased(x, y, gamestate)
 
 		for _, obj in pairs(gamestate.ui.draggable) do
 			if self.controls.clicked == obj then
-				obj:releasedFunc()
+				obj:releasedFunc(x, y)
 				obj.dragged = false
 				obj.draggable = true
 				obj.longpressed = false

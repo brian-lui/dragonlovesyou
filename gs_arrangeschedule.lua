@@ -281,10 +281,14 @@ function ArrangeSchedule:showActionMenu(submenuName)
 			cardItem.scaling = 0.4
 			cardItem.canBeLongpressed = false
 			cardItem.longpressFunc = function() end
-			cardItem.releasedFunc = function(_self) if _self.dragged then
-				-- if released over the schedule area then
-				-- else snap back
-					print("remember to program this!")
+			cardItem.releasedFunc = function(_self, releasedX, releasedY)
+				if _self.dragged then
+					if (releasedX >= cardItem.releasedRect.x1 and releasedX <= cardItem.releasedRect.x2) and
+					(releasedY >= cardItem.releasedRect.y1 and releasedY <= cardItem.releasedRect.y2) then
+						print("released over schedule area!")
+					else
+						print("not released over schedule area, snap back!")
+					end
 				end
 			end
 
@@ -314,12 +318,17 @@ function ArrangeSchedule:showActionMenu(submenuName)
 			endY = stage.height * (0.175 + 0.1 * i),
 			imageLayer = 2,
 			canBeLongpressed = false,
-			releasedFunc = function(_self) if _self.dragged then
-					-- if released over the schedule area then
-					-- else snap back
-					print("remember to program this!")
+			releasedFunc = function(_self, releasedX, releasedY)
+				if _self.dragged then
+					if (releasedX >= card.releasedRect.x1 and releasedX <= card.releasedRect.x2) and
+					(releasedY >= card.releasedRect.y1 and releasedY <= card.releasedRect.y2) then
+						print("released over schedule area!")
+					else
+						print("not released over schedule area, snap back!")
+					end
 				end
 			end,
+			releasedRect = card.releasedRect,
 			pushedFunc = onMenuitemClick,
 			category = "activitysubmenu",
 		}
@@ -487,7 +496,7 @@ end
 
 --[[
 mandatory: name, cardImage, cardbackImage, titlebackImage, titleText, descriptionText,
-	canBeLongpressed, x, y
+	canBeLongpressed, x, y, releasedRect
 optional: scaling, longpressFunc, releasedFunc, isHandCard
 --]]
 function ArrangeSchedule:createCard(params)
@@ -499,6 +508,7 @@ function ArrangeSchedule:createCard(params)
 	assert(params.titleText, "No title text given!")
 	assert(params.x and params.y, "No card x or y given!")
 	assert(params.canBeLongpressed ~= nil, "Not indicated whether canBeLongpressed!")
+	assert(params.releasedRect, "card must have playable zone releasedRect!")
 
 	if params.isHandCard then stateInfo.addHandCard(params.name) end
 
@@ -516,6 +526,7 @@ function ArrangeSchedule:createCard(params)
 		imageLayer = -1,
 		category = "card",
 		canBeLongpressed = params.canBeLongpressed,
+		releasedRect = params.releasedRect,
 	})
 
 	card.rotation = params.rotation
@@ -526,12 +537,16 @@ function ArrangeSchedule:createCard(params)
 	card.stateDataName = params.name
 
 	local defaultLongpressFunc = function(_card) ArrangeSchedule:showCardCloseup(_card) end
-	local defaultReleasedFunc = function(_card)
+	local defaultReleasedFunc = function(_card, releasedX, releasedY)
 		if _card.longpressed then
 			ArrangeSchedule:hideCardCloseup(_card)
 		elseif _card.dragged then
-			-- if released over the schedule area then
-			-- else snap back
+			if (releasedX >= card.releasedRect.x1 and releasedX <= card.releasedRect.x2) and
+				(releasedY >= card.releasedRect.y1 and releasedY <= card.releasedRect.y2) then
+					print("released over schedule are!")
+			else
+				print("not released over schedule area, snap back")
+			end
 		end
 	end
 
@@ -555,6 +570,7 @@ function ArrangeSchedule:createCard(params)
 		imageLayer = -100,
 	})
 
+	-- TODO: maybe card can have a function that returns "where to draw title text"
 	card.draw = function(_self)
 		Pic.draw(_self)
 		Pic.draw(_self, {image = _self.cardImage})
